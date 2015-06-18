@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ZIAS Logic">
+      <UniqueIdentifier>{06a55afc-36cf-4751-9c09-5e1868730f5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZIAS Logic\headers">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="ZIAS Logic\resource">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ZIAS Logic\source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ZIAS Logic\resource\data">
+      <UniqueIdentifier>{2526c0eb-bcf5-4032-8331-fef0764fe90f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZIAS Logic\headers\utils">
+      <UniqueIdentifier>{c341cad7-c293-41d0-8d5e-25bfa272526c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZIAS Logic\headers\libs">
+      <UniqueIdentifier>{89429d26-cab4-430c-839d-63c2aee7c9e9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\bin\resource\small.ico">
+      <Filter>ZIAS Logic\resource</Filter>
+    </Image>
+    <Image Include="..\bin\resource\ZIAS.ico">
+      <Filter>ZIAS Logic\resource</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\code\headers\ZIAS Logic\stdafx.h">
+      <Filter>ZIAS Logic\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\headers\ZIAS Logic\MainForm.h">
+      <Filter>ZIAS Logic\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\headers\ZIAS Logic\_FormDataStorageManager.h">
+      <Filter>ZIAS Logic\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\headers\ZIAS Logic\_VariableStorageManager.h">
+      <Filter>ZIAS Logic\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\headers\ZIAS Logic\utils\utils.hpp">
+      <Filter>ZIAS Logic\headers\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\rapidxml\rapidxml.hpp">
+      <Filter>ZIAS Logic\headers\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\rapidxml\rapidxml_iterators.hpp">
+      <Filter>ZIAS Logic\headers\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\rapidxml\rapidxml_print.hpp">
+      <Filter>ZIAS Logic\headers\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\rapidxml\rapidxml_utils.hpp">
+      <Filter>ZIAS Logic\headers\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\headers\ZIAS Logic\_ReportManager.h">
+      <Filter>ZIAS Logic\headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\code\source\ZIAS Logic\MainZIAS.cpp">
+      <Filter>ZIAS Logic\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\ZIAS Logic\MainForm.cpp">
+      <Filter>ZIAS Logic\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\ZIAS Logic\_FormDataStorageManager.cpp">
+      <Filter>ZIAS Logic\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\ZIAS Logic\_VariableStorageManager.cpp">
+      <Filter>ZIAS Logic\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\code\source\ZIAS Logic\_ReportManager.cpp">
+      <Filter>ZIAS Logic\source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\bin\data\data_source.xml">
+      <Filter>ZIAS Logic\resource\data</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\code\headers\ZIAS Logic\MainForm.resx">
+      <Filter>ZIAS Logic\resource</Filter>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>
