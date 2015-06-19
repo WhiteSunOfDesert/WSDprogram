@@ -34,8 +34,8 @@ namespace zias {
 	private:
 		static std::shared_ptr<VariableStorageManager> _instance;
 
-		static std::map<std::string, float> _floatVariables;
-		static std::map<std::string, String^> _stringVariables;
+		static std::map<std::string, float> _variables;
+		//static std::map<std::string, String^> _stringVariables;
 
 		static std::map<short, float> _table_b;
 		static std::map<short, float> _table_w_0;
@@ -46,13 +46,13 @@ namespace zias {
 	public:
 		static std::shared_ptr<VariableStorageManager>& Instance();
 
-		static void  addFloatVariable(const std::string& my_name, const float& my_value);
-		static void  addStringVariable(const std::string& my_name, const String^& my_value);
-		static float getFloatVariable(const std::string& my_name);
-		static std::string getStringVariable(const std::string& my_name);
+		static void  addVariable(const std::string& my_name, const float& my_value);
+		//static void  addStringVariable(const std::string& my_name, const String^& my_value);
+		static float getVariable(const std::string& my_name);
+		//static String^ getStringVariable(const std::string& my_name);
 		
-		static std::map<std::string, float> getFloatVariables();
-		static std::map<std::string, String^> getStringVariables();
+		static std::map<std::string, float> getVariables();
+		//static std::map<std::string, String^> getStringVariables();
 		static void updateValues(const FormDataArgs& my_args);
 
 		static void addToTable_b(const short& my_ice_district_id, const float& my_value);
@@ -69,6 +69,12 @@ namespace zias {
 		static void calculate_ksi_ze(const float& my_height, std::shared_ptr<LocationType> my_location_type);
 
 		// TODO: добавляем вычислительные методы для остальных переменных
+		static void calculate_weight_1(std::shared_ptr<Facing> my_facing, const float& my_weight, const bool& isFacing);
+		static void calculate_weight_2(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Profile> my_profile, const bool& isSubsystem);
+		static void calculate_Q_2();
+		static void calculate_q_2();
+		static void calculate_q_H(const float& my_v_step_profile);
+		static void calculate_q_sum();
 		static void calculate_c_1(const float& my_c1, const bool& my_checkAerodynamicFactor);
 		static void calculate_c_2(const float& my_c2, const bool& my_checkAerodynamicFactor);
 		static void calculate_Q_311();
@@ -87,8 +93,8 @@ namespace zias {
 		static void calculate_R_1();
 		static void calculate_R_2();
 		static void calculate_R_3();
-		static void calculate_ziasN(std::shared_ptr<Facing> my_facing, const bool& isFacing);
-		static void calculate_subsystem(std::shared_ptr<Subsystem> my_subsystem, const bool& isSubsystem);
+		//static void calculate_ziasN(std::shared_ptr<Facing> my_facing, const bool& isFacing);
+		//static void calculate_subsystem(std::shared_ptr<Subsystem> my_subsystem, const bool& isSubsystem);
 
 	public:
 		~VariableStorageManager();

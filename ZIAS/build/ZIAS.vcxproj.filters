@@ -47,9 +47,6 @@
     <ClInclude Include="..\code\headers\ZIAS Logic\_VariableStorageManager.h">
       <Filter>ZIAS Logic\headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\code\headers\ZIAS Logic\utils\utils.hpp">
-      <Filter>ZIAS Logic\headers\utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\libs\rapidxml\rapidxml.hpp">
       <Filter>ZIAS Logic\headers\libs</Filter>
     </ClInclude>
@@ -64,6 +61,9 @@
     </ClInclude>
     <ClInclude Include="..\code\headers\ZIAS Logic\_ReportManager.h">
       <Filter>ZIAS Logic\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\headers\ZIAS Logic\utils\utils.hpp">
+      <Filter>ZIAS Logic\headers\libs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

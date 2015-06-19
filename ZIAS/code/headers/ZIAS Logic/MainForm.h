@@ -11,27 +11,29 @@ namespace zias {
 	using namespace System::Text;
 		
 	struct FormDataArgs {
-		std::shared_ptr<City>			city;
-		std::shared_ptr<WindDistrict>	windDistrict;
-		std::shared_ptr<IceDistrict>	iceDistrict;
-		std::shared_ptr<LocationType>	locationType;
-		std::shared_ptr<Facing>			facing;
-		std::shared_ptr<Subsystem>		subsystem;
-		std::shared_ptr<Bracket>		bracket;
-		std::shared_ptr<Profile>		profile;
-		std::string						objectName;
-		std::string						objectCipher;
-		std::string						objectResponsible;
-		float							objectHeight;
-		bool							checkAerodynamicFactor;
-		float							c1;
-		float							c2;
-		bool							checkAnker;
-		bool							checkNVFConnection;
-		bool							checkNVFElements;
-		float							weight;
-		bool							isFacingStandart;
-		bool							isSubsystemStandart;
+		std::shared_ptr<City>			city = nullptr;
+		std::shared_ptr<WindDistrict>	windDistrict = nullptr;
+		std::shared_ptr<IceDistrict>	iceDistrict = nullptr;
+		std::shared_ptr<LocationType>	locationType = nullptr;
+		std::shared_ptr<Facing>			facing = nullptr;
+		std::shared_ptr<Subsystem>		subsystem = nullptr;
+		std::shared_ptr<Bracket>		bracket = nullptr;
+		std::shared_ptr<Profile>		profile = nullptr;
+		std::string						objectName = nullptr;
+		std::string						objectCipher = nullptr;
+		std::string						objectResponsible = nullptr;
+		float							objectHeight = 0.f;
+		bool							checkAerodynamicFactor = false;
+		float							c1 = 0.f;
+		float							c2 = 0.f;
+		bool							checkAnker = false;
+		bool							checkNVFConnection = false;
+		bool							checkNVFElements = false;
+		float							weight = 0.f;
+		bool							isFacingStandart = true;
+		bool							isSubsystemStandart = true;
+		float							v_step_profile = 0.f;
+		float							h_step_profile = 0.f;
 	};
 	
 	/// <summary>

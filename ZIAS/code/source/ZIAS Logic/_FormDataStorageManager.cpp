@@ -115,9 +115,12 @@ namespace zias {
 											if (zias::utils::equals(subsystems->name(), "subsystem")) {
 												short id = zias::utils::lexical_cast<short>(subsystems->first_attribute("id")->value());
 												std::string name = zias::utils::lexical_cast<std::string>(subsystems->first_attribute("name")->value());
+												short bracket = zias::utils::lexical_cast<short>(subsystems->first_attribute("bracket_id")->value());
+												short profile_first = zias::utils::lexical_cast<short>(subsystems->first_attribute("profile_id_first")->value());
+												short profile_second = zias::utils::lexical_cast<short>(subsystems->first_attribute("profile_id_second")->value());
 												std::string solution = zias::utils::lexical_cast<std::string>(subsystems->first_attribute("solution")->value());
 
-												addSubsystem(id, name, solution);
+												addSubsystem(id, name, getBracket(bracket), getProfile(profile_first), getProfile(profile_second), solution);
 											}
 										}
 									}
@@ -136,8 +139,9 @@ namespace zias {
 											if (zias::utils::equals(profiles->name(), "profile")) {
 												short id = zias::utils::lexical_cast<short>(profiles->first_attribute("id")->value());
 												std::string name = zias::utils::lexical_cast<std::string>(profiles->first_attribute("name")->value());
+												short weight = zias::utils::lexical_cast<short>(profiles->first_attribute("weight")->value());
 
-												addProfile(id, name);
+												addProfile(id, name, weight);
 											}
 										}
 									}
@@ -197,9 +201,12 @@ namespace zias {
 
 	void FormDataStorageManager::addSubsystem(const short& my_id,
 											  const std::string& my_name,
+											  std::shared_ptr<Bracket> my_bracket,
+											  std::shared_ptr<Profile> my_profile_first,
+											  std::shared_ptr<Profile> my_profile_second,
 											  const std::string& my_solution) {
 		if (!getSubsystem(my_id) && !getSubsystem(my_name)) {
-			_subsystems.emplace_back(new Subsystem(my_id, my_name, my_solution));
+			_subsystems.emplace_back(new Subsystem(my_id, my_name, my_bracket, my_profile_first, my_profile_second, my_solution));
 		}
 	}
 
@@ -209,9 +216,11 @@ namespace zias {
 		}
 	}
 
-	void FormDataStorageManager::addProfile(const short& my_id, const std::string& my_name) {
+	void FormDataStorageManager::addProfile(const short& my_id,
+											const std::string& my_name,
+											const short& my_weight) {
 		if (!getProfile(my_id) && !getProfile(my_name)) {
-			_profiles.emplace_back(new Profile(my_id, my_name));
+			_profiles.emplace_back(new Profile(my_id, my_name, my_weight));
 		}
 	}
 

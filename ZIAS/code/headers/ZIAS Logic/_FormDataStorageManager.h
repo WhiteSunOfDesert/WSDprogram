@@ -49,17 +49,6 @@ namespace zias {
 			  ziasN(my_ziasN) {}
 	};
 
-	struct Subsystem {
-		short id;
-		std::string name;
-		std::string solution;
-
-		Subsystem(short my_id = -1, std::string my_name = "", std::string my_solution = "")
-				 : id(my_id),
-				 name(my_name),
-				 solution(my_solution) {}
-	};
-
 	struct Bracket {
 		short id;
 		std::string name;
@@ -70,8 +59,26 @@ namespace zias {
 	struct Profile {
 		short id;
 		std::string name;
+		short weight;
 
-		Profile(short my_id = -1, std::string my_name = "") : id(my_id), name(my_name) {}
+		Profile(short my_id = -1, std::string my_name = "", short my_weight = -1) : id(my_id), name(my_name), weight(my_weight) {}
+	};
+
+	struct Subsystem {
+		short id;
+		std::string name;
+		std::shared_ptr<Bracket> bracket;
+		std::shared_ptr<Profile> profile_first;
+		std::shared_ptr<Profile> profile_second;
+		std::string solution;
+
+		Subsystem(short my_id = -1, std::string my_name = "", std::shared_ptr<Bracket> my_bracket = nullptr, std::shared_ptr<Profile> my_profile_first = nullptr, std::shared_ptr<Profile> my_profile_second = nullptr, std::string my_solution = "")
+				 : id(my_id),
+				 name(my_name),
+				 bracket(my_bracket),
+				 profile_first(my_profile_first),
+				 profile_second(my_profile_second),
+				 solution(my_solution) {}
 	};
 
 	class FormDataStorageManager {
@@ -104,10 +111,13 @@ namespace zias {
 
 			static void addSubsystem(const short& my_id,
 									 const std::string& my_name,
+									 std::shared_ptr<Bracket> my_bracket,
+									 std::shared_ptr<Profile> my_profile_first,
+									 std::shared_ptr<Profile> my_profile_second,
 									 const std::string& my_solution);
 
 			static void addBracket(const short& my_id, const std::string& my_name);
-			static void addProfile(const short& my_id, const std::string& my_name);
+			static void addProfile(const short& my_id, const std::string& my_name, const short& my_weight);
 
 			static std::shared_ptr<City> getCity(const short& my_id);
 			static std::shared_ptr<City> getCity(const std::string& my_name);
