@@ -1,2 +1,0 @@
-# WSDprogram
-The best program
