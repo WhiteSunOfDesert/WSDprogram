@@ -20,10 +20,10 @@ namespace zias {
 	 *					gamma_f_3	 xml		no
 	 *					gamma_f_4	 xml		no
 	 *
-	 *					qy_0		 form		yes
-	 *					qy_1		 form		yes
-	 *					qz_0		 form		yes
-	 *					qz_1		 form		yes
+	 *					Qy_0		 form		yes
+	 *					Qy_1		 form		yes
+	 *					Qz_0		 form		yes
+	 *					Qz_1		 form		yes
 	 *					S_1			 form		yes		// грузовая площадь
 	 *					R_1			 form		yes		// расчетное вырывающее усилие (рядовая зона - зимний период)
 	 *					R_2			 form		yes		// расчетное вырывающее усилие (рядовая зона - летний период)

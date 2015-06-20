@@ -25,8 +25,9 @@ namespace zias {
 		return _instance;
 	}
 
-	void ReportManager::generateReport() {
-		
+	void ReportManager::generateReport(const FormDataArgs& my_fda) {
+		//VariableStorageManager::Instance()->getVariable("Qz_1");
+		//my_fda.facing->weight;
 	}
 
 } // zias 

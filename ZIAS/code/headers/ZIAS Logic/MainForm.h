@@ -1428,8 +1428,9 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 
 	private: System::Void _b_generate_report_Click(System::Object^  sender, System::EventArgs^  e) {
 		if (checkDataCorrectness()) {
-			VariableStorageManager::Instance()->updateValues(collectData());
-			ReportManager::Instance()->generateReport();
+			FormDataArgs fda = collectData();
+			VariableStorageManager::Instance()->updateValues(fda);
+			ReportManager::Instance()->generateReport(fda);
 		} else {
 			// assertMessage();
 		}

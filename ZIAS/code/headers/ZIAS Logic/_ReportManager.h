@@ -10,7 +10,7 @@ namespace zias {
 	public:
 		static std::shared_ptr<ReportManager>& Instance();
 
-		static void generateReport();
+		static void generateReport(const FormDataArgs&);
 	public:
 		~ReportManager();
 	private:
