@@ -1,3 +1,14 @@
+/*	_MainForm.h
+ *
+ *	Главная форма, основа основ приложения ZIAS
+ *  весь интерактив с пользователем протекает здесь
+ *
+ *	бла-бла-бла
+ *	бла-бла-бла
+ *
+ *	all rights reserved (*) 20.06.2015
+ */
+
 #pragma once
 
 namespace zias {
@@ -11,29 +22,55 @@ namespace zias {
 	using namespace System::Text;
 		
 	struct FormDataArgs {
-		std::shared_ptr<City>			city = nullptr;
-		std::shared_ptr<WindDistrict>	windDistrict = nullptr;
-		std::shared_ptr<IceDistrict>	iceDistrict = nullptr;
-		std::shared_ptr<LocationType>	locationType = nullptr;
-		std::shared_ptr<Facing>			facing = nullptr;
-		std::shared_ptr<Subsystem>		subsystem = nullptr;
-		std::shared_ptr<Bracket>		bracket = nullptr;
-		std::shared_ptr<Profile>		profile = nullptr;
-		std::string						objectName = nullptr;
-		std::string						objectCipher = nullptr;
-		std::string						objectResponsible = nullptr;
-		float							objectHeight = 0.f;
-		bool							checkAerodynamicFactor = false;
-		float							c1 = 0.f;
-		float							c2 = 0.f;
-		bool							checkAnker = false;
-		bool							checkNVFConnection = false;
-		bool							checkNVFElements = false;
-		float							weight = 0.f;
-		bool							isFacingStandart = true;
-		bool							isSubsystemStandart = true;
-		float							v_step_profile = 0.f;
-		float							h_step_profile = 0.f;
+		std::shared_ptr<City>			city;
+		std::shared_ptr<WindDistrict>	windDistrict;
+		std::shared_ptr<IceDistrict>	iceDistrict;
+		std::shared_ptr<LocationType>	locationType;
+		std::shared_ptr<Facing>			facing;
+		std::shared_ptr<Subsystem>		subsystem;
+		std::shared_ptr<Bracket>		bracket;
+		std::shared_ptr<Profile>		profile;
+		std::wstring					objectName;
+		std::wstring					objectCipher;
+		std::wstring					objectResponsible;
+		float							objectHeight;
+		bool							checkAerodynamicFactor;
+		float							c1;
+		float							c2;
+		bool							checkAnker;
+		bool							checkNVFConnection;
+		bool							checkNVFElements;
+		float							weight;
+		bool							isFacingStandart;
+		bool							isSubsystemStandart;
+		float							v_step_profile;
+		float							h_step_profile;
+
+		FormDataArgs() : 
+			city(nullptr),
+			windDistrict(nullptr),
+			iceDistrict(nullptr),
+			locationType(nullptr),
+			facing(nullptr),
+			subsystem(nullptr),
+			bracket(nullptr),
+			profile(nullptr),
+			objectName(L""),
+			objectCipher(L""),
+			objectResponsible(L""),
+			objectHeight(0.f),
+			checkAerodynamicFactor(false),
+			c1(0.f),
+			c2(0.f),
+			checkAnker(false),
+			checkNVFConnection(false),
+			checkNVFElements(false),
+			weight(0.f),
+			isFacingStandart(true),
+			isSubsystemStandart(true),
+			v_step_profile(0.f),
+			h_step_profile(0.f)
+		{}
 	};
 	
 	/// <summary>
@@ -84,7 +121,6 @@ namespace zias {
 				delete components;
 			}
 		}
-	
 	private: BOOL _tb_name_isClick = false;
 	private: BOOL _tb_code_isClick = false;
 	private: BOOL _tb_responsible_isClick = false;
@@ -94,7 +130,12 @@ namespace zias {
 	private: BOOL _tb_h_step_bracket_ordinary_area_isClick = false;
 	private: BOOL _tb_h_step_bracket_marginal_area_isClick = false;
 	private: BOOL _tb_conclusion_isClick = false;
-
+	private: BOOL _tb_v_step_profile_isClick = false;
+	private: BOOL _tb_h_step_profile_isClick = false;
+	private: BOOL _tb_facing_radius_isClick = false;
+	private: BOOL _tb_weight_isClick = false;
+	private: BOOL _tb_c1_isClick = false;
+	private: BOOL _tb_c2_isClick = false;
 	private: System::Windows::Forms::RadioButton^  _rb_climate_0;
 	private: System::Windows::Forms::RadioButton^  _rb_climate_1;
 	private: System::Windows::Forms::Label^  _l_climate;
@@ -140,18 +181,13 @@ namespace zias {
 	private: System::Windows::Forms::TextBox^  _tb_c2;
 	private: System::Windows::Forms::TextBox^  _tb_digging_anker;
 	private: System::Windows::Forms::TextBox^  _tb_strength_profile;
-
 	private: System::Windows::Forms::TextBox^  _tb_strength_bracket;
 	private: System::Windows::Forms::TextBox^  _tb_strength_extension;
 	private: System::Windows::Forms::TextBox^  _tb_connections;
-private: System::Windows::Forms::TextBox^  _tb_Qy_0;
-private: System::Windows::Forms::TextBox^  _tb_Qy_1;
-private: System::Windows::Forms::TextBox^  _tb_Qz_0;
-private: System::Windows::Forms::TextBox^  _tb_Qz_1;
-
-
-
-
+	private: System::Windows::Forms::TextBox^  _tb_Qy_0;
+	private: System::Windows::Forms::TextBox^  _tb_Qy_1;
+	private: System::Windows::Forms::TextBox^  _tb_Qz_0;
+	private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 	private: System::Windows::Forms::Panel^  _pnl_climate;
 	private: System::Windows::Forms::Panel^  _pnl_object;
 	private: System::Windows::Forms::Panel^  _pnl_facing;
@@ -314,6 +350,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_rb_climate_0->TabIndex = 0;
 			this->_rb_climate_0->TabStop = true;
 			this->_rb_climate_0->UseVisualStyleBackColor = true;
+			this->_rb_climate_0->CheckedChanged += gcnew System::EventHandler(this, &MainForm::_changedValueClimateRadiobutton);
 			// 
 			// _rb_climate_1
 			// 
@@ -350,6 +387,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			// 
 			// _cb_wind_districs
 			// 
+			this->_cb_wind_districs->Enabled = false;
 			this->_cb_wind_districs->FormattingEnabled = true;
 			this->_cb_wind_districs->Location = System::Drawing::Point(25, 105);
 			this->_cb_wind_districs->Name = L"_cb_wind_districs";
@@ -358,6 +396,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			// 
 			// _cb_ice_districs
 			// 
+			this->_cb_ice_districs->Enabled = false;
 			this->_cb_ice_districs->FormattingEnabled = true;
 			this->_cb_ice_districs->Location = System::Drawing::Point(25, 150);
 			this->_cb_ice_districs->Name = L"_cb_ice_districs";
@@ -431,6 +470,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_rb_facing_standart->TabStop = true;
 			this->_rb_facing_standart->Text = L"СТАНДАРТНЫЕ";
 			this->_rb_facing_standart->UseVisualStyleBackColor = true;
+			this->_rb_facing_standart->CheckedChanged += gcnew System::EventHandler(this, &MainForm::_changedValueFacingRadiobutton);
 			// 
 			// _rb_facing_unstandart
 			// 
@@ -475,6 +515,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_rb_subsystem_standart->TabIndex = 16;
 			this->_rb_subsystem_standart->TabStop = true;
 			this->_rb_subsystem_standart->UseVisualStyleBackColor = true;
+			this->_rb_subsystem_standart->CheckedChanged += gcnew System::EventHandler(this, &MainForm::_changedValueSubsystemRadiobutton);
 			// 
 			// _cb_subsystem
 			// 
@@ -510,6 +551,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			// 
 			// _cb_bracket
 			// 
+			this->_cb_bracket->Enabled = false;
 			this->_cb_bracket->FormattingEnabled = true;
 			this->_cb_bracket->Location = System::Drawing::Point(25, 105);
 			this->_cb_bracket->Name = L"_cb_bracket";
@@ -530,6 +572,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			// _cb_profile
 			// 
 			this->_cb_profile->Cursor = System::Windows::Forms::Cursors::Default;
+			this->_cb_profile->Enabled = false;
 			this->_cb_profile->FormattingEnabled = true;
 			this->_cb_profile->Location = System::Drawing::Point(25, 150);
 			this->_cb_profile->Name = L"_cb_profile";
@@ -608,7 +651,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_b_calculate_account->TabIndex = 28;
 			this->_b_calculate_account->Text = L"расчет";
 			this->_b_calculate_account->UseVisualStyleBackColor = false;
-			this->_b_calculate_account->Click += gcnew System::EventHandler(this, &MainForm::_b_calculate_account_Click);
+			this->_b_calculate_account->Click += gcnew System::EventHandler(this, &MainForm::_b_generate_report_Click);
 			// 
 			// _b_generate_report
 			// 
@@ -763,6 +806,8 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_c1->Name = L"_tb_c1";
 			this->_tb_c1->Size = System::Drawing::Size(80, 20);
 			this->_tb_c1->TabIndex = 42;
+			this->_tb_c1->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->_tb_c1->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_c1_MouseClick);
 			// 
 			// _tb_c2
 			// 
@@ -770,6 +815,8 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_c2->Name = L"_tb_c2";
 			this->_tb_c2->Size = System::Drawing::Size(80, 20);
 			this->_tb_c2->TabIndex = 43;
+			this->_tb_c2->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->_tb_c2->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_c2_MouseClick);
 			// 
 			// _tb_digging_anker
 			// 
@@ -778,6 +825,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_digging_anker->Name = L"_tb_digging_anker";
 			this->_tb_digging_anker->Size = System::Drawing::Size(130, 20);
 			this->_tb_digging_anker->TabIndex = 44;
+			this->_tb_digging_anker->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// _tb_strength_profile
 			// 
@@ -786,6 +834,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_strength_profile->Name = L"_tb_strength_profile";
 			this->_tb_strength_profile->Size = System::Drawing::Size(130, 20);
 			this->_tb_strength_profile->TabIndex = 45;
+			this->_tb_strength_profile->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// _tb_strength_bracket
 			// 
@@ -794,6 +843,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_strength_bracket->Name = L"_tb_strength_bracket";
 			this->_tb_strength_bracket->Size = System::Drawing::Size(130, 20);
 			this->_tb_strength_bracket->TabIndex = 46;
+			this->_tb_strength_bracket->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// _tb_strength_extension
 			// 
@@ -802,6 +852,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_strength_extension->Name = L"_tb_strength_extension";
 			this->_tb_strength_extension->Size = System::Drawing::Size(130, 20);
 			this->_tb_strength_extension->TabIndex = 47;
+			this->_tb_strength_extension->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// _tb_connections
 			// 
@@ -810,6 +861,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_connections->Name = L"_tb_connections";
 			this->_tb_connections->Size = System::Drawing::Size(130, 20);
 			this->_tb_connections->TabIndex = 48;
+			this->_tb_connections->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// _tb_Qy_0
 			// 
@@ -818,6 +870,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_Qy_0->Name = L"_tb_Qy_0";
 			this->_tb_Qy_0->Size = System::Drawing::Size(130, 20);
 			this->_tb_Qy_0->TabIndex = 49;
+			this->_tb_Qy_0->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// _tb_Qy_1
 			// 
@@ -826,6 +879,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_Qy_1->Name = L"_tb_Qy_1";
 			this->_tb_Qy_1->Size = System::Drawing::Size(130, 20);
 			this->_tb_Qy_1->TabIndex = 50;
+			this->_tb_Qy_1->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// _tb_Qz_0
 			// 
@@ -834,6 +888,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_Qz_0->Name = L"_tb_Qz_0";
 			this->_tb_Qz_0->Size = System::Drawing::Size(130, 20);
 			this->_tb_Qz_0->TabIndex = 51;
+			this->_tb_Qz_0->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// _tb_Qz_1
 			// 
@@ -842,6 +897,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_Qz_1->Name = L"_tb_Qz_1";
 			this->_tb_Qz_1->Size = System::Drawing::Size(130, 20);
 			this->_tb_Qz_1->TabIndex = 52;
+			this->_tb_Qz_1->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// _pnl_climate
 			// 
@@ -913,6 +969,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_height->Size = System::Drawing::Size(140, 20);
 			this->_tb_height->TabIndex = 65;
 			this->_tb_height->Text = L"Заполняет инженер";
+			this->_tb_height->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_height->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_height_MouseClick);
 			// 
 			// _tb_responsible
@@ -924,6 +981,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_responsible->Size = System::Drawing::Size(140, 20);
 			this->_tb_responsible->TabIndex = 64;
 			this->_tb_responsible->Text = L"Заполняет инженер";
+			this->_tb_responsible->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_responsible->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_responsible_MouseClick);
 			// 
 			// _tb_code
@@ -935,6 +993,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_code->Size = System::Drawing::Size(140, 20);
 			this->_tb_code->TabIndex = 63;
 			this->_tb_code->Text = L"Заполняет инженер";
+			this->_tb_code->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_code->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_code_MouseClick);
 			// 
 			// _tb_name
@@ -946,6 +1005,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_name->Size = System::Drawing::Size(140, 20);
 			this->_tb_name->TabIndex = 62;
 			this->_tb_name->Text = L"Заполняет инженер";
+			this->_tb_name->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_name->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_name_MouseClick);
 			// 
 			// _l_height
@@ -1032,10 +1092,13 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			// 
 			// _tb_weight
 			// 
+			this->_tb_weight->Enabled = false;
 			this->_tb_weight->Location = System::Drawing::Point(40, 125);
 			this->_tb_weight->Name = L"_tb_weight";
 			this->_tb_weight->Size = System::Drawing::Size(105, 20);
 			this->_tb_weight->TabIndex = 56;
+			this->_tb_weight->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->_tb_weight->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_weight_MouseClick);
 			// 
 			// _pnl_subsystem
 			// 
@@ -1084,6 +1147,8 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_h_step_profile->Name = L"_tb_h_step_profile";
 			this->_tb_h_step_profile->Size = System::Drawing::Size(102, 20);
 			this->_tb_h_step_profile->TabIndex = 70;
+			this->_tb_h_step_profile->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->_tb_h_step_profile->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_h_step_profile_MouseClick);
 			// 
 			// _l_h_step_profile
 			// 
@@ -1101,6 +1166,8 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_v_step_profile->Name = L"_tb_v_step_profile";
 			this->_tb_v_step_profile->Size = System::Drawing::Size(102, 20);
 			this->_tb_v_step_profile->TabIndex = 68;
+			this->_tb_v_step_profile->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->_tb_v_step_profile->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_v_step_profile_MouseClick);
 			// 
 			// _l_v_step_profile
 			// 
@@ -1121,6 +1188,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_h_step_bracket_marginal_area->Size = System::Drawing::Size(67, 20);
 			this->_tb_h_step_bracket_marginal_area->TabIndex = 66;
 			this->_tb_h_step_bracket_marginal_area->Text = L"КЗ";
+			this->_tb_h_step_bracket_marginal_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_h_step_bracket_marginal_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_h_step_bracket_marginal_area_MouseClick);
 			// 
 			// _tb_h_step_bracket_ordinary_area
@@ -1132,6 +1200,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_h_step_bracket_ordinary_area->Size = System::Drawing::Size(67, 20);
 			this->_tb_h_step_bracket_ordinary_area->TabIndex = 65;
 			this->_tb_h_step_bracket_ordinary_area->Text = L"РЗ";
+			this->_tb_h_step_bracket_ordinary_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_h_step_bracket_ordinary_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_h_step_bracket_ordinary_area_MouseClick);
 			// 
 			// _l_h_step_bracket
@@ -1153,6 +1222,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_v_step_bracket_marginal_area->Size = System::Drawing::Size(67, 20);
 			this->_tb_v_step_bracket_marginal_area->TabIndex = 63;
 			this->_tb_v_step_bracket_marginal_area->Text = L"КЗ";
+			this->_tb_v_step_bracket_marginal_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_v_step_bracket_marginal_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_v_step_bracket_marginal_area_MouseClick);
 			// 
 			// _tb_v_step_bracket_ordinary_area
@@ -1164,6 +1234,7 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_v_step_bracket_ordinary_area->Size = System::Drawing::Size(67, 20);
 			this->_tb_v_step_bracket_ordinary_area->TabIndex = 62;
 			this->_tb_v_step_bracket_ordinary_area->Text = L"РЗ";
+			this->_tb_v_step_bracket_ordinary_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_v_step_bracket_ordinary_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_v_step_bracket_ordinary_area_MouseClick);
 			// 
 			// _l_v_step_bracket
@@ -1182,6 +1253,8 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 			this->_tb_facing_radius->Name = L"_tb_facing_radius";
 			this->_tb_facing_radius->Size = System::Drawing::Size(102, 20);
 			this->_tb_facing_radius->TabIndex = 60;
+			this->_tb_facing_radius->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->_tb_facing_radius->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_facing_radius_MouseClick);
 			// 
 			// _l_facing_radius
 			// 
@@ -1336,104 +1409,252 @@ private: System::Windows::Forms::TextBox^  _tb_Qz_1;
 		}
 #pragma endregion
 
-	// _tb_name_MouseClick
-	private: System::Void _tb_name_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-		if (!this->_tb_name_isClick) {
-			this->_tb_name->ForeColor = System::Drawing::Color::Black;
-			this->_tb_name->Text = L"";
-			this->_tb_name_isClick = true;
+		// _tb_name_MouseClick
+		private: System::Void _tb_name_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			if (!this->_tb_name_isClick) {
+				if (_tb_name->BackColor == System::Drawing::Color::Pink) {
+					_tb_name->BackColor = System::Drawing::Color::White;
+				}
+						
+				this->_tb_name->ForeColor = System::Drawing::Color::Black;
+				this->_tb_name->Text = L"";
+				this->_tb_name_isClick = true;
+			}
 		}
-	}
 
-	// _tb_code_MouseClick
-	private: System::Void _tb_code_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-		if (!this->_tb_code_isClick) {
-			this->_tb_code->ForeColor = System::Drawing::Color::Black;
-			this->_tb_code->Text = L"";
-			this->_tb_code_isClick = true;
+		// _tb_code_MouseClick
+		private: System::Void _tb_code_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			if (!this->_tb_code_isClick) {
+				if (_tb_code->BackColor == System::Drawing::Color::Pink) {
+					_tb_code->BackColor = System::Drawing::Color::White;
+				}
+			
+				this->_tb_code->ForeColor = System::Drawing::Color::Black;
+				this->_tb_code->Text = L"";
+				this->_tb_code_isClick = true;
+			}
 		}
-	}
 
-	// _tb_responsible_MouseClick
-	private: System::Void _tb_responsible_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-		if (!this->_tb_responsible_isClick) {
-			this->_tb_responsible->ForeColor = System::Drawing::Color::Black;
-			this->_tb_responsible->Text = L"";
-			this->_tb_responsible_isClick = true;
-		}
-	}
+		// _tb_responsible_MouseClick
+		private: System::Void _tb_responsible_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			if (!this->_tb_responsible_isClick) {
+				if (_tb_responsible->BackColor == System::Drawing::Color::Pink) {
+					_tb_responsible->BackColor = System::Drawing::Color::White;
+				}
 
-	// _tb_height_MouseClick
-	private: System::Void _tb_height_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-		if (!this->_tb_height_isClick) {
-			this->_tb_height->ForeColor = System::Drawing::Color::Black;
-			this->_tb_height->Text = L"";
-			this->_tb_height_isClick = true;
+				this->_tb_responsible->ForeColor = System::Drawing::Color::Black;
+				this->_tb_responsible->Text = L"";
+				this->_tb_responsible_isClick = true;
+			}
 		}
-	}
 
-	// _tb_v_step_bracket_ordinary_area_MouseClick
-	private: System::Void _tb_v_step_bracket_ordinary_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-		if (!this->_tb_v_step_bracket_ordinary_area_isClick) {
-			this->_tb_v_step_bracket_ordinary_area->ForeColor = System::Drawing::Color::Black;
-			this->_tb_v_step_bracket_ordinary_area->Text = L"";
-			this->_tb_v_step_bracket_ordinary_area_isClick = true;
-		}
-	}
+		// _tb_height_MouseClick
+		private: System::Void _tb_height_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			if (!this->_tb_height_isClick) {
+				if (_tb_height->BackColor == System::Drawing::Color::Pink) {
+					_tb_height->BackColor = System::Drawing::Color::White;
+				}
 
-	// _tb_v_step_bracket_marginal_area_MouseClick
-	private: System::Void _tb_v_step_bracket_marginal_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-		if (!this->_tb_v_step_bracket_marginal_area_isClick) {
-			this->_tb_v_step_bracket_marginal_area->ForeColor = System::Drawing::Color::Black;
-			this->_tb_v_step_bracket_marginal_area->Text = L"";
-			this->_tb_v_step_bracket_marginal_area_isClick = true;
+				this->_tb_height->ForeColor = System::Drawing::Color::Black;
+				this->_tb_height->Text = L"";
+				this->_tb_height_isClick = true;
+			}
 		}
-	}
 
-	// _tb_h_step_bracket_ordinary_area_MouseClick
-	private: System::Void _tb_h_step_bracket_ordinary_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-		if (!this->_tb_h_step_bracket_ordinary_area_isClick) {
-			this->_tb_h_step_bracket_ordinary_area->ForeColor = System::Drawing::Color::Black;
-			this->_tb_h_step_bracket_ordinary_area->Text = L"";
-			this->_tb_h_step_bracket_ordinary_area_isClick = true;
+		// _tb_v_step_bracket_ordinary_area_MouseClick
+		private: System::Void _tb_v_step_bracket_ordinary_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			if (!this->_tb_v_step_bracket_ordinary_area_isClick) {
+				if (_tb_v_step_bracket_ordinary_area->BackColor == System::Drawing::Color::Pink) {
+					_tb_v_step_bracket_ordinary_area->BackColor = System::Drawing::Color::White;
+				}
+			
+				this->_tb_v_step_bracket_ordinary_area->ForeColor = System::Drawing::Color::Black;
+				this->_tb_v_step_bracket_ordinary_area->Text = L"";
+				this->_tb_v_step_bracket_ordinary_area_isClick = true;
+			}
 		}
-	}
 
-	// _tb_h_step_bracket_marginal_area_MouseClick
-	private: System::Void _tb_h_step_bracket_marginal_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-		if (!this->_tb_h_step_bracket_marginal_area_isClick) {
-			this->_tb_h_step_bracket_marginal_area->ForeColor = System::Drawing::Color::Black;
-			this->_tb_h_step_bracket_marginal_area->Text = L"";
-			this->_tb_h_step_bracket_marginal_area_isClick = true;
+		// _tb_v_step_bracket_marginal_area_MouseClick
+		private: System::Void _tb_v_step_bracket_marginal_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			if (!this->_tb_v_step_bracket_marginal_area_isClick) {
+				if (_tb_v_step_bracket_marginal_area->BackColor == System::Drawing::Color::Pink) {
+					_tb_v_step_bracket_marginal_area->BackColor = System::Drawing::Color::White;
+				}
+			
+				this->_tb_v_step_bracket_marginal_area->ForeColor = System::Drawing::Color::Black;
+				this->_tb_v_step_bracket_marginal_area->Text = L"";
+				this->_tb_v_step_bracket_marginal_area_isClick = true;
+			}
 		}
-	}
 
-	// _tb_conclusion_MouseClick
-	private: System::Void _tb_conclusion_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-		if (!this->_tb_conclusion_isClick) {
-			this->_tb_conclusion->ForeColor = System::Drawing::Color::Black;
-			this->_tb_conclusion->Text = L"";
-			this->_tb_conclusion_isClick = true;
+		// _tb_h_step_bracket_ordinary_area_MouseClick
+		private: System::Void _tb_h_step_bracket_ordinary_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			if (!this->_tb_h_step_bracket_ordinary_area_isClick) {
+				if (_tb_h_step_bracket_ordinary_area->BackColor == System::Drawing::Color::Pink) {
+					_tb_h_step_bracket_ordinary_area->BackColor = System::Drawing::Color::White;
+				}
+			
+				this->_tb_h_step_bracket_ordinary_area->ForeColor = System::Drawing::Color::Black;
+				this->_tb_h_step_bracket_ordinary_area->Text = L"";
+				this->_tb_h_step_bracket_ordinary_area_isClick = true;
+			}
 		}
-	}
 
-	private: System::Void _b_calculate_account_Click(System::Object^  sender, System::EventArgs^  e) {
-		if (checkDataCorrectness()) {
-			VariableStorageManager::Instance()->updateValues(collectData());
-			calculateAccount();
-		} else {
-			// assertMessage();
+		// _tb_h_step_bracket_marginal_area_MouseClick
+		private: System::Void _tb_h_step_bracket_marginal_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			if (!this->_tb_h_step_bracket_marginal_area_isClick) {
+				if (_tb_h_step_bracket_marginal_area->BackColor == System::Drawing::Color::Pink) {
+					_tb_h_step_bracket_marginal_area->BackColor = System::Drawing::Color::White;
+				}
+			
+				this->_tb_h_step_bracket_marginal_area->ForeColor = System::Drawing::Color::Black;
+				this->_tb_h_step_bracket_marginal_area->Text = L"";
+				this->_tb_h_step_bracket_marginal_area_isClick = true;
+			}
 		}
-	}
 
-	private: System::Void _b_generate_report_Click(System::Object^  sender, System::EventArgs^  e) {
-		if (checkDataCorrectness()) {
-			FormDataArgs fda = collectData();
-			VariableStorageManager::Instance()->updateValues(fda);
-			ReportManager::Instance()->generateReport(fda);
-		} else {
-			// assertMessage();
+		// _tb_conclusion_MouseClick
+		private: System::Void _tb_conclusion_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			if (!this->_tb_conclusion_isClick) {
+				if (_tb_conclusion->BackColor == System::Drawing::Color::Pink) {
+					_tb_conclusion->BackColor = System::Drawing::Color::White;
+				}
+			
+				this->_tb_conclusion->ForeColor = System::Drawing::Color::Black;
+				this->_tb_conclusion->Text = L"";
+				this->_tb_conclusion_isClick = true;
+			}
 		}
-	}
-};
+
+		// _tb_h_step_profile_MouseClick
+		private: System::Void _tb_h_step_profile_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			if (!_tb_h_step_profile_isClick) {
+				if (_tb_h_step_profile->BackColor == System::Drawing::Color::Pink) {
+					_tb_h_step_profile->BackColor = System::Drawing::Color::White;
+			
+					_tb_h_step_profile->ForeColor = System::Drawing::Color::Black;
+					_tb_h_step_profile->Text = L"";
+					_tb_h_step_profile_isClick = true;
+				}
+			}
+		}
+
+		// _tb_v_step_profile_MouseClick
+		private: System::Void _tb_v_step_profile_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			if (!_tb_v_step_profile_isClick) {
+				if (_tb_v_step_profile->BackColor == System::Drawing::Color::Pink) {
+					_tb_v_step_profile->BackColor = System::Drawing::Color::White;
+				}
+
+				this->_tb_v_step_profile->ForeColor = System::Drawing::Color::Black;
+				this->_tb_v_step_profile->Text = L"";
+				this->_tb_v_step_profile_isClick = true;
+			}
+		}
+
+		// _tb_facing_radius_MouseClick
+		private: System::Void _tb_facing_radius_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			if (!_tb_facing_radius_isClick) {
+				if (_tb_facing_radius->BackColor == System::Drawing::Color::Pink) {
+					_tb_facing_radius->BackColor = System::Drawing::Color::White;
+				}
+				this->_tb_facing_radius->ForeColor = System::Drawing::Color::Black;
+				this->_tb_facing_radius->Text = L"";
+				this->_tb_facing_radius_isClick = true;
+			}
+		}
+
+		// _tb_weight_MouseClick
+		private: System::Void _tb_weight_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			if (!_tb_weight_isClick) {
+				if (_tb_weight->BackColor == System::Drawing::Color::Pink) {
+					_tb_weight->BackColor = System::Drawing::Color::White;
+				}
+
+				this->_tb_weight->ForeColor = System::Drawing::Color::Black;
+				this->_tb_weight->Text = L"";
+				this->_tb_weight_isClick = true;
+			}
+		}
+
+		// _tb_c1_MouseClick
+		private: System::Void _tb_c1_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			if (!_tb_c1_isClick) {
+				if (_tb_c1->BackColor == System::Drawing::Color::Pink) {
+					_tb_c1->BackColor = System::Drawing::Color::White;
+				}
+
+				this->_tb_c1->ForeColor = System::Drawing::Color::Black;
+				this->_tb_c1->Text = L"";
+				this->_tb_c1_isClick = true;
+			}
+		}
+
+		// _tb_v_step_profile_MouseClick
+		private: System::Void _tb_c2_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			if (!_tb_c2_isClick) {
+				if (_tb_c2->BackColor == System::Drawing::Color::Pink) {
+					_tb_c2->BackColor = System::Drawing::Color::White;
+				}
+
+				this->_tb_c2->ForeColor = System::Drawing::Color::Black;
+				this->_tb_c2->Text = L"";
+				this->_tb_c2_isClick = true;
+			}
+		}
+	
+		// _changedValueClimateRadiobutton
+		private: System::Void _changedValueClimateRadiobutton(System::Object^  sender, System::EventArgs^  e) {
+			// города
+			_cb_cities->Enabled = !_cb_cities->Enabled;
+
+			// не города
+			_cb_wind_districs->Enabled = !_cb_wind_districs->Enabled;
+			_cb_ice_districs->Enabled = !_cb_ice_districs->Enabled;
+		}
+
+		// _changedValueFacingRadiobutton
+		private: System::Void _changedValueFacingRadiobutton(System::Object^  sender, System::EventArgs^  e) {
+			// стандартные
+			_cb_facing->Enabled = !_cb_facing->Enabled;
+
+			// нестандартные
+			_tb_weight->Enabled = !_tb_weight->Enabled;
+		}			
+
+		// _changedValueSubsystemRadiobutton
+		private: System::Void _changedValueSubsystemRadiobutton(System::Object^  sender, System::EventArgs^  e) {
+			// стандартные
+			_cb_subsystem->Enabled = !_cb_subsystem->Enabled;
+
+			// вариации
+			_cb_bracket->Enabled = !_cb_bracket->Enabled;
+			_cb_profile->Enabled = !_cb_profile->Enabled;
+		}
+
+		// _b_calculate_account_Click
+		private: System::Void _b_calculate_account_Click(System::Object^  sender, System::EventArgs^  e) {
+			if (checkDataCorrectness()) {
+				VariableStorageManager::Instance()->updateValues(collectData());
+				calculateAccount();
+			} else {
+				// TODO: можно сделать окно об ошибке более информативным... а можно нет
+
+				MessageBox::Show(L"Заполните поля правильно", L"Некорректные введеные данные", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			}
+		}
+
+		// _b_generate_report_Click
+		private: System::Void _b_generate_report_Click(System::Object^  sender, System::EventArgs^  e) {
+			if (checkDataCorrectness()) {
+				FormDataArgs fda = collectData();
+				VariableStorageManager::Instance()->updateValues(fda);
+				ReportManager::Instance()->generateReport(fda);
+			} else {
+				// TODO: можно сделать окно об ошибке более информативным... а можно нет
+
+				MessageBox::Show(L"Заполните поля правильно", L"Некорректные введеные данные", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			}
+		}
+	};
 } // zias

@@ -7,7 +7,7 @@ namespace zias {
 		// cities
 		std::vector<std::shared_ptr<City>> cities = zias::FormDataStorageManager::Instance()->getCities();
 		for (auto& value : cities) {
-			String^ name = gcnew String((value->name).c_str());
+			String^ name = gcnew String(value->name.c_str());
 			this->_cb_cities->Items->Add(name);
 		}
 		if (this->_cb_cities->Items->Count) {
@@ -81,41 +81,41 @@ namespace zias {
 	FormDataArgs MainForm::collectData() {
 		FormDataArgs result_data;
 		if (_rb_climate_0->Checked) {
-			result_data.city = FormDataStorageManager::Instance()->getCity(zias::utils::toStdString(_cb_cities->Text));
+			result_data.city = FormDataStorageManager::Instance()->getCity(utils::toStdWString(_cb_cities->Text));
 			result_data.iceDistrict = result_data.city->ice_district;
 			result_data.windDistrict = result_data.city->wind_district;
 		} else if (_rb_climate_1->Checked) {
 			result_data.city.reset();
-			result_data.iceDistrict = FormDataStorageManager::Instance()->getIceDistrict(zias::utils::toStdString(_cb_wind_districs->Text));
-			result_data.windDistrict = FormDataStorageManager::Instance()->getWindDistrict(zias::utils::toStdString(_cb_ice_districs->Text));
+			result_data.iceDistrict = FormDataStorageManager::Instance()->getIceDistrict(utils::toStdWString(_cb_wind_districs->Text));
+			result_data.windDistrict = FormDataStorageManager::Instance()->getWindDistrict(utils::toStdWString(_cb_ice_districs->Text));
 		}
 
 		if (_rb_facing_standart->Checked) {
-			result_data.facing = FormDataStorageManager::Instance()->getFacing(zias::utils::toStdString(_cb_facing->Text));
+			result_data.facing = FormDataStorageManager::Instance()->getFacing(utils::toStdWString(_cb_facing->Text));
 			result_data.weight = result_data.facing->weight;
 		} else if (_rb_facing_unstandart->Checked) {
 			result_data.facing.reset();
-			result_data.weight = zias::utils::toFloat(_tb_weight->Text);
+			result_data.weight = utils::toFloat(_tb_weight->Text);
 		}
 
 		if (_rb_subsystem_standart->Checked) {
-			result_data.subsystem = FormDataStorageManager::Instance()->getSubsystem(zias::utils::toStdString(_cb_subsystem->Text));
+			result_data.subsystem = FormDataStorageManager::Instance()->getSubsystem(utils::toStdWString(_cb_subsystem->Text));
 			result_data.profile.reset();
 			result_data.bracket.reset();
 		} else if (_rb_subsystem_variations->Checked) {
 			result_data.subsystem.reset();
-			result_data.profile = FormDataStorageManager::Instance()->getProfile(zias::utils::toStdString(_cb_profile->Text));
-			result_data.bracket = FormDataStorageManager::Instance()->getBracket(zias::utils::toStdString(_cb_bracket->Text));
+			result_data.profile = FormDataStorageManager::Instance()->getProfile(utils::toStdWString(_cb_profile->Text));
+			result_data.bracket = FormDataStorageManager::Instance()->getBracket(utils::toStdWString(_cb_bracket->Text));
 		}
 		
-		result_data.locationType = FormDataStorageManager::Instance()->getLocationType(zias::utils::toStdString(_cb_location_types->Text));
-		result_data.objectName = zias::utils::toStdString(_tb_name->Text);
-		result_data.objectCipher = zias::utils::toStdString(_tb_code->Text);
-		result_data.objectResponsible = zias::utils::toStdString(_tb_responsible->Text);
-		result_data.objectHeight = zias::utils::toFloat(_tb_height->Text);
+		result_data.locationType = FormDataStorageManager::Instance()->getLocationType(utils::toStdWString(_cb_location_types->Text));
+		result_data.objectName = utils::toStdWString(_tb_name->Text);
+		result_data.objectCipher = utils::toStdWString(_tb_code->Text);
+		result_data.objectResponsible = utils::toStdWString(_tb_responsible->Text);
+		result_data.objectHeight = utils::toFloat(_tb_height->Text);
 		result_data.checkAerodynamicFactor = _chb_aerodynamic_factor->Checked;
-		result_data.c1 = zias::utils::toFloat(_tb_c1->Text);
-		result_data.c2 = zias::utils::toFloat(_tb_c2->Text);
+		result_data.c1 = utils::toFloat(_tb_c1->Text);
+		result_data.c2 = utils::toFloat(_tb_c2->Text);
 		result_data.checkAnker = _chb_anker->Checked;
 		result_data.checkNVFConnection = _chb_nvf_elements->Checked;
 		result_data.checkNVFElements = _chb_nvf_connection->Checked;
@@ -124,102 +124,189 @@ namespace zias {
 	}
 	
 	bool MainForm::checkDataCorrectness() {
+		// TODO: по хорошему нужно переделать все и пробегаться фором по объектам полей, которые нужно проверять
+		//		 а так слишком много одинакового кода... уникальные случаи можно выбирать и обрабатывать отдельно
+		
 		bool flag = true;
 		if (!isCorrectFieldObjectName()) {
 			
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
-			// _tb_name
+			_tb_name->BackColor = System::Drawing::Color::Pink;
+			_tb_name_isClick = false;
+			_tb_name->Text = L"";
+
+			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
+			//		 или выдавать "облоко" подсказку к полю. второй вариант предпочтительней, так как в сам 
+			//		 текстовый бокс может не влезть вся информация
 
 			flag = false;
 		}
 		if (!isCorrectFieldObjectCipher()) {
 			
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
-			// _tb_code
+			_tb_code->BackColor = System::Drawing::Color::Pink;
+			_tb_code_isClick = false;
+			_tb_code->Text = L"";
+
+			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
+			//		 или выдавать "облоко" подсказку к полю. второй вариант предпочтительней, так как в сам 
+			//		 текстовый бокс может не влезть вся информация
 
 			flag = false;
 		}
 		if (!isCorrectFieldObjectResponsible()) {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
-			// _tb_responsible
+			_tb_responsible->BackColor = System::Drawing::Color::Pink;
+			_tb_responsible_isClick = false;
+			_tb_responsible->Text = L"";
+
+			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
+			//		 или выдавать "облоко" подсказку к полю. второй вариант предпочтительней, так как в сам 
+			//		 текстовый бокс может не влезть вся информация
 
 			flag = false;
 		}
 		if (!isCorrectFieldObjectHeight()) {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
-			// _tb_height
+			_tb_height->BackColor = System::Drawing::Color::Pink;
+			_tb_height_isClick = false;
+			_tb_height->Text = L"";
+
+			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
+			//		 или выдавать "облоко" подсказку к полю. второй вариант предпочтительней, так как в сам 
+			//		 текстовый бокс может не влезть вся информация
 
 			flag = false;
 		}
 		if (!isCorrectFieldWeight()) {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
-			// _tb_weight
+			_tb_weight->BackColor = System::Drawing::Color::Pink;
+			_tb_weight_isClick = false;
+			_tb_weight->Text = L"";
+
+			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
+			//		 или выдавать "облоко" подсказку к полю. второй вариант предпочтительней, так как в сам 
+			//		 текстовый бокс может не влезть вся информация
 
 			flag = false;
 		}
 		if (!isCorrectFieldC1()) {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
-			// _tb_c1
+			_tb_c1->BackColor = System::Drawing::Color::Pink;
+			_tb_c1_isClick = false;
+			_tb_c1->Text = L"";
+
+			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
+			//		 или выдавать "облоко" подсказку к полю. второй вариант предпочтительней, так как в сам 
+			//		 текстовый бокс может не влезть вся информация
 
 			flag = false;
 		}
 		if (!isCorrectFieldC2()) {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
-			// _tb_c2
+			_tb_c2->BackColor = System::Drawing::Color::Pink;
+			_tb_c2_isClick = false;
+			_tb_c2->Text = L"";
+
+			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
+			//		 или выдавать "облоко" подсказку к полю. второй вариант предпочтительней, так как в сам 
+			//		 текстовый бокс может не влезть вся информация
 
 			flag = false;
 		}
 		if (!isCorrectFieldFacingRadius()) {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
-			// _tb_facing_radius
+			_tb_facing_radius->BackColor = System::Drawing::Color::Pink;
+			_tb_facing_radius_isClick = false;
+			_tb_facing_radius->Text = L"";
+
+			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
+			//		 или выдавать "облоко" подсказку к полю. второй вариант предпочтительней, так как в сам 
+			//		 текстовый бокс может не влезть вся информация
 
 			flag = false;
 		}
 		if (!isCorrectFieldVerticalRZ()) {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
-			// _tb_v_step_bracket_ordinary_area
+			_tb_v_step_bracket_ordinary_area->BackColor = System::Drawing::Color::Pink;
+			_tb_v_step_bracket_ordinary_area_isClick = false;
+			_tb_v_step_bracket_ordinary_area->Text = L"";
+
+			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
+			//		 или выдавать "облоко" подсказку к полю. второй вариант предпочтительней, так как в сам 
+			//		 текстовый бокс может не влезть вся информация
 
 			flag = false;
 		}
 		if (!isCorrectFieldVerticalKZ()) {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
-			// _tb_v_step_bracket_marginal_area
+			_tb_v_step_bracket_marginal_area->BackColor = System::Drawing::Color::Pink;
+			_tb_v_step_bracket_marginal_area_isClick = false;
+			_tb_v_step_bracket_marginal_area->Text = L"";
+
+			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
+			//		 или выдавать "облоко" подсказку к полю. второй вариант предпочтительней, так как в сам 
+			//		 текстовый бокс может не влезть вся информация
 
 			flag = false;
 		}
 		if (!isCorrectFieldHorizontalRZ()) {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
-			// _tb_h_step_bracket_ordinary_area
+			_tb_h_step_bracket_ordinary_area->BackColor = System::Drawing::Color::Pink;
+			_tb_h_step_bracket_ordinary_area_isClick = false;
+			_tb_h_step_bracket_ordinary_area->Text = L"";
+
+			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
+			//		 или выдавать "облоко" подсказку к полю. второй вариант предпочтительней, так как в сам 
+			//		 текстовый бокс может не влезть вся информация
 
 			flag = false;
 		}
 		if (!isCorrectFieldHorizontalKZ()) {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
-			// _tb_h_step_bracket_marginal_area
+			_tb_h_step_bracket_marginal_area->BackColor = System::Drawing::Color::Pink;
+			_tb_h_step_bracket_marginal_area_isClick = false;
+			_tb_h_step_bracket_marginal_area->Text = L"";
+
+			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
+			//		 или выдавать "облоко" подсказку к полю. второй вариант предпочтительней, так как в сам 
+			//		 текстовый бокс может не влезть вся информация
 
 			flag = false;
 		}
 		if (!isCorrectFieldVerticalStep()) {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
-			// _tb_v_step_profile
+			_tb_v_step_profile->BackColor = System::Drawing::Color::Pink;
+			_tb_v_step_profile_isClick = false;
+			_tb_v_step_profile->Text = L"";
+
+			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
+			//		 или выдавать "облоко" подсказку к полю. второй вариант предпочтительней, так как в сам 
+			//		 текстовый бокс может не влезть вся информация
 
 			flag = false;
 		}
 		if (!isCorrectFieldHorizontalStep()) {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
-			// _tb_h_step_profile
+			_tb_h_step_profile->BackColor = System::Drawing::Color::Pink;
+			_tb_h_step_profile_isClick = false;
+			_tb_h_step_profile->Text = L"";
+
+			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
+			//		 или выдавать "облоко" подсказку к полю. второй вариант предпочтительней, так как в сам 
+			//		 текстовый бокс может не влезть вся информация
 
 			flag = false;
 		}
@@ -244,7 +331,7 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldObjectName() {
 		
-		std::string str = zias::utils::toStdString(_tb_name->Text);
+		std::string str = utils::toStdString(_tb_name->Text);
 		std::regex regular("([A-Za-z0-9.]+)");
 		std::smatch match;
 		if (std::regex_match(str, match, regular)) {
@@ -254,7 +341,7 @@ namespace zias {
 	}
 
 	bool MainForm::isCorrectFieldObjectCipher() {
-		std::string str = zias::utils::toStdString(_tb_code->Text);
+		std::string str = utils::toStdString(_tb_code->Text);
 		std::regex regular("([A-Za-z0-9.]+)");
 		std::smatch match;
 		if (std::regex_match(str, match, regular)) {
@@ -264,7 +351,7 @@ namespace zias {
 	}
 
 	bool MainForm::isCorrectFieldObjectResponsible() {
-		std::string str = zias::utils::toStdString(_tb_responsible->Text);
+		std::string str = utils::toStdString(_tb_responsible->Text);
 		std::regex regular("([A-Za-z]+)");
 		std::smatch match;
 		if (std::regex_match(str, match, regular)) {
@@ -274,7 +361,7 @@ namespace zias {
 	}
 
 	bool MainForm::isCorrectFieldObjectHeight() {
-		std::string str = zias::utils::toStdString(_tb_height->Text);
+		std::string str = utils::toStdString(_tb_height->Text);
 		std::regex regular("([0-9.]+)");
 		std::smatch match;
 		if (std::regex_match(str, match, regular)) {
@@ -284,7 +371,7 @@ namespace zias {
 	}
 
 	bool MainForm::isCorrectFieldWeight() {
-		std::string str = zias::utils::toStdString(_tb_weight->Text);
+		std::string str = utils::toStdString(_tb_weight->Text);
 		std::regex regular("([0-9.]+)");
 		std::smatch match;
 		if (std::regex_match(str, match, regular)) {
@@ -294,7 +381,7 @@ namespace zias {
 	}
 
 	bool MainForm::isCorrectFieldC1() {
-		std::string str = zias::utils::toStdString(_tb_c1->Text);
+		std::string str = utils::toStdString(_tb_c1->Text);
 		std::regex regular("([0-9.]+)");
 		std::smatch match;
 		if (std::regex_match(str, match, regular)) {
@@ -304,7 +391,7 @@ namespace zias {
 	} 
 
 	bool MainForm::isCorrectFieldC2() {
-		std::string str = zias::utils::toStdString(_tb_c2->Text);
+		std::string str = utils::toStdString(_tb_c2->Text);
 		std::regex regular("([0-9.]+)");
 		std::smatch match;
 		if (std::regex_match(str, match, regular)) {
@@ -314,7 +401,7 @@ namespace zias {
 	} 
 
 	bool MainForm::isCorrectFieldFacingRadius() {
-		std::string str = zias::utils::toStdString(_tb_facing_radius->Text);
+		std::string str = utils::toStdString(_tb_facing_radius->Text);
 		std::regex regular("([0-9.]+)");
 		std::smatch match;
 		if (std::regex_match(str, match, regular)) {
@@ -324,7 +411,7 @@ namespace zias {
 	}
 
 	bool MainForm::isCorrectFieldVerticalRZ() {
-		std::string str = zias::utils::toStdString(_tb_v_step_bracket_ordinary_area->Text);
+		std::string str = utils::toStdString(_tb_v_step_bracket_ordinary_area->Text);
 		std::regex regular("([0-9.]+)");
 		std::smatch match;
 		if (std::regex_match(str, match, regular)) {
@@ -334,7 +421,7 @@ namespace zias {
 	} 
 
 	bool MainForm::isCorrectFieldVerticalKZ() {
-		std::string str = zias::utils::toStdString(_tb_v_step_bracket_marginal_area->Text);
+		std::string str = utils::toStdString(_tb_v_step_bracket_marginal_area->Text);
 		std::regex regular("([0-9.]+)");
 		std::smatch match;
 		if (std::regex_match(str, match, regular)) {
@@ -344,7 +431,7 @@ namespace zias {
 	}
 
 	bool MainForm::isCorrectFieldHorizontalRZ() {
-		std::string str = zias::utils::toStdString(_tb_h_step_bracket_ordinary_area->Text);
+		std::string str = utils::toStdString(_tb_h_step_bracket_ordinary_area->Text);
 		std::regex regular("([0-9.]+)");
 		std::smatch match;
 		if (std::regex_match(str, match, regular)) {
@@ -354,7 +441,7 @@ namespace zias {
 	}
 
 	bool MainForm::isCorrectFieldHorizontalKZ() {
-		std::string str = zias::utils::toStdString(_tb_h_step_bracket_marginal_area->Text);
+		std::string str = utils::toStdString(_tb_h_step_bracket_marginal_area->Text);
 		std::regex regular("([0-9.]+)");
 		std::smatch match;
 		if (std::regex_match(str, match, regular)) {
@@ -364,7 +451,7 @@ namespace zias {
 	}
 
 	bool MainForm::isCorrectFieldVerticalStep() {
-		std::string str = zias::utils::toStdString(_tb_v_step_profile->Text);
+		std::string str = utils::toStdString(_tb_v_step_profile->Text);
 		std::regex regular("([0-9.]+)");
 		std::smatch match;
 		if (std::regex_match(str, match, regular)) {
@@ -374,7 +461,7 @@ namespace zias {
 	}
 
 	bool MainForm::isCorrectFieldHorizontalStep() {
-		std::string str = zias::utils::toStdString(_tb_h_step_profile->Text);
+		std::string str = utils::toStdString(_tb_h_step_profile->Text);
 		std::regex regular("([0-9.]+)");
 		std::smatch match;
 		if (std::regex_match(str, match, regular)) {

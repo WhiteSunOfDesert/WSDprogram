@@ -63,7 +63,10 @@
       <Filter>ZIAS Logic\headers</Filter>
     </ClInclude>
     <ClInclude Include="..\code\headers\ZIAS Logic\utils\utils.hpp">
-      <Filter>ZIAS Logic\headers\libs</Filter>
+      <Filter>ZIAS Logic\headers\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\headers\ZIAS Logic\globals\globals.hpp">
+      <Filter>ZIAS Logic\headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

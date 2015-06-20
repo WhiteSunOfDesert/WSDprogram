@@ -4,8 +4,8 @@ namespace zias {
 	// STATIC IMPLEMENTATION
 	// ---------------------
 	std::shared_ptr<VariableStorageManager> VariableStorageManager::_instance = nullptr;
+	
 	std::map<std::string, float> VariableStorageManager::_variables;
-	//std::map<std::string, String^> VariableStorageManager::_stringVariables;
 	std::map<short, float> VariableStorageManager::_table_b;
 	std::map<short, float> VariableStorageManager::_table_w_0;
 	std::map<float, float> VariableStorageManager::_table_k_ice;
@@ -15,7 +15,6 @@ namespace zias {
 
 	VariableStorageManager::VariableStorageManager() {
 		_variables.clear();
-		//_stringVariables.clear();
 
 		_table_b.clear();
 		_table_w_0.clear();
@@ -26,7 +25,6 @@ namespace zias {
 
 	VariableStorageManager::~VariableStorageManager() {
 		_variables.clear();
-		//_stringVariables.clear();
 
 		_table_b.clear();
 		_table_w_0.clear();
@@ -68,20 +66,10 @@ namespace zias {
 			for (auto& var : vars) {
 				addVariable(var, 0.f);
 			}
-			// string
-			/*std::string vars[] = {
-				"zias",
-				"subsystem"
-			};
-
-			for (auto& var : vars) {
-				addStringVariable(var, "");
-			}*/
-
-			// TODO: парсим xml
-			if (std::tr2::sys::exists(std::tr2::sys::path("..\\bin\\data\\data_source.xml"))) {
+			
+			if (std::tr2::sys::exists(std::tr2::sys::path(_PATH_TO_DATA_XML_))) {
 				try {
-					rapidxml::file<> file("..\\bin\\data\\data_source.xml");
+					rapidxml::file<> file(_PATH_TO_DATA_XML_);
 					rapidxml::xml_document<> add_config;
 					add_config.parse<0>(file.data());
 					auto root = add_config.first_node();
@@ -92,14 +80,14 @@ namespace zias {
 
 					while (root) {
 						for (auto data_source = root->first_node(); data_source != nullptr; data_source = data_source->next_sibling()) {
-							if (zias::utils::equals(data_source->name(), "Var_Store")) {
+							if (utils::equals(data_source->name(), "Var_Store")) {
 								for (auto var_store = data_source->first_node(); var_store != nullptr; var_store = var_store->next_sibling()) {
-									if (zias::utils::equals(var_store->name(), "b")) {
-										std::string name = zias::utils::lexical_cast<std::string>(var_store->name());
+									if (utils::equals(var_store->name(), "b")) {
+										std::string name = utils::lexical_cast<std::string>(var_store->name());
 										for (auto var_it = var_store->first_node(); var_it != nullptr; var_it = var_it->next_sibling()) {
-											if (zias::utils::equals(var_it->name(), "var")) {
-												short ice_district_id = zias::utils::lexical_cast<short>(var_it->first_attribute("ice_district_id")->value());
-												float value = zias::utils::lexical_cast<float>(var_it->first_attribute("value")->value());
+											if (utils::equals(var_it->name(), "var")) {
+												short ice_district_id = utils::lexical_cast<short>(var_it->first_attribute("ice_district_id")->value());
+												float value = utils::lexical_cast<float>(var_it->first_attribute("value")->value());
 
 												addToTable_b(ice_district_id, value);
 											}
@@ -107,12 +95,12 @@ namespace zias {
 
 										addVariable(name, 0.f);
 									}
-									if (zias::utils::equals(var_store->name(), "w_0")) {
-										std::string name = zias::utils::lexical_cast<std::string>(var_store->name());
+									if (utils::equals(var_store->name(), "w_0")) {
+										std::string name = utils::lexical_cast<std::string>(var_store->name());
 										for (auto var_it = var_store->first_node(); var_it != nullptr; var_it = var_it->next_sibling()) {
-											if (zias::utils::equals(var_it->name(), "var")) {
-												short wind_district_id = zias::utils::lexical_cast<short>(var_it->first_attribute("wind_district_id")->value());
-												float value = zias::utils::lexical_cast<float>(var_it->first_attribute("value")->value());
+											if (utils::equals(var_it->name(), "var")) {
+												short wind_district_id = utils::lexical_cast<short>(var_it->first_attribute("wind_district_id")->value());
+												float value = utils::lexical_cast<float>(var_it->first_attribute("value")->value());
 
 												addToTable_w_0(wind_district_id, value);
 											}
@@ -120,12 +108,12 @@ namespace zias {
 
 										addVariable(name, 0.f);
 									}
-									if (zias::utils::equals(var_store->name(), "k_ice")) {
-										std::string name = zias::utils::lexical_cast<std::string>(var_store->name());
+									if (utils::equals(var_store->name(), "k_ice")) {
+										std::string name = utils::lexical_cast<std::string>(var_store->name());
 										for (auto var_it = var_store->first_node(); var_it != nullptr; var_it = var_it->next_sibling()) {
-											if (zias::utils::equals(var_it->name(), "var")) {
-												float height = zias::utils::lexical_cast<float>(var_it->first_attribute("height")->value());
-												float value = zias::utils::lexical_cast<float>(var_it->first_attribute("value")->value());
+											if (utils::equals(var_it->name(), "var")) {
+												float height = utils::lexical_cast<float>(var_it->first_attribute("height")->value());
+												float value = utils::lexical_cast<float>(var_it->first_attribute("value")->value());
 
 												addToTable_k_ice(height, value);
 											}
@@ -133,14 +121,14 @@ namespace zias {
 										
 										addVariable(name, 0.f);
 									}
-									if (zias::utils::equals(var_store->name(), "k_ze")) {
-										std::string name = zias::utils::lexical_cast<std::string>(var_store->name());
+									if (utils::equals(var_store->name(), "k_ze")) {
+										std::string name = utils::lexical_cast<std::string>(var_store->name());
 										for (auto var_it = var_store->first_node(); var_it != nullptr; var_it = var_it->next_sibling()) {
-											if (zias::utils::equals(var_it->name(), "var")) {
-												float height = zias::utils::lexical_cast<float>(var_it->first_attribute("z_e")->value());
-												float valueA = zias::utils::lexical_cast<float>(var_it->first_attribute("A_value")->value());
-												float valueB = zias::utils::lexical_cast<float>(var_it->first_attribute("B_value")->value());
-												float valueC = zias::utils::lexical_cast<float>(var_it->first_attribute("C_value")->value());
+											if (utils::equals(var_it->name(), "var")) {
+												float height = utils::lexical_cast<float>(var_it->first_attribute("z_e")->value());
+												float valueA = utils::lexical_cast<float>(var_it->first_attribute("A_value")->value());
+												float valueB = utils::lexical_cast<float>(var_it->first_attribute("B_value")->value());
+												float valueC = utils::lexical_cast<float>(var_it->first_attribute("C_value")->value());
 
 												addToTable_k_ze(height, valueA, valueB, valueC);
 											}
@@ -148,14 +136,14 @@ namespace zias {
 
 										addVariable(name, 0.f);
 									}
-									if (zias::utils::equals(var_store->name(), "ksi_ze")) {
-										std::string name = zias::utils::lexical_cast<std::string>(var_store->name());
+									if (utils::equals(var_store->name(), "ksi_ze")) {
+										std::string name = utils::lexical_cast<std::string>(var_store->name());
 										for (auto var_it = var_store->first_node(); var_it != nullptr; var_it = var_it->next_sibling()) {
-											if (zias::utils::equals(var_it->name(), "var")) {
-												float height = zias::utils::lexical_cast<float>(var_it->first_attribute("z_e")->value());
-												float valueA = zias::utils::lexical_cast<float>(var_it->first_attribute("A_value")->value());
-												float valueB = zias::utils::lexical_cast<float>(var_it->first_attribute("B_value")->value());
-												float valueC = zias::utils::lexical_cast<float>(var_it->first_attribute("C_value")->value());
+											if (utils::equals(var_it->name(), "var")) {
+												float height = utils::lexical_cast<float>(var_it->first_attribute("z_e")->value());
+												float valueA = utils::lexical_cast<float>(var_it->first_attribute("A_value")->value());
+												float valueB = utils::lexical_cast<float>(var_it->first_attribute("B_value")->value());
+												float valueC = utils::lexical_cast<float>(var_it->first_attribute("C_value")->value());
 
 												addToTable_ksi_ze(height, valueA, valueB, valueC);
 											}
@@ -163,20 +151,20 @@ namespace zias {
 
 										addVariable(name, 0.f);
 									}
-									if (   zias::utils::equals(var_store->name(), "mu_2")
-										|| zias::utils::equals(var_store->name(), "rho")
-										|| zias::utils::equals(var_store->name(), "g")
-										|| zias::utils::equals(var_store->name(), "nu")
-										|| zias::utils::equals(var_store->name(), "c_1")
-										|| zias::utils::equals(var_store->name(), "c_2")
-										|| zias::utils::equals(var_store->name(), "gamma_f_1")
-										|| zias::utils::equals(var_store->name(), "gamma_f_2")
-										|| zias::utils::equals(var_store->name(), "gamma_f_3")
-										|| zias::utils::equals(var_store->name(), "gamma_f_4")
+									if (   utils::equals(var_store->name(), "mu_2")
+										|| utils::equals(var_store->name(), "rho")
+										|| utils::equals(var_store->name(), "g")
+										|| utils::equals(var_store->name(), "nu")
+										|| utils::equals(var_store->name(), "c_1")
+										|| utils::equals(var_store->name(), "c_2")
+										|| utils::equals(var_store->name(), "gamma_f_1")
+										|| utils::equals(var_store->name(), "gamma_f_2")
+										|| utils::equals(var_store->name(), "gamma_f_3")
+										|| utils::equals(var_store->name(), "gamma_f_4")
 										) {
 										
-										std::string name = zias::utils::lexical_cast<std::string>(var_store->name());
-										float value = zias::utils::lexical_cast<float>(var_store->first_attribute("value")->value());
+										std::string name = utils::lexical_cast<std::string>(var_store->name());
+										float value = utils::lexical_cast<float>(var_store->first_attribute("value")->value());
 									
 										addVariable(name, value);
 									}
@@ -202,10 +190,6 @@ namespace zias {
 		_variables.emplace(my_name, my_value);
 	}
 
-	/*void  VariableStorageManager::addStringVariable(const std::string& my_name, const String^& my_value) {
-		_stringVariables.emplace(my_name, my_value);
-	}*/
-
 	float VariableStorageManager::getVariable(const std::string& my_name) {
 		auto variable = _variables.find(my_name);
 		if (variable != end(_variables)) {
@@ -214,21 +198,9 @@ namespace zias {
 		return 0.f;
 	}
 
-	/*String^ VariableStorageManager::getStringVariable(const std::string& my_name) {
-		auto variable = _stringVariables.find(my_name);
-		if (variable != end(_stringVariables)) {
-			return _stringVariables[my_name];
-		}
-		return "";
-	}*/
-
 	std::map<std::string, float> VariableStorageManager::getVariables() {
 		return _variables;
 	}
-
-	/*std::map<std::string, String^> VariableStorageManager::getStringVariables() {
-		return _stringVariables;
-	}*/
 
 	void VariableStorageManager::addToTable_b(const short& my_ice_district_id, const float& my_value) {
 		auto variable = _table_b.find(my_ice_district_id);
@@ -302,8 +274,6 @@ namespace zias {
 		calculate_R_1();
 		calculate_R_2();
 		calculate_R_3();
-		//calculate_ziasN(my_args.facing, my_args.isFacingStandart);
-		//calculate_subsystem(my_args.subsystem, my_args.isSubsystemStandart);
 		
 		return;
 	}
@@ -327,7 +297,7 @@ namespace zias {
 			values.push_back(vect.second);
 		}
 
-		_variables.at("k_ice") = zias::utils::Interpolate(heights, values, my_height);
+		_variables.at("k_ice") = utils::Interpolate(heights, values, my_height);
 	}
 
 	void VariableStorageManager::calculate_k_ze(const float& my_height, std::shared_ptr<LocationType> my_location_type) {
@@ -342,7 +312,7 @@ namespace zias {
 			values.push_back(*(vect.second[location_type_id]));
 		}
 		
-		_variables.at("k_ze") = zias::utils::Interpolate(heights, values, my_height);
+		_variables.at("k_ze") = utils::Interpolate(heights, values, my_height);
 	}
 
 	void VariableStorageManager::calculate_ksi_ze(const float& my_height, std::shared_ptr<LocationType> my_location_type) {
@@ -357,7 +327,7 @@ namespace zias {
 			values.push_back(*(vect.second[location_type_id]));
 		}
 
-		_variables.at("ksi_ze") = zias::utils::Interpolate(heights, values, my_height);
+		_variables.at("ksi_ze") = utils::Interpolate(heights, values, my_height);
 	}
 
 	void VariableStorageManager::calculate_weight_1(std::shared_ptr<Facing> my_facing, const float& my_weight, const bool& isFacing) {
@@ -409,8 +379,8 @@ namespace zias {
 
 	void VariableStorageManager::calculate_Q_311() {
 
-		_variables.at("Q_311") = 0.25 * getVariable("w_0") * getVariable("k_ze") *
-			(1 + getVariable("ksi_ze")) * getVariable("c_1") * getVariable("nu");
+		_variables.at("Q_311") = 0.25f * getVariable("w_0") * getVariable("k_ze") *
+			(1.f + getVariable("ksi_ze")) * getVariable("c_1") * getVariable("nu");
 	}
 
 	void VariableStorageManager::calculate_I_312() {
@@ -422,13 +392,13 @@ namespace zias {
 	void VariableStorageManager::calculate_Q_321() {
 
 		_variables.at("Q_321") = getVariable("w_0") * getVariable("k_ze") *
-			(1 + getVariable("ksi_ze")) * getVariable("c_1") * getVariable("nu");
+			(1.f + getVariable("ksi_ze")) * getVariable("c_1") * getVariable("nu");
 	}
 
 	void VariableStorageManager::calculate_Q_411() {
 
 		_variables.at("Q_411") = getVariable("w_0") * getVariable("k_ze") *
-			(1 + getVariable("ksi_ze")) * getVariable("c_2") * getVariable("nu");
+			(1.f + getVariable("ksi_ze")) * getVariable("c_2") * getVariable("nu");
 	}
 
 	void VariableStorageManager::calculate_q_311() {
@@ -494,24 +464,4 @@ namespace zias {
 
 		_variables.at("R_3") = 0.f;
 	}
-
-	/*void VariableStorageManager::calculate_ziasN(std::shared_ptr<Facing> my_facing, const bool& isFacing) {
-
-		if (isFacing) {
-			//_stringVariables.at("ziasN") = my_facing->name;
-		}
-		else {
-			_stringVariables.at("ziasN") = "";
-		}
-	}
-
-	void VariableStorageManager::calculate_subsystem(std::shared_ptr<Subsystem> my_subsystem, const bool& isSubsystem) {
-
-		if (isSubsystem) {
-			//_stringVariables.at("subsystem") = my_subsystem->name;
-		}
-		else {
-			_stringVariables.at("subsystem") = "";
-		}
-	}*/
 } // zias

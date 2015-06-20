@@ -8,6 +8,9 @@
 #pragma once
 
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
+// данные проекта ZIAS
+#include <globals/globals.hpp>
+
 // Windows Header Files:
 #include <windows.h>
 
@@ -34,7 +37,7 @@
 #include <rapidxml_print.hpp>
 #include <rapidxml_utils.hpp>
 
-// менеджеры
+// менеджеры									// !! порядок инклудов имеет значение !! //
 #include "_FormDataStorageManager.h"
 #include "_VariableStorageManager.h"
 #include "_ReportManager.h"

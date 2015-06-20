@@ -1,4 +1,14 @@
-// Леонидова вотчина
+/*	_ReportManager.h
+ *
+ *	Класс, генерирующий отчеты // в формате .docx
+ *
+ *	бла-бла-бла
+ *	бла-бла-бла
+ *
+ *	Copyright(c) 20.06.2015 "НАЗВАНИЕ НАШЕЙ СУПЕРФИРМЫ"
+ *	All rights reserved.
+ */
+
 #pragma once
 
 namespace zias {

@@ -1,3 +1,14 @@
+/*	utils.hpp
+*
+*	Самописная библиотека утилит, которые могут использоваться в проекте ZIAS
+*
+*	бла-бла-бла
+*	бла-бла-бла
+*
+*	Copyright(c) 20.06.2015 "НАЗВАНИЕ НАШЕЙ СУПЕРФИРМЫ"
+*	All rights reserved.
+*/
+
 #pragma once
 
 namespace zias {
@@ -24,6 +35,26 @@ namespace zias {
 		template <typename T>
 		inline T lexical_cast(const std::string& my_str) { 
 			return lexical_cast<T>(my_str.c_str());
+		}
+
+		template <>
+		inline std::wstring lexical_cast(const char* my_str) {
+			size_t size = MultiByteToWideChar(CP_UTF8, 0, my_str, -1, NULL, 0);
+
+			if (!size) {
+				return L"";
+			}
+				
+			std::vector<wchar_t> w_vector(size);
+			MultiByteToWideChar(CP_UTF8, 0, my_str, -1, &w_vector[0], size);
+
+			wchar_t* w_char = new wchar_t[size + 1];
+			for (size_t i = 0; i < size; i++) {
+				w_char[i] = w_vector.at(i);
+			}
+			w_char[size] = '\0';
+
+			return w_char;
 		}
 
 		template <>
@@ -65,6 +96,14 @@ namespace zias {
 			char* char_str = (char*)(Marshal::StringToHGlobalAnsi(my_str)).ToPointer();
 			std::string result = static_cast<std::string>(char_str);
 			Marshal::FreeHGlobal(System::IntPtr((void*)char_str));
+			return result;
+		}
+
+		inline std::wstring toStdWString(System::String^ my_str){
+			using namespace System::Runtime::InteropServices;
+			wchar_t* wchar_str = (wchar_t*)(Marshal::StringToHGlobalAnsi(my_str)).ToPointer();
+			std::wstring result = static_cast<std::wstring>(wchar_str);
+			Marshal::FreeHGlobal(System::IntPtr((void*)wchar_str));
 			return result;
 		}
 

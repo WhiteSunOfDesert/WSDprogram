@@ -1,3 +1,15 @@
+/*	_VariableStorageManager.h
+ *
+ *	Менеджер численныех переменных и констант, которые учавствуют (или могут участвовать) в вычислениях
+ *  создает переменные, хранит, занимается вычислением их значений... и предоставлет к ним доступ
+ *
+ *	бла-бла-бла
+ *	бла-бла-бла
+ *
+ *	Copyright(c) 20.06.2015 "НАЗВАНИЕ НАШЕЙ СУПЕРФИРМЫ"
+ *	All rights reserved.
+ */
+
 #pragma once
 
 namespace zias {
@@ -35,7 +47,6 @@ namespace zias {
 		static std::shared_ptr<VariableStorageManager> _instance;
 
 		static std::map<std::string, float> _variables;
-		//static std::map<std::string, String^> _stringVariables;
 
 		static std::map<short, float> _table_b;
 		static std::map<short, float> _table_w_0;
@@ -47,12 +58,9 @@ namespace zias {
 		static std::shared_ptr<VariableStorageManager>& Instance();
 
 		static void  addVariable(const std::string& my_name, const float& my_value);
-		//static void  addStringVariable(const std::string& my_name, const String^& my_value);
 		static float getVariable(const std::string& my_name);
-		//static String^ getStringVariable(const std::string& my_name);
 		
 		static std::map<std::string, float> getVariables();
-		//static std::map<std::string, String^> getStringVariables();
 		static void updateValues(const FormDataArgs& my_args);
 
 		static void addToTable_b(const short& my_ice_district_id, const float& my_value);
@@ -93,8 +101,6 @@ namespace zias {
 		static void calculate_R_1();
 		static void calculate_R_2();
 		static void calculate_R_3();
-		//static void calculate_ziasN(std::shared_ptr<Facing> my_facing, const bool& isFacing);
-		//static void calculate_subsystem(std::shared_ptr<Subsystem> my_subsystem, const bool& isSubsystem);
 
 	public:
 		~VariableStorageManager();
