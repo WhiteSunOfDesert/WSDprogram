@@ -651,7 +651,7 @@ namespace zias {
 			this->_b_calculate_account->TabIndex = 28;
 			this->_b_calculate_account->Text = L"расчет";
 			this->_b_calculate_account->UseVisualStyleBackColor = false;
-			this->_b_calculate_account->Click += gcnew System::EventHandler(this, &MainForm::_b_generate_report_Click);
+			this->_b_calculate_account->Click += gcnew System::EventHandler(this, &MainForm::_b_calculate_account_Click);
 			// 
 			// _b_generate_report
 			// 
@@ -667,6 +667,7 @@ namespace zias {
 			this->_b_generate_report->TabIndex = 29;
 			this->_b_generate_report->Text = L"отчет";
 			this->_b_generate_report->UseVisualStyleBackColor = false;
+			this->_b_generate_report->Click += gcnew System::EventHandler(this, &MainForm::_b_generate_report_Click);
 			// 
 			// _l_results
 			// 
@@ -1623,6 +1624,9 @@ namespace zias {
 			_cb_facing->Enabled = !_cb_facing->Enabled;
 
 			// нестандартные
+			if (_tb_weight->BackColor == System::Drawing::Color::Pink) {
+				_tb_weight->BackColor = System::Drawing::Color::White;
+			}
 			_tb_weight->Enabled = !_tb_weight->Enabled;
 		}			
 
@@ -1636,12 +1640,19 @@ namespace zias {
 			_cb_profile->Enabled = !_cb_profile->Enabled;
 		}
 
-		// _b_calculate_account_Click		
+		// _changedValueVariationsCheckBox		
 		private: System::Void _changedValueVariationsCheckBox(System::Object^  sender, System::EventArgs^  e) {
+			if (_tb_c1->BackColor == System::Drawing::Color::Pink) {
+				_tb_c1->BackColor = System::Drawing::Color::White;
+			}
+			if (_tb_c2->BackColor == System::Drawing::Color::Pink) {
+				_tb_c2->BackColor = System::Drawing::Color::White;
+			}
 			_tb_c1->Enabled = !_tb_c1->Enabled;
 			_tb_c2->Enabled = !_tb_c2->Enabled;
 		}
 		
+		// openDocumentation
 		private: System::Void openDocumentation(System::Object^  sender, System::EventArgs^  e) {
 			// TODO: открываем файл документации
 			// полный путь: _PATH_TO_DOCUMENTATION_ + _HELP_DOCUMENT_NAME_
@@ -1650,7 +1661,7 @@ namespace zias {
 
 			String^ filename = _PATH_TO_DOCUMENTATION_ + _HELP_DOCUMENT_NAME_;
 			if (std::tr2::sys::exists(std::tr2::sys::path(utils::toStdString(filename)))) {
-				ShellExecute(nullptr, "open", utils::toStdString(filename).c_str(), 0, 0, SW_SHOWNORMAL);
+				ShellExecute(0, "open", utils::toStdString(filename).c_str(), 0, 0, SW_SHOWNORMAL);
 			 } else { 
 				 MessageBox::Show(L"Скорее всего файл был удален или поврежден", L"Не найден файл документации", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			 }
@@ -1665,7 +1676,7 @@ namespace zias {
 			} else {
 				// TODO: можно сделать окно об ошибке более информативным... а можно нет
 
-				MessageBox::Show(L"Заполните поля правильно", L"Некорректные введеные данные", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				MessageBox::Show(L"Заполните поля правильно", L"Некорректно введеные данные", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			}
 		}
 

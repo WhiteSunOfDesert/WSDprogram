@@ -99,11 +99,15 @@ namespace zias {
 			return result;
 		}
 
-		inline std::wstring toStdWString(System::String^ my_str){
-			using namespace System::Runtime::InteropServices;
-			wchar_t* wchar_str = (wchar_t*)(Marshal::StringToHGlobalAnsi(my_str)).ToPointer();
-			std::wstring result = static_cast<std::wstring>(wchar_str);
-			Marshal::FreeHGlobal(System::IntPtr((void*)wchar_str));
+		inline std::wstring toStdWString(System::String^ my_str, std::locale my_loc = std::locale("russian")){
+			std::string stemp = toStdString(my_str);
+			std::wstring result(stemp.length(), 0);
+			
+			std::wstring::iterator w_iter = result.begin();
+			for (std::string::const_iterator s_iter = stemp.begin(); s_iter != stemp.end(); ++s_iter, ++w_iter) {
+				*w_iter = std::use_facet<std::ctype<wchar_t>>(my_loc).widen(*s_iter);
+			}
+
 			return result;
 		}
 
