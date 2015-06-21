@@ -321,10 +321,10 @@ namespace zias {
 		_tb_strength_bracket->Text = L"";		// ...
 		_tb_strength_extension->Text = L"";		// ...
 		_tb_connections->Text = L"";			// ...
-		_tb_Qy_0->Text = L"";					//VariableStorageManager::Instance()->getVariable("Qy_0");
-		_tb_Qy_1->Text = L"";					//VariableStorageManager::Instance()->getVariable("Qy_1");
-		_tb_Qz_0->Text = L"";					//VariableStorageManager::Instance()->getVariable("Qz_0");
-		_tb_Qz_1->Text = L"";					//VariableStorageManager::Instance()->getVariable("Qz_1");
+		_tb_Qy_0->Text = gcnew String("" + VariableStorageManager::Instance()->getVariable("Qy_0"));
+		_tb_Qy_1->Text = gcnew String("" + VariableStorageManager::Instance()->getVariable("Qy_1"));
+		_tb_Qz_0->Text = gcnew String("" + VariableStorageManager::Instance()->getVariable("Qz_0"));
+		_tb_Qz_1->Text = gcnew String("" + VariableStorageManager::Instance()->getVariable("Qz_1"));
 		
 		return;
 	}
@@ -332,9 +332,11 @@ namespace zias {
 	bool MainForm::isCorrectFieldObjectName() {
 		
 		std::string str = utils::toStdString(_tb_name->Text);
-		std::regex regular("([A-Za-z0-9.]+)");
+		std::regex regular("^([а-яА-ЯёЁa-zA-Z0-9.-:| ]+)$");
 		std::smatch match;
-		if (std::regex_match(str, match, regular)) {
+		if (std::regex_match(str, match, regular) && str != ""
+			&& str != "Заполняет инженер") // костыль
+		{
 			return true;
 		}
 		return false;
@@ -342,9 +344,11 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldObjectCipher() {
 		std::string str = utils::toStdString(_tb_code->Text);
-		std::regex regular("([A-Za-z0-9.]+)");
+		std::regex regular("^([а-яА-ЯёЁa-zA-Z0-9.-:| ]+)$");
 		std::smatch match;
-		if (std::regex_match(str, match, regular)) {
+		if (std::regex_match(str, match, regular) && str != ""
+			&& str != "Заполняет инженер") // костыль
+		{
 			return true;
 		}
 		return false;
@@ -352,9 +356,11 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldObjectResponsible() {
 		std::string str = utils::toStdString(_tb_responsible->Text);
-		std::regex regular("([A-Za-z]+)");
+		std::regex regular("([а-яА-ЯёЁ-]+[ ]{1,5}[а-яА-ЯёЁ-]+)?");
 		std::smatch match;
-		if (std::regex_match(str, match, regular)) {
+		if (std::regex_match(str, match, regular) && str != ""
+			&& str != "Заполняет инженер") // костыль
+		{
 			return true;
 		}
 		return false;
@@ -362,49 +368,58 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldObjectHeight() {
 		std::string str = utils::toStdString(_tb_height->Text);
-		std::regex regular("([0-9.]+)");
+		std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
 		std::smatch match;
-		if (std::regex_match(str, match, regular)) {
+		if (std::regex_match(str, match, regular) && str != "") {
 			return true;
 		}
 		return false;
 	}
 
 	bool MainForm::isCorrectFieldWeight() {
-		std::string str = utils::toStdString(_tb_weight->Text);
-		std::regex regular("([0-9.]+)");
-		std::smatch match;
-		if (std::regex_match(str, match, regular)) {
-			return true;
+		if (_rb_facing_unstandart->Checked) {
+			std::string str = utils::toStdString(_tb_weight->Text);
+			std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
+			std::smatch match;
+			if (std::regex_match(str, match, regular) && str != "") {
+				return true;
+			}
+			return false;
 		}
-		return false;
+		return true;
 	}
 
 	bool MainForm::isCorrectFieldC1() {
-		std::string str = utils::toStdString(_tb_c1->Text);
-		std::regex regular("([0-9.]+)");
-		std::smatch match;
-		if (std::regex_match(str, match, regular)) {
-			return true;
+		if (_chb_aerodynamic_factor->Checked) {
+			std::string str = utils::toStdString(_tb_c1->Text);
+			std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
+			std::smatch match;
+			if (std::regex_match(str, match, regular) && str != "") {
+				return true;
+			}
+			return false;
 		}
-		return false;
+		return true;
 	} 
 
 	bool MainForm::isCorrectFieldC2() {
-		std::string str = utils::toStdString(_tb_c2->Text);
-		std::regex regular("([0-9.]+)");
-		std::smatch match;
-		if (std::regex_match(str, match, regular)) {
-			return true;
+		if (_chb_aerodynamic_factor->Checked) {
+			std::string str = utils::toStdString(_tb_c2->Text);
+			std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
+			std::smatch match;
+			if (std::regex_match(str, match, regular) && str != "") {
+				return true;
+			}
+			return false;
 		}
-		return false;
+		return true;
 	} 
 
 	bool MainForm::isCorrectFieldFacingRadius() {
 		std::string str = utils::toStdString(_tb_facing_radius->Text);
-		std::regex regular("([0-9.]+)");
+		std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
 		std::smatch match;
-		if (std::regex_match(str, match, regular)) {
+		if (std::regex_match(str, match, regular) && str != "") {
 			return true;
 		}
 		return false;
@@ -412,9 +427,9 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldVerticalRZ() {
 		std::string str = utils::toStdString(_tb_v_step_bracket_ordinary_area->Text);
-		std::regex regular("([0-9.]+)");
+		std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
 		std::smatch match;
-		if (std::regex_match(str, match, regular)) {
+		if (std::regex_match(str, match, regular) && str != "") {
 			return true;
 		}
 		return false;
@@ -422,9 +437,9 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldVerticalKZ() {
 		std::string str = utils::toStdString(_tb_v_step_bracket_marginal_area->Text);
-		std::regex regular("([0-9.]+)");
+		std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
 		std::smatch match;
-		if (std::regex_match(str, match, regular)) {
+		if (std::regex_match(str, match, regular) && str != "") {
 			return true;
 		}
 		return false;
@@ -432,9 +447,9 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldHorizontalRZ() {
 		std::string str = utils::toStdString(_tb_h_step_bracket_ordinary_area->Text);
-		std::regex regular("([0-9.]+)");
+		std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
 		std::smatch match;
-		if (std::regex_match(str, match, regular)) {
+		if (std::regex_match(str, match, regular) && str != "") {
 			return true;
 		}
 		return false;
@@ -442,9 +457,9 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldHorizontalKZ() {
 		std::string str = utils::toStdString(_tb_h_step_bracket_marginal_area->Text);
-		std::regex regular("([0-9.]+)");
+		std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
 		std::smatch match;
-		if (std::regex_match(str, match, regular)) {
+		if (std::regex_match(str, match, regular) && str != "") {
 			return true;
 		}
 		return false;
@@ -452,9 +467,9 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldVerticalStep() {
 		std::string str = utils::toStdString(_tb_v_step_profile->Text);
-		std::regex regular("([0-9.]+)");
+		std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
 		std::smatch match;
-		if (std::regex_match(str, match, regular)) {
+		if (std::regex_match(str, match, regular) && str != "") {
 			return true;
 		}
 		return false;
@@ -462,9 +477,9 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldHorizontalStep() {
 		std::string str = utils::toStdString(_tb_h_step_profile->Text);
-		std::regex regular("([0-9.]+)");
+		std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
 		std::smatch match;
-		if (std::regex_match(str, match, regular)) {
+		if (std::regex_match(str, match, regular) && str != "") {
 			return true;
 		}
 		return false;

@@ -777,6 +777,7 @@ namespace zias {
 			this->_chb_aerodynamic_factor->TabIndex = 39;
 			this->_chb_aerodynamic_factor->Text = L"Аэродинамический коэффициент:";
 			this->_chb_aerodynamic_factor->UseVisualStyleBackColor = true;
+			this->_chb_aerodynamic_factor->CheckedChanged += gcnew System::EventHandler(this, &MainForm::_changedValueVariationsCheckBox);
 			// 
 			// _l_c2
 			// 
@@ -802,6 +803,7 @@ namespace zias {
 			// 
 			// _tb_c1
 			// 
+			this->_tb_c1->Enabled = false;
 			this->_tb_c1->Location = System::Drawing::Point(45, 87);
 			this->_tb_c1->Name = L"_tb_c1";
 			this->_tb_c1->Size = System::Drawing::Size(80, 20);
@@ -811,6 +813,7 @@ namespace zias {
 			// 
 			// _tb_c2
 			// 
+			this->_tb_c2->Enabled = false;
 			this->_tb_c2->Location = System::Drawing::Point(45, 112);
 			this->_tb_c2->Name = L"_tb_c2";
 			this->_tb_c2->Size = System::Drawing::Size(80, 20);
@@ -1359,6 +1362,7 @@ namespace zias {
 			this->_pb_helper->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->_pb_helper->TabIndex = 61;
 			this->_pb_helper->TabStop = false;
+			this->_pb_helper->Click += gcnew System::EventHandler(this, &MainForm::openDocumentation);
 			// 
 			// MainForm
 			// 
@@ -1630,6 +1634,27 @@ namespace zias {
 			// вариации
 			_cb_bracket->Enabled = !_cb_bracket->Enabled;
 			_cb_profile->Enabled = !_cb_profile->Enabled;
+		}
+
+		// _b_calculate_account_Click		
+		private: System::Void _changedValueVariationsCheckBox(System::Object^  sender, System::EventArgs^  e) {
+			_tb_c1->Enabled = !_tb_c1->Enabled;
+			_tb_c2->Enabled = !_tb_c2->Enabled;
+		}
+		
+		private: System::Void openDocumentation(System::Object^  sender, System::EventArgs^  e) {
+			// TODO: открываем файл документации
+			// полный путь: _PATH_TO_DOCUMENTATION_ + _HELP_DOCUMENT_NAME_
+			// наверное, лучше будет переделать, мне не нравиться открытие файла через функцию ShellExecute
+			// возможно это плохо (но это первое, что мне в голову пришло + работает)
+
+			String^ filename = _PATH_TO_DOCUMENTATION_ + _HELP_DOCUMENT_NAME_;
+			if (std::tr2::sys::exists(std::tr2::sys::path(utils::toStdString(filename)))) {
+				ShellExecute(nullptr, "open", utils::toStdString(filename).c_str(), 0, 0, SW_SHOWNORMAL);
+			 } else { 
+				 MessageBox::Show(L"Скорее всего файл был удален или поврежден", L"Не найден файл документации", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			 }
+
 		}
 
 		// _b_calculate_account_Click

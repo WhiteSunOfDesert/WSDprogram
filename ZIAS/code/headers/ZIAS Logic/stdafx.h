@@ -27,6 +27,7 @@
 #include <filesystem>
 #include <initializer_list>
 #include <regex>
+#include <shellapi.h>
 
 // собственная библиотека утилитных функций
 #include <utils/utils.hpp>
