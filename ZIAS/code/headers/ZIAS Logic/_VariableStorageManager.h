@@ -16,7 +16,7 @@ namespace zias {
 	struct FormDataArgs;
 	// список переменных и констант, которые желательно не забыть включить в список _variables
 	/* variable names				from	isNeedCalculate
-	 *					b			 xml		yes
+	 *					b_ice		 xml		yes
 	 *					w_0			 xml		yes
 	 *					k_ice		 xml		yes
 	 *					k_ze		 xml		yes
@@ -48,7 +48,7 @@ namespace zias {
 
 		static std::map<std::string, float> _variables;
 
-		static std::map<short, float> _table_b;
+		static std::map<short, float> _table_b_ice;
 		static std::map<short, float> _table_w_0;
 		static std::map<float, float> _table_k_ice;
 		static std::map<float, float(*)[3]> _table_k_ze;
@@ -63,14 +63,14 @@ namespace zias {
 		static std::map<std::string, float> getVariables();
 		static void updateValues(const FormDataArgs& my_args);
 
-		static void addToTable_b(const short& my_ice_district_id, const float& my_value);
+		static void addToTable_b_ice(const short& my_ice_district_id, const float& my_value);
 		static void addToTable_w_0(const short& my_wind_district_id, const float& my_value);
 		static void addToTable_k_ice(const float& my_height, const float& my_value);
 		static void addToTable_k_ze(const float& my_height, const float& my_Avalue, const float& my_Bvalue, const float& my_Cvalue);
 		static void addToTable_ksi_ze(const float& my_height, const float& my_Avalue, const float& my_Bvalue, const float& my_Cvalue);
 
 	private:		
-		static void calculate_b(std::shared_ptr<IceDistrict> my_ice_district);
+		static void calculate_b_ice(std::shared_ptr<IceDistrict> my_ice_district);
 		static void calculate_w_0(std::shared_ptr<WindDistrict> my_wind_district);
 		static void calculate_k_ice(const float& my_height);
 		static void calculate_k_ze(const float& my_height, std::shared_ptr<LocationType> my_location_type);
@@ -93,14 +93,21 @@ namespace zias {
 		static void calculate_i_312();
 		static void calculate_q_321();
 		static void calculate_q_411();
+		static void calculate_S_1(const float& my_v_step_bracket_ordinary_area, const float& my_v_step_profile);
+		static void calculate_P_1();
+		static void calculate_N_1();
+		static void calculate_P_2();
+		static void calculate_N_2();
+		static void calculate_S_2(const float& my_v_step_bracket_ordinary_area, const float& my_v_step_profile);
+		static void calculate_P_3();
+		static void calculate_N_3();
 		static void calculate_qy_0();
 		static void calculate_qy_1();
 		static void calculate_qz_0();
 		static void calculate_qz_1();
-		static void calculate_S_1(const float& my_height, const float& my_weight);
-		static void calculate_R_1();
-		static void calculate_R_2();
-		static void calculate_R_3();
+		static void calculate_R_1(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);
+		static void calculate_R_2(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);
+		static void calculate_R_3(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);
 
 	public:
 		~VariableStorageManager();

@@ -119,6 +119,12 @@ namespace zias {
 		result_data.checkAnker = _chb_anker->Checked;
 		result_data.checkNVFConnection = _chb_nvf_elements->Checked;
 		result_data.checkNVFElements = _chb_nvf_connection->Checked;
+		result_data.facing_radius = utils::toFloat(_tb_facing_radius->Text);
+		result_data.v_step_bracket_ordinary_area = utils::toFloat(_tb_v_step_bracket_ordinary_area->Text);
+		result_data.h_step_bracket_ordinary_area = utils::toFloat(_tb_h_step_bracket_ordinary_area->Text);
+		result_data.v_step_bracket_marginal_area = utils::toFloat(_tb_v_step_bracket_marginal_area->Text);
+		result_data.h_step_bracket_marginal_area = utils::toFloat(_tb_h_step_bracket_marginal_area->Text);
+		result_data.conclusion = utils::toStdWString(_tb_conclusion->Text);
 
 		return result_data;
 	}
@@ -331,7 +337,7 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldObjectName() {
 		
-		std::string str = utils::toStdString(_tb_name->Text);
+		/*std::string str = utils::toStdString(_tb_name->Text);
 		std::regex regular("^([à-ÿÀ-ß¸¨a-zA-Z0-9.-:| ]+)$");
 		std::smatch match;
 		if (std::regex_match(str, match, regular) && str != ""
@@ -339,12 +345,14 @@ namespace zias {
 		{
 			return true;
 		}
-		return false;
+		return false;*/
+
+		return true;
 	}
 
 	bool MainForm::isCorrectFieldObjectCipher() {
 		std::string str = utils::toStdString(_tb_code->Text);
-		std::regex regular("^([à-ÿÀ-ß¸¨a-zA-Z0-9.-:| ]+)$");
+		std::regex regular("^([À-ß¨A-Z0-9.-_]+)$");
 		std::smatch match;
 		if (std::regex_match(str, match, regular) && str != ""
 			&& str != "Çàïîëíÿåò èíæåíåð") // êîñòûëü
@@ -356,7 +364,7 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldObjectResponsible() {
 		std::string str = utils::toStdString(_tb_responsible->Text);
-		std::regex regular("([à-ÿÀ-ß¸¨-]+[ ]{1,5}[à-ÿÀ-ß¸¨-]+)?");
+		std::regex regular("([à-ÿÀ-ß¸¨ .]+)?");
 		std::smatch match;
 		if (std::regex_match(str, match, regular) && str != ""
 			&& str != "Çàïîëíÿåò èíæåíåð") // êîñòûëü
@@ -368,7 +376,7 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldObjectHeight() {
 		std::string str = utils::toStdString(_tb_height->Text);
-		std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
+		std::regex regular("({0,1}[0-9]+[.]{0,1}[0-9]*)?");
 		std::smatch match;
 		if (std::regex_match(str, match, regular) && str != "") {
 			return true;
@@ -379,7 +387,7 @@ namespace zias {
 	bool MainForm::isCorrectFieldWeight() {
 		if (_rb_facing_unstandart->Checked) {
 			std::string str = utils::toStdString(_tb_weight->Text);
-			std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
+			std::regex regular("({0,1}[0-9]+[.]{0,1}[0-9]*)?");
 			std::smatch match;
 			if (std::regex_match(str, match, regular) && str != "") {
 				return true;
@@ -392,7 +400,7 @@ namespace zias {
 	bool MainForm::isCorrectFieldC1() {
 		if (_chb_aerodynamic_factor->Checked) {
 			std::string str = utils::toStdString(_tb_c1->Text);
-			std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
+			std::regex regular("({0,1}[0-9]+[.]{0,1}[0-9]*)?");
 			std::smatch match;
 			if (std::regex_match(str, match, regular) && str != "") {
 				return true;
@@ -405,7 +413,7 @@ namespace zias {
 	bool MainForm::isCorrectFieldC2() {
 		if (_chb_aerodynamic_factor->Checked) {
 			std::string str = utils::toStdString(_tb_c2->Text);
-			std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
+			std::regex regular("({0,1}[0-9]+[.]{0,1}[0-9]*)?");
 			std::smatch match;
 			if (std::regex_match(str, match, regular) && str != "") {
 				return true;
@@ -417,7 +425,7 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldFacingRadius() {
 		std::string str = utils::toStdString(_tb_facing_radius->Text);
-		std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
+		std::regex regular("({0,1}[0-9]+[.]{0,1}[0-9]*)?");
 		std::smatch match;
 		if (std::regex_match(str, match, regular) && str != "") {
 			return true;
@@ -427,7 +435,7 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldVerticalRZ() {
 		std::string str = utils::toStdString(_tb_v_step_bracket_ordinary_area->Text);
-		std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
+		std::regex regular("({0,1}[0-9]+[.]{0,1}[0-9]*)?");
 		std::smatch match;
 		if (std::regex_match(str, match, regular) && str != "") {
 			return true;
@@ -437,7 +445,7 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldVerticalKZ() {
 		std::string str = utils::toStdString(_tb_v_step_bracket_marginal_area->Text);
-		std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
+		std::regex regular("({0,1}[0-9]+[.]{0,1}[0-9]*)?");
 		std::smatch match;
 		if (std::regex_match(str, match, regular) && str != "") {
 			return true;
@@ -447,7 +455,7 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldHorizontalRZ() {
 		std::string str = utils::toStdString(_tb_h_step_bracket_ordinary_area->Text);
-		std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
+		std::regex regular("({0,1}[0-9]+[.]{0,1}[0-9]*)?");
 		std::smatch match;
 		if (std::regex_match(str, match, regular) && str != "") {
 			return true;
@@ -457,7 +465,7 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldHorizontalKZ() {
 		std::string str = utils::toStdString(_tb_h_step_bracket_marginal_area->Text);
-		std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
+		std::regex regular("({0,1}[0-9]+[.]{0,1}[0-9]*)?");
 		std::smatch match;
 		if (std::regex_match(str, match, regular) && str != "") {
 			return true;
@@ -467,7 +475,7 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldVerticalStep() {
 		std::string str = utils::toStdString(_tb_v_step_profile->Text);
-		std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
+		std::regex regular("({0,1}[0-9]+[.]{0,1}[0-9]*)?");
 		std::smatch match;
 		if (std::regex_match(str, match, regular) && str != "") {
 			return true;
@@ -477,7 +485,7 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldHorizontalStep() {
 		std::string str = utils::toStdString(_tb_h_step_profile->Text);
-		std::regex regular("([-]{0,1}[0-9]+[.]{0,1}[0-9]*)?");
+		std::regex regular("({0,1}[0-9]+[.]{0,1}[0-9]*)?");
 		std::smatch match;
 		if (std::regex_match(str, match, regular) && str != "") {
 			return true;

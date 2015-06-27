@@ -45,6 +45,12 @@ namespace zias {
 		bool							isSubsystemStandart;
 		float							v_step_profile;
 		float							h_step_profile;
+		float							facing_radius;
+		float							v_step_bracket_ordinary_area;
+		float							v_step_bracket_marginal_area;
+		float							h_step_bracket_ordinary_area;
+		float							h_step_bracket_marginal_area;
+		std::wstring					conclusion;
 
 		FormDataArgs() : 
 			city(nullptr),
@@ -69,7 +75,13 @@ namespace zias {
 			isFacingStandart(true),
 			isSubsystemStandart(true),
 			v_step_profile(0.f),
-			h_step_profile(0.f)
+			h_step_profile(0.f),
+			facing_radius(0.f),
+			v_step_bracket_ordinary_area(0.f),
+			v_step_bracket_marginal_area(0.f),
+			h_step_bracket_ordinary_area(0.f),
+			h_step_bracket_marginal_area(0.f),
+			conclusion(L"")
 		{}
 	};
 	

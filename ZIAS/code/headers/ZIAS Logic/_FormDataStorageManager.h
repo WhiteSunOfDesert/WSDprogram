@@ -64,8 +64,16 @@ namespace zias {
 	struct Bracket {
 		short id;
 		std::wstring name;
+		short x;
+		short b;
+		short c;
 
-		Bracket(short my_id = -1, std::wstring my_name = L"") : id(my_id), name(my_name) {}
+		Bracket(short my_id = -1, std::wstring my_name = L"", short my_x = -1, short my_b = -1, short my_c = -1)
+			: id(my_id),
+			name(my_name),
+			x(my_x),
+			b(my_b),
+			c(my_c){}
 	};
 
 	struct Profile {
@@ -128,7 +136,11 @@ namespace zias {
 										std::shared_ptr<Profile> my_profile_second,
 										const std::wstring& my_solution);
 
-			static void addBracket(const short& my_id, const std::wstring& my_name);
+			static void addBracket(	const short& my_id,
+									const std::wstring& my_name,
+									const short& my_x,
+									const short& my_b,
+									const short& my_c);
 			static void addProfile(const short& my_id, const std::wstring& my_name, const short& my_weight);
 
 			static std::shared_ptr<City> getCity(const short& my_id);

@@ -6,7 +6,7 @@ namespace zias {
 	std::shared_ptr<VariableStorageManager> VariableStorageManager::_instance = nullptr;
 	
 	std::map<std::string, float> VariableStorageManager::_variables;
-	std::map<short, float> VariableStorageManager::_table_b;
+	std::map<short, float> VariableStorageManager::_table_b_ice;
 	std::map<short, float> VariableStorageManager::_table_w_0;
 	std::map<float, float> VariableStorageManager::_table_k_ice;
 	std::map<float, float(*)[3]> VariableStorageManager::_table_k_ze;
@@ -16,7 +16,7 @@ namespace zias {
 	VariableStorageManager::VariableStorageManager() {
 		_variables.clear();
 
-		_table_b.clear();
+		_table_b_ice.clear();
 		_table_w_0.clear();
 		_table_k_ice.clear();
 		_table_k_ze.clear();
@@ -26,7 +26,7 @@ namespace zias {
 	VariableStorageManager::~VariableStorageManager() {
 		_variables.clear();
 
-		_table_b.clear();
+		_table_b_ice.clear();
 		_table_w_0.clear();
 		_table_k_ice.clear();
 		_table_k_ze.clear();
@@ -53,6 +53,14 @@ namespace zias {
 				"q_312",
 				"q_321",
 				"q_411",
+				"S_1",
+				"P_1",
+				"N_1",
+				"P_2",
+				"N_2",
+				"S_2",
+				"P_3",
+				"N_3",
 				"qy_0",
 				"qy_1",
 				"qz_0",
@@ -82,14 +90,14 @@ namespace zias {
 						for (auto data_source = root->first_node(); data_source != nullptr; data_source = data_source->next_sibling()) {
 							if (utils::equals(data_source->name(), "Var_Store")) {
 								for (auto var_store = data_source->first_node(); var_store != nullptr; var_store = var_store->next_sibling()) {
-									if (utils::equals(var_store->name(), "b")) {
+									if (utils::equals(var_store->name(), "b_ice")) {
 										std::string name = utils::lexical_cast<std::string>(var_store->name());
 										for (auto var_it = var_store->first_node(); var_it != nullptr; var_it = var_it->next_sibling()) {
 											if (utils::equals(var_it->name(), "var")) {
 												short ice_district_id = utils::lexical_cast<short>(var_it->first_attribute("ice_district_id")->value());
 												float value = utils::lexical_cast<float>(var_it->first_attribute("value")->value());
 
-												addToTable_b(ice_district_id, value);
+												addToTable_b_ice(ice_district_id, value);
 											}
 										}
 
@@ -202,10 +210,10 @@ namespace zias {
 		return _variables;
 	}
 
-	void VariableStorageManager::addToTable_b(const short& my_ice_district_id, const float& my_value) {
-		auto variable = _table_b.find(my_ice_district_id);
-		if (variable == end(_table_b)) {
-			_table_b.emplace(my_ice_district_id, my_value);
+	void VariableStorageManager::addToTable_b_ice(const short& my_ice_district_id, const float& my_value) {
+		auto variable = _table_b_ice.find(my_ice_district_id);
+		if (variable == end(_table_b_ice)) {
+			_table_b_ice.emplace(my_ice_district_id, my_value);
 		}
 		return;
 	}
@@ -245,7 +253,7 @@ namespace zias {
 	}
 
 	void VariableStorageManager::updateValues(const FormDataArgs& my_args) {
-		calculate_b(my_args.iceDistrict);
+		calculate_b_ice(my_args.iceDistrict);
 		calculate_w_0(my_args.windDistrict);
 		calculate_k_ice(my_args.objectHeight);
 		calculate_k_ze(my_args.objectHeight, my_args.locationType);
@@ -266,20 +274,28 @@ namespace zias {
 		calculate_i_312();
 		calculate_q_321();
 		calculate_q_411();
+		calculate_S_1(my_args.v_step_bracket_ordinary_area, my_args.v_step_profile);
+		calculate_P_1();
+		calculate_N_1();
+		calculate_P_2();
+		calculate_N_2();
+		calculate_S_2(my_args.v_step_bracket_marginal_area, my_args.v_step_profile);
+		calculate_P_3();
+		calculate_N_3();
 		calculate_qy_0();
 		calculate_qy_1();
 		calculate_qz_0();
 		calculate_qz_1();
 		calculate_S_1(my_args.objectHeight, my_args.weight);
-		calculate_R_1();
-		calculate_R_2();
-		calculate_R_3();
+		calculate_R_1(my_args.subsystem, my_args.bracket, my_args.isSubsystemStandart, my_args.facing_radius);
+		calculate_R_2(my_args.subsystem, my_args.bracket, my_args.isSubsystemStandart, my_args.facing_radius);
+		calculate_R_3(my_args.subsystem, my_args.bracket, my_args.isSubsystemStandart, my_args.facing_radius);
 		
 		return;
 	}
 
-	void VariableStorageManager::calculate_b(std::shared_ptr<IceDistrict> my_ice_district) {
-		_variables.at("b") = _table_b.at(my_ice_district->id);
+	void VariableStorageManager::calculate_b_ice(std::shared_ptr<IceDistrict> my_ice_district) {
+		_variables.at("b_ice") = _table_b_ice.at(my_ice_district->id);
 	}
 
 	void VariableStorageManager::calculate_w_0(std::shared_ptr<WindDistrict> my_wind_district) {
@@ -430,6 +446,38 @@ namespace zias {
 		}
 	}
 
+	void VariableStorageManager::calculate_S_1(const float& my_B1, const float& my_H1) {
+		_variables.at("S_1") = my_B1 * my_H1;
+	}
+
+	void VariableStorageManager::calculate_P_1() {
+		_variables.at("P_1") = (getVariable("i_312") + getVariable("q_sum")) * getVariable("S_1");
+	}
+
+	void VariableStorageManager::calculate_N_1() {
+		_variables.at("N_1") = getVariable("q_311") * getVariable("S_1");
+	}
+
+	void VariableStorageManager::calculate_P_2() {
+		_variables.at("P_2") = getVariable("q_sum") * getVariable("S_1");
+	}
+
+	void VariableStorageManager::calculate_N_2() {
+		_variables.at("N_2") = getVariable("q_321") * getVariable("S_1");
+	}
+
+	void VariableStorageManager::calculate_S_2(const float& my_B1, const float& my_H2) {
+		_variables.at("S_2") = my_B1 * my_H2;
+	}
+
+	void VariableStorageManager::calculate_P_3() {
+		_variables.at("P_3") = getVariable("q_sum") * getVariable("S_2");
+	}
+
+	void VariableStorageManager::calculate_N_3() {
+		_variables.at("N_3") = getVariable("q_411") * getVariable("S_2");
+	}
+
 	void VariableStorageManager::calculate_qy_1() {
 
 		_variables.at("qy_1") = getVariable("Q_411");
@@ -445,23 +493,54 @@ namespace zias {
 		_variables.at("qz_1") = getVariable("q_sum");
 	}
 
-	void VariableStorageManager::calculate_S_1(const float& my_height, const float& my_weight) {
+	void VariableStorageManager::calculate_R_1(	std::shared_ptr<Subsystem> my_subsystem,
+												std::shared_ptr<Bracket> my_bracket,
+												const bool& isSubsystem,
+												const float& my_facing_radius) {
 
-		_variables.at("S_1") = my_height * my_weight;
+		if (isSubsystem) {
+			_variables.at("R_1") = ((my_subsystem->bracket->x + my_subsystem->bracket->b) /
+				my_subsystem->bracket->b * getVariable("N_1")) +
+				(my_facing_radius / my_subsystem->bracket->c * getVariable("P_1"));
+		}
+		else {
+			_variables.at("R_1") = ((my_bracket->x + my_bracket->b) /
+				my_bracket->b * getVariable("N_1")) +
+				(my_facing_radius / my_bracket->c * getVariable("P_1"));
+		}
 	}
 
-	void VariableStorageManager::calculate_R_1() {
+	void VariableStorageManager::calculate_R_2(	std::shared_ptr<Subsystem> my_subsystem,
+												std::shared_ptr<Bracket> my_bracket,
+												const bool& isSubsystem,
+												const float& my_facing_radius) {
 
-		_variables.at("R_1") = 0.f;
+		if (isSubsystem) {
+			_variables.at("R_2") = ((my_subsystem->bracket->x + my_subsystem->bracket->b) /
+				my_subsystem->bracket->b * getVariable("N_2")) +
+				(my_facing_radius / my_subsystem->bracket->c * getVariable("P_2"));
+		}
+		else {
+			_variables.at("R_2") = ((my_bracket->x + my_bracket->b) /
+				my_bracket->b * getVariable("N_2")) +
+				(my_facing_radius / my_bracket->c * getVariable("P_2"));
+		}
 	}
 
-	void VariableStorageManager::calculate_R_2() {
+	void VariableStorageManager::calculate_R_3(	std::shared_ptr<Subsystem> my_subsystem,
+												std::shared_ptr<Bracket> my_bracket,
+												const bool& isSubsystem,
+												const float& my_facing_radius) {	
 
-		_variables.at("R_2") = 0.f;
-	}
-
-	void VariableStorageManager::calculate_R_3() {
-
-		_variables.at("R_3") = 0.f;
+		if (isSubsystem) {
+			_variables.at("R_3") = ((my_subsystem->bracket->x + my_subsystem->bracket->b) /
+				my_subsystem->bracket->b * getVariable("N_3")) +
+				(my_facing_radius / my_subsystem->bracket->c * getVariable("P_3"));
+		}
+		else {
+			_variables.at("R_3") = ((my_bracket->x + my_bracket->b) /
+				my_bracket->b * getVariable("N_3")) +
+				(my_facing_radius / my_bracket->c * getVariable("P_3"));
+		}
 	}
 } // zias

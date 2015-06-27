@@ -129,8 +129,11 @@ namespace zias {
 											if (utils::equals(brackets->name(), "bracket")) {
 												short id = utils::lexical_cast<short>(brackets->first_attribute("id")->value());
 												std::wstring name = utils::lexical_cast<std::wstring>(brackets->first_attribute("name")->value());
+												short x = utils::lexical_cast<short>(brackets->first_attribute("x")->value());
+												short b = utils::lexical_cast<short>(brackets->first_attribute("b")->value());
+												short c = utils::lexical_cast<short>(brackets->first_attribute("c")->value());
 												
-												addBracket(id, name);
+												addBracket(id, name, x, b, c);
 											}
 										}
 									}
@@ -210,9 +213,13 @@ namespace zias {
 		}
 	}
 
-	void FormDataStorageManager::addBracket(const short& my_id, const std::wstring& my_name) {
+	void FormDataStorageManager::addBracket(const short& my_id,
+											const std::wstring& my_name,
+											const short& my_x, 
+											const short& my_b, 
+											const short& my_c) {
 		if (!getBracket(my_id) && !getBracket(my_name)) {
-			_brackets.emplace_back(new Bracket(my_id, my_name));
+			_brackets.emplace_back(new Bracket(my_id, my_name, my_x, my_b, my_c));
 		}
 	}
 
