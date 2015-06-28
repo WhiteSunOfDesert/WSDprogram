@@ -85,6 +85,16 @@ namespace zias {
 		{}
 	};
 	
+	// состояние полей
+	enum eFieldStates {
+		fsNone,				// заглушка, на всякий случай для полей с неопределенным состоянием
+		fsCommon,			// обычное состояние (можно вводить данные в поле)
+		fsUncorrect,		// состояние неправильно введеных данных (когда проверка выдает ошибку заполнения поля)
+		fsLocked,			// поле заблокированно (нельзя вводить данные в поле)
+
+		fsCount				// количество возможных состояний
+	};
+
 	/// <summary>
 	/// Summary for MainForm
 	/// </summary>
@@ -133,21 +143,21 @@ namespace zias {
 				delete components;
 			}
 		}
-	private: BOOL _tb_name_isClick = false;
-	private: BOOL _tb_code_isClick = false;
-	private: BOOL _tb_responsible_isClick = false;
-	private: BOOL _tb_height_isClick = false;
-	private: BOOL _tb_v_step_bracket_ordinary_area_isClick = false;
-	private: BOOL _tb_v_step_bracket_marginal_area_isClick = false;
-	private: BOOL _tb_h_step_bracket_ordinary_area_isClick = false;
-	private: BOOL _tb_h_step_bracket_marginal_area_isClick = false;
-	private: BOOL _tb_conclusion_isClick = false;
-	private: BOOL _tb_v_step_profile_isClick = false;
-	private: BOOL _tb_h_step_profile_isClick = false;
-	private: BOOL _tb_facing_radius_isClick = false;
-	private: BOOL _tb_weight_isClick = false;
-	private: BOOL _tb_c1_isClick = false;
-	private: BOOL _tb_c2_isClick = false;
+	private: eFieldStates _tb_name_state = fsNone;
+	private: eFieldStates _tb_code_state = fsNone;
+	private: eFieldStates _tb_responsible_state = fsNone;
+	private: eFieldStates _tb_height_state = fsNone;
+	private: eFieldStates _tb_v_step_bracket_ordinary_area_state = fsNone;
+	private: eFieldStates _tb_v_step_bracket_marginal_area_state = fsNone;
+	private: eFieldStates _tb_h_step_bracket_ordinary_area_state = fsNone;
+	private: eFieldStates _tb_h_step_bracket_marginal_area_state = fsNone;
+	private: eFieldStates _tb_conclusion_state = fsNone;
+	private: eFieldStates _tb_v_step_profile_state = fsNone;
+	private: eFieldStates _tb_h_step_profile_state = fsNone;
+	private: eFieldStates _tb_facing_radius_state = fsNone;
+	private: eFieldStates _tb_weight_state = fsNone;
+	private: eFieldStates _tb_c1_state = fsNone;
+	private: eFieldStates _tb_c2_state = fsNone;
 	private: System::Windows::Forms::RadioButton^  _rb_climate_0;
 	private: System::Windows::Forms::RadioButton^  _rb_climate_1;
 	private: System::Windows::Forms::Label^  _l_climate;
@@ -1428,195 +1438,241 @@ namespace zias {
 
 		// _tb_name_MouseClick
 		private: System::Void _tb_name_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			if (!this->_tb_name_isClick) {
-				if (_tb_name->BackColor == System::Drawing::Color::Pink) {
+			switch (_tb_name_state) {
+				case fsNone : {
+					_tb_name->ForeColor = System::Drawing::Color::Black;
+					_tb_name->Text = L"";
+					_tb_name_state = fsCommon;
+				} case fsUncorrect : {
 					_tb_name->BackColor = System::Drawing::Color::White;
+					_tb_name_state = fsCommon;
+				} default : {
+				
 				}
-						
-				this->_tb_name->ForeColor = System::Drawing::Color::Black;
-				this->_tb_name->Text = L"";
-				this->_tb_name_isClick = true;
 			}
 		}
 
 		// _tb_code_MouseClick
 		private: System::Void _tb_code_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			if (!this->_tb_code_isClick) {
-				if (_tb_code->BackColor == System::Drawing::Color::Pink) {
+			switch (_tb_code_state) {
+				case fsNone : {
+					_tb_code->ForeColor = System::Drawing::Color::Black;
+					_tb_code->Text = L"";
+					_tb_code_state = fsCommon;
+				} case fsUncorrect : {
 					_tb_code->BackColor = System::Drawing::Color::White;
+					_tb_code_state = fsCommon;
+				} default : {
+				
 				}
-			
-				this->_tb_code->ForeColor = System::Drawing::Color::Black;
-				this->_tb_code->Text = L"";
-				this->_tb_code_isClick = true;
 			}
 		}
 
 		// _tb_responsible_MouseClick
 		private: System::Void _tb_responsible_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			if (!this->_tb_responsible_isClick) {
-				if (_tb_responsible->BackColor == System::Drawing::Color::Pink) {
+			switch (_tb_responsible_state) {
+				case fsNone : {
+					_tb_responsible->ForeColor = System::Drawing::Color::Black;
+					_tb_responsible->Text = L"";
+					_tb_responsible_state = fsCommon;
+				} case fsUncorrect : {
 					_tb_responsible->BackColor = System::Drawing::Color::White;
+					_tb_responsible_state = fsCommon;
+				} default : {
+				
 				}
-
-				this->_tb_responsible->ForeColor = System::Drawing::Color::Black;
-				this->_tb_responsible->Text = L"";
-				this->_tb_responsible_isClick = true;
 			}
 		}
 
 		// _tb_height_MouseClick
 		private: System::Void _tb_height_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			if (!this->_tb_height_isClick) {
-				if (_tb_height->BackColor == System::Drawing::Color::Pink) {
+			switch (_tb_height_state) {
+				case fsNone : {
+					_tb_height->ForeColor = System::Drawing::Color::Black;
+					_tb_height->Text = L"";
+					_tb_height_state = fsCommon;
+				} case fsUncorrect : {
 					_tb_height->BackColor = System::Drawing::Color::White;
+					_tb_height_state = fsCommon;
+				} default : {
+				
 				}
-
-				this->_tb_height->ForeColor = System::Drawing::Color::Black;
-				this->_tb_height->Text = L"";
-				this->_tb_height_isClick = true;
 			}
 		}
 
 		// _tb_v_step_bracket_ordinary_area_MouseClick
 		private: System::Void _tb_v_step_bracket_ordinary_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			if (!this->_tb_v_step_bracket_ordinary_area_isClick) {
-				if (_tb_v_step_bracket_ordinary_area->BackColor == System::Drawing::Color::Pink) {
+			switch (_tb_v_step_bracket_ordinary_area_state) {
+				case fsNone : {
+					_tb_v_step_bracket_ordinary_area->ForeColor = System::Drawing::Color::Black;
+					_tb_v_step_bracket_ordinary_area->Text = L"";
+					_tb_v_step_bracket_ordinary_area_state = fsCommon;
+				} case fsUncorrect : {
 					_tb_v_step_bracket_ordinary_area->BackColor = System::Drawing::Color::White;
+					_tb_v_step_bracket_ordinary_area_state = fsCommon;
+				} default : {
+				
 				}
-			
-				this->_tb_v_step_bracket_ordinary_area->ForeColor = System::Drawing::Color::Black;
-				this->_tb_v_step_bracket_ordinary_area->Text = L"";
-				this->_tb_v_step_bracket_ordinary_area_isClick = true;
 			}
 		}
 
 		// _tb_v_step_bracket_marginal_area_MouseClick
 		private: System::Void _tb_v_step_bracket_marginal_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			if (!this->_tb_v_step_bracket_marginal_area_isClick) {
-				if (_tb_v_step_bracket_marginal_area->BackColor == System::Drawing::Color::Pink) {
+			switch (_tb_v_step_bracket_marginal_area_state) {
+				case fsNone : {
+					_tb_v_step_bracket_marginal_area->ForeColor = System::Drawing::Color::Black;
+					_tb_v_step_bracket_marginal_area->Text = L"";
+					_tb_v_step_bracket_marginal_area_state = fsCommon;
+				} case fsUncorrect : {
 					_tb_v_step_bracket_marginal_area->BackColor = System::Drawing::Color::White;
+					_tb_v_step_bracket_marginal_area_state = fsCommon;
+				} default : {
+				
 				}
-			
-				this->_tb_v_step_bracket_marginal_area->ForeColor = System::Drawing::Color::Black;
-				this->_tb_v_step_bracket_marginal_area->Text = L"";
-				this->_tb_v_step_bracket_marginal_area_isClick = true;
 			}
 		}
 
 		// _tb_h_step_bracket_ordinary_area_MouseClick
 		private: System::Void _tb_h_step_bracket_ordinary_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			if (!this->_tb_h_step_bracket_ordinary_area_isClick) {
-				if (_tb_h_step_bracket_ordinary_area->BackColor == System::Drawing::Color::Pink) {
+			switch (_tb_h_step_bracket_ordinary_area_state) {
+				case fsNone : {
+					_tb_h_step_bracket_ordinary_area->ForeColor = System::Drawing::Color::Black;
+					_tb_h_step_bracket_ordinary_area->Text = L"";
+					_tb_h_step_bracket_ordinary_area_state = fsCommon;
+				} case fsUncorrect : {
 					_tb_h_step_bracket_ordinary_area->BackColor = System::Drawing::Color::White;
+					_tb_h_step_bracket_ordinary_area_state = fsCommon;
+				} default : {
+				
 				}
-			
-				this->_tb_h_step_bracket_ordinary_area->ForeColor = System::Drawing::Color::Black;
-				this->_tb_h_step_bracket_ordinary_area->Text = L"";
-				this->_tb_h_step_bracket_ordinary_area_isClick = true;
 			}
 		}
 
 		// _tb_h_step_bracket_marginal_area_MouseClick
 		private: System::Void _tb_h_step_bracket_marginal_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			if (!this->_tb_h_step_bracket_marginal_area_isClick) {
-				if (_tb_h_step_bracket_marginal_area->BackColor == System::Drawing::Color::Pink) {
+			switch (_tb_h_step_bracket_marginal_area_state) {
+				case fsNone : {
+					_tb_h_step_bracket_marginal_area->ForeColor = System::Drawing::Color::Black;
+					_tb_h_step_bracket_marginal_area->Text = L"";
+					_tb_h_step_bracket_marginal_area_state = fsCommon;
+				} case fsUncorrect : {
 					_tb_h_step_bracket_marginal_area->BackColor = System::Drawing::Color::White;
+					_tb_h_step_bracket_marginal_area_state = fsCommon;
+				} default : {
+				
 				}
-			
-				this->_tb_h_step_bracket_marginal_area->ForeColor = System::Drawing::Color::Black;
-				this->_tb_h_step_bracket_marginal_area->Text = L"";
-				this->_tb_h_step_bracket_marginal_area_isClick = true;
 			}
 		}
 
 		// _tb_conclusion_MouseClick
 		private: System::Void _tb_conclusion_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			if (!this->_tb_conclusion_isClick) {
-				if (_tb_conclusion->BackColor == System::Drawing::Color::Pink) {
+			switch (_tb_conclusion_state) {
+				case fsNone : {
+					_tb_conclusion->ForeColor = System::Drawing::Color::Black;
+					_tb_conclusion->Text = L"";
+					_tb_conclusion_state = fsCommon;
+				} case fsUncorrect : {
 					_tb_conclusion->BackColor = System::Drawing::Color::White;
+					_tb_conclusion_state = fsCommon;
+				} default : {
+				
 				}
-			
-				this->_tb_conclusion->ForeColor = System::Drawing::Color::Black;
-				this->_tb_conclusion->Text = L"";
-				this->_tb_conclusion_isClick = true;
 			}
 		}
 
 		// _tb_h_step_profile_MouseClick
 		private: System::Void _tb_h_step_profile_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			if (!_tb_h_step_profile_isClick) {
-				if (_tb_h_step_profile->BackColor == System::Drawing::Color::Pink) {
-					_tb_h_step_profile->BackColor = System::Drawing::Color::White;
-			
+			switch (_tb_h_step_profile_state) {
+				case fsNone : {
 					_tb_h_step_profile->ForeColor = System::Drawing::Color::Black;
 					_tb_h_step_profile->Text = L"";
-					_tb_h_step_profile_isClick = true;
+					_tb_h_step_profile_state = fsCommon;
+				} case fsUncorrect : {
+					_tb_h_step_profile->BackColor = System::Drawing::Color::White;
+					_tb_h_step_profile_state = fsCommon;
+				} default : {
+				
 				}
 			}
 		}
 
 		// _tb_v_step_profile_MouseClick
 		private: System::Void _tb_v_step_profile_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			if (!_tb_v_step_profile_isClick) {
-				if (_tb_v_step_profile->BackColor == System::Drawing::Color::Pink) {
+			switch (_tb_v_step_profile_state) {
+				case fsNone : {
+					_tb_v_step_profile->ForeColor = System::Drawing::Color::Black;
+					_tb_v_step_profile->Text = L"";
+					_tb_v_step_profile_state = fsCommon;
+				} case fsUncorrect : {
 					_tb_v_step_profile->BackColor = System::Drawing::Color::White;
+					_tb_v_step_profile_state = fsCommon;
+				} default : {
+				
 				}
-
-				this->_tb_v_step_profile->ForeColor = System::Drawing::Color::Black;
-				this->_tb_v_step_profile->Text = L"";
-				this->_tb_v_step_profile_isClick = true;
 			}
 		}
 
 		// _tb_facing_radius_MouseClick
 		private: System::Void _tb_facing_radius_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			if (!_tb_facing_radius_isClick) {
-				if (_tb_facing_radius->BackColor == System::Drawing::Color::Pink) {
+			switch (_tb_facing_radius_state) {
+				case fsNone : {
+					_tb_facing_radius->ForeColor = System::Drawing::Color::Black;
+					_tb_facing_radius->Text = L"";
+					_tb_facing_radius_state = fsCommon;
+				} case fsUncorrect : {
 					_tb_facing_radius->BackColor = System::Drawing::Color::White;
+					_tb_facing_radius_state = fsCommon;
+				} default : {
+				
 				}
-				this->_tb_facing_radius->ForeColor = System::Drawing::Color::Black;
-				this->_tb_facing_radius->Text = L"";
-				this->_tb_facing_radius_isClick = true;
 			}
 		}
 
 		// _tb_weight_MouseClick
 		private: System::Void _tb_weight_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			if (!_tb_weight_isClick) {
-				if (_tb_weight->BackColor == System::Drawing::Color::Pink) {
+			switch (_tb_weight_state) {
+				case fsNone : {
+					_tb_weight->ForeColor = System::Drawing::Color::Black;
+					_tb_weight->Text = L"";
+					_tb_weight_state = fsCommon;
+				} case fsUncorrect : {
 					_tb_weight->BackColor = System::Drawing::Color::White;
+					_tb_weight_state = fsCommon;
+				} default : {
+				
 				}
-
-				this->_tb_weight->ForeColor = System::Drawing::Color::Black;
-				this->_tb_weight->Text = L"";
-				this->_tb_weight_isClick = true;
 			}
 		}
 
 		// _tb_c1_MouseClick
 		private: System::Void _tb_c1_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			if (!_tb_c1_isClick) {
-				if (_tb_c1->BackColor == System::Drawing::Color::Pink) {
+			switch (_tb_c1_state) {
+				case fsNone : {
+					_tb_c1->ForeColor = System::Drawing::Color::Black;
+					_tb_c1->Text = L"";
+					_tb_c1_state = fsCommon;
+				} case fsUncorrect : {
 					_tb_c1->BackColor = System::Drawing::Color::White;
+					_tb_c1_state = fsCommon;
+				} default : {
+				
 				}
-
-				this->_tb_c1->ForeColor = System::Drawing::Color::Black;
-				this->_tb_c1->Text = L"";
-				this->_tb_c1_isClick = true;
 			}
 		}
 
 		// _tb_v_step_profile_MouseClick
 		private: System::Void _tb_c2_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			if (!_tb_c2_isClick) {
-				if (_tb_c2->BackColor == System::Drawing::Color::Pink) {
+			switch (_tb_c2_state) {
+				case fsNone : {
+					_tb_c2->ForeColor = System::Drawing::Color::Black;
+					_tb_c2->Text = L"";
+					_tb_c2_state = fsCommon;
+				} case fsUncorrect : {
 					_tb_c2->BackColor = System::Drawing::Color::White;
+					_tb_c2_state = fsCommon;
+				} default : {
+				
 				}
-
-				this->_tb_c2->ForeColor = System::Drawing::Color::Black;
-				this->_tb_c2->Text = L"";
-				this->_tb_c2_isClick = true;
 			}
 		}
 	
@@ -1636,10 +1692,16 @@ namespace zias {
 			_cb_facing->Enabled = !_cb_facing->Enabled;
 
 			// нестандартные
-			if (_tb_weight->BackColor == System::Drawing::Color::Pink) {
-				_tb_weight->BackColor = System::Drawing::Color::White;
-			}
 			_tb_weight->Enabled = !_tb_weight->Enabled;
+			
+			if (!_tb_weight->Enabled) {
+				_tb_weight->Text = L"";
+				_tb_weight->BackColor = System::Drawing::SystemColors::Window;
+				_tb_weight_state = fsLocked;
+			} else {
+				_tb_weight->BackColor = System::Drawing::Color::White;
+				_tb_weight_state = fsCommon;
+			}			
 		}			
 
 		// _changedValueSubsystemRadiobutton
@@ -1654,14 +1716,22 @@ namespace zias {
 
 		// _changedValueVariationsCheckBox		
 		private: System::Void _changedValueVariationsCheckBox(System::Object^  sender, System::EventArgs^  e) {
-			if (_tb_c1->BackColor == System::Drawing::Color::Pink) {
-				_tb_c1->BackColor = System::Drawing::Color::White;
-			}
-			if (_tb_c2->BackColor == System::Drawing::Color::Pink) {
-				_tb_c2->BackColor = System::Drawing::Color::White;
-			}
 			_tb_c1->Enabled = !_tb_c1->Enabled;
 			_tb_c2->Enabled = !_tb_c2->Enabled;
+			
+			if (!_tb_c1->Enabled || !_tb_c2->Enabled) {
+				_tb_c1->Text = L"";
+				_tb_c2->Text = L"";
+				_tb_c1->BackColor = System::Drawing::SystemColors::Window;
+				_tb_c2->BackColor = System::Drawing::SystemColors::Window;
+				_tb_c1_state = fsLocked;
+				_tb_c2_state = fsLocked;
+			} else {
+				_tb_c1->BackColor = System::Drawing::Color::White;
+				_tb_c2->BackColor = System::Drawing::Color::White;
+				_tb_c1_state = fsCommon;
+				_tb_c2_state = fsCommon;
+			}	
 		}
 		
 		// openDocumentation

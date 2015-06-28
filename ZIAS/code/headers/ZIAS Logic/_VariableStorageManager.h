@@ -69,6 +69,8 @@ namespace zias {
 		static void addToTable_k_ze(const float& my_height, const float& my_Avalue, const float& my_Bvalue, const float& my_Cvalue);
 		static void addToTable_ksi_ze(const float& my_height, const float& my_Avalue, const float& my_Bvalue, const float& my_Cvalue);
 
+		static std::map<short, float> GetTableB() { return _table_b_ice; }
+
 	private:		
 		static void calculate_b_ice(std::shared_ptr<IceDistrict> my_ice_district);
 		static void calculate_w_0(std::shared_ptr<WindDistrict> my_wind_district);
@@ -108,7 +110,7 @@ namespace zias {
 		static void calculate_R_1(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);
 		static void calculate_R_2(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);
 		static void calculate_R_3(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);
-
+		
 	public:
 		~VariableStorageManager();
 	private:

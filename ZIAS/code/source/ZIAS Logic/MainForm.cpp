@@ -138,7 +138,7 @@ namespace zias {
 			
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_name->BackColor = System::Drawing::Color::Pink;
-			_tb_name_isClick = false;
+			_tb_name_state = fsUncorrect;
 			_tb_name->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -151,7 +151,7 @@ namespace zias {
 			
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_code->BackColor = System::Drawing::Color::Pink;
-			_tb_code_isClick = false;
+			_tb_code_state = fsUncorrect;
 			_tb_code->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -164,7 +164,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_responsible->BackColor = System::Drawing::Color::Pink;
-			_tb_responsible_isClick = false;
+			_tb_responsible_state = fsUncorrect;
 			_tb_responsible->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -177,7 +177,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_height->BackColor = System::Drawing::Color::Pink;
-			_tb_height_isClick = false;
+			_tb_height_state = fsUncorrect;
 			_tb_height->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -190,7 +190,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_weight->BackColor = System::Drawing::Color::Pink;
-			_tb_weight_isClick = false;
+			_tb_weight_state = fsUncorrect;
 			_tb_weight->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -203,7 +203,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_c1->BackColor = System::Drawing::Color::Pink;
-			_tb_c1_isClick = false;
+			_tb_c1_state = fsUncorrect;
 			_tb_c1->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -216,7 +216,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_c2->BackColor = System::Drawing::Color::Pink;
-			_tb_c2_isClick = false;
+			_tb_c2_state = fsUncorrect;
 			_tb_c2->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -229,7 +229,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_facing_radius->BackColor = System::Drawing::Color::Pink;
-			_tb_facing_radius_isClick = false;
+			_tb_facing_radius_state = fsUncorrect;
 			_tb_facing_radius->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -242,7 +242,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_v_step_bracket_ordinary_area->BackColor = System::Drawing::Color::Pink;
-			_tb_v_step_bracket_ordinary_area_isClick = false;
+			_tb_v_step_bracket_ordinary_area_state = fsUncorrect;
 			_tb_v_step_bracket_ordinary_area->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -255,7 +255,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_v_step_bracket_marginal_area->BackColor = System::Drawing::Color::Pink;
-			_tb_v_step_bracket_marginal_area_isClick = false;
+			_tb_v_step_bracket_marginal_area_state = fsUncorrect;
 			_tb_v_step_bracket_marginal_area->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -268,7 +268,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_h_step_bracket_ordinary_area->BackColor = System::Drawing::Color::Pink;
-			_tb_h_step_bracket_ordinary_area_isClick = false;
+			_tb_h_step_bracket_ordinary_area_state = fsUncorrect;
 			_tb_h_step_bracket_ordinary_area->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -281,7 +281,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_h_step_bracket_marginal_area->BackColor = System::Drawing::Color::Pink;
-			_tb_h_step_bracket_marginal_area_isClick = false;
+			_tb_h_step_bracket_marginal_area_state = fsUncorrect;
 			_tb_h_step_bracket_marginal_area->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -294,7 +294,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_v_step_profile->BackColor = System::Drawing::Color::Pink;
-			_tb_v_step_profile_isClick = false;
+			_tb_v_step_profile_state = fsUncorrect;
 			_tb_v_step_profile->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -307,7 +307,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_h_step_profile->BackColor = System::Drawing::Color::Pink;
-			_tb_h_step_profile_isClick = false;
+			_tb_h_step_profile_state = fsUncorrect;
 			_tb_h_step_profile->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -327,10 +327,10 @@ namespace zias {
 		_tb_strength_bracket->Text = L"";		// ...
 		_tb_strength_extension->Text = L"";		// ...
 		_tb_connections->Text = L"";			// ...
-		_tb_Qy_0->Text = gcnew String("" + VariableStorageManager::Instance()->getVariable("Qy_0"));
-		_tb_Qy_1->Text = gcnew String("" + VariableStorageManager::Instance()->getVariable("Qy_1"));
-		_tb_Qz_0->Text = gcnew String("" + VariableStorageManager::Instance()->getVariable("Qz_0"));
-		_tb_Qz_1->Text = gcnew String("" + VariableStorageManager::Instance()->getVariable("Qz_1"));
+		_tb_Qy_0->Text = gcnew String("" + VariableStorageManager::Instance()->getVariable("qy_0"));
+		_tb_Qy_1->Text = gcnew String("" + VariableStorageManager::Instance()->getVariable("qy_1"));
+		_tb_Qz_0->Text = gcnew String("" + VariableStorageManager::Instance()->getVariable("qz_0"));
+		_tb_Qz_1->Text = gcnew String("" + VariableStorageManager::Instance()->getVariable("qz_1"));
 		
 		return;
 	}
@@ -340,7 +340,8 @@ namespace zias {
 		std::string str = utils::toStdString(_tb_name->Text);
 		std::regex regular("^([а-яА-ЯёЁa-zA-Z0-9.-:| ]+)$");
 		std::smatch match;
-		if (//std::regex_match(str, match, regular) && str != "" &&
+		if (//std::regex_match(str, match, regular) && 
+			str != "" &&
 			str != "Заполняет инженер") // костыль
 		{
 			return true;

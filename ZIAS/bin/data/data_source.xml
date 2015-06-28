@@ -143,14 +143,14 @@
 
   <!-- хранятся данные о переменных, константах -->
   <Var_Store>
-    <b>
+    <b_ice>
       <!-- толщина стенки гололеда, мм... -->
       <var ice_district_id="0"	value="3" />
       <var ice_district_id="1"	value="5" />
       <var ice_district_id="2"	value="10" />
       <var ice_district_id="3"	value="15" />
       <var ice_district_id="4"	value="20" />
-    </b>
+    </b_ice>
     <w_0>
       <!-- нормативное значение ветрового давления -->
       <var wind_district_id="0"	value="0.17" />

@@ -110,20 +110,6 @@ namespace zias {
 											}
 										}
 									}
-									if (utils::equals(entity_store->name(), "Subsystems")) {
-										for (auto subsystems = entity_store->first_node(); subsystems != nullptr; subsystems = subsystems->next_sibling()) {
-											if (utils::equals(subsystems->name(), "subsystem")) {
-												short id = utils::lexical_cast<short>(subsystems->first_attribute("id")->value());
-												std::wstring name = utils::lexical_cast<std::wstring>(subsystems->first_attribute("name")->value());
-												short bracket = utils::lexical_cast<short>(subsystems->first_attribute("bracket_id")->value());
-												short profile_first = utils::lexical_cast<short>(subsystems->first_attribute("profile_id_first")->value());
-												short profile_second = utils::lexical_cast<short>(subsystems->first_attribute("profile_id_second")->value());
-												std::wstring solution = utils::lexical_cast<std::wstring>(subsystems->first_attribute("solution")->value());
-
-												addSubsystem(id, name, getBracket(bracket), getProfile(profile_first), getProfile(profile_second), solution);
-											}
-										}
-									}
 									if (utils::equals(entity_store->name(), "Brackets")) {
 										for (auto brackets = entity_store->first_node(); brackets != nullptr; brackets = brackets->next_sibling()) {
 											if (utils::equals(brackets->name(), "bracket")) {
@@ -145,6 +131,20 @@ namespace zias {
 												short weight = utils::lexical_cast<short>(profiles->first_attribute("weight")->value());
 
 												addProfile(id, name, weight);
+											}
+										}
+									}
+									if (utils::equals(entity_store->name(), "Subsystems")) {
+										for (auto subsystems = entity_store->first_node(); subsystems != nullptr; subsystems = subsystems->next_sibling()) {
+											if (utils::equals(subsystems->name(), "subsystem")) {
+												short id = utils::lexical_cast<short>(subsystems->first_attribute("id")->value());
+												std::wstring name = utils::lexical_cast<std::wstring>(subsystems->first_attribute("name")->value());
+												short bracket = utils::lexical_cast<short>(subsystems->first_attribute("bracket_id")->value());
+												short profile_first = utils::lexical_cast<short>(subsystems->first_attribute("profile_id_first")->value());
+												short profile_second = utils::lexical_cast<short>(subsystems->first_attribute("profile_id_second")->value());
+												std::wstring solution = utils::lexical_cast<std::wstring>(subsystems->first_attribute("solution")->value());
+
+												addSubsystem(id, name, getBracket(bracket), getProfile(profile_first), getProfile(profile_second), solution);
 											}
 										}
 									}

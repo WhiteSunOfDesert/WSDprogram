@@ -37,7 +37,7 @@ namespace zias {
 		if (_instance == nullptr) {
 			_instance.reset(new VariableStorageManager());
 
-			// запихиваем в мапу переменные, которые не будут браться из xml-ки
+			// запихиваем в мапу переменные, которые НЕ будут браться из xml-ки
 			std::string vars[] = {
 				"weight_1",
 				"weight_2",
@@ -68,7 +68,9 @@ namespace zias {
 				"S_1",
 				"R_1",
 				"R_2",
-				"R_3"
+				"R_3",
+				"i_312",
+				"I_312"
 			};
 
 			for (auto& var : vars) {
@@ -259,7 +261,7 @@ namespace zias {
 		calculate_k_ze(my_args.objectHeight, my_args.locationType);
 		calculate_ksi_ze(my_args.objectHeight, my_args.locationType);
 		calculate_weight_1(my_args.facing, my_args.weight, my_args.isFacingStandart);
-		calculate_weight_2(my_args.subsystem ,my_args.profile, my_args.isSubsystemStandart);
+		calculate_weight_2(my_args.subsystem, my_args.profile, my_args.isSubsystemStandart);
 		calculate_Q_2();
 		calculate_q_2();
 		calculate_q_H(my_args.v_step_profile);

@@ -21,7 +21,7 @@
 
 // пути к рабочим директориям
 #define _PATH_TO_DATA_XML_			"..\\bin\\data\\data_source.xml"		// путь к xml c данными сущностей и численных переменных
-#define _PATH_TO_INPUT_REPORTS_		"..\\bin\\reports\\input\\"			// путь к "входным" отчетам для обработки
+#define _PATH_TO_INPUT_REPORTS_		"..\\bin\\reports\\input\\"				// путь к "входным" отчетам для обработки
 #define _PATH_TO_OUTPUT_REPORTS_	"..\\bin\\reports\\output\\"			// путь к "генерируемым" отчетам
 #define _PATH_TO_DOCUMENTATION_		"..\\bin\\documentation\\"				// путь к папке с докупентацией
 // ...
