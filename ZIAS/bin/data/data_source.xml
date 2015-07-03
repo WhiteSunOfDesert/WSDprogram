@@ -91,19 +91,6 @@
       <facing id="16" name="Объемная керамика (сверхтяжелые)"				weight="90" zias="100.05"/>
       <facing id="17" name="Натуральный и искусственный камень (20 мм)"	weight="53" zias="100.05"/>
     </Facings>
-    <Subsystems>
-      <!-- подсистемы -->
-      <subsystem id="0" name="КПР"				      bracket_id="0"  profile_id_first="1"  profile_id_second="-1" solution="Рядовые решения"/>
-      <subsystem id="1" name="Optima"				    bracket_id="1"  profile_id_first="1"  profile_id_second="-1" solution="Рядовые решения"/>
-      <subsystem id="2" name="Standard"			    bracket_id="2"  profile_id_first="0"  profile_id_second="-1" solution="Рядовые решения"/>
-      <subsystem id="3" name="Strong 1.2"			  bracket_id="4"  profile_id_first="0"  profile_id_second="-1" solution="Рядовые решения"/>
-      <subsystem id="4" name="Strong 1.5"			  bracket_id="5"  profile_id_first="0"  profile_id_second="-1" solution="Рядовые решения"/>
-      <subsystem id="5" name="Maxima"				    bracket_id="6"  profile_id_first="16" profile_id_second="17" solution="Междуэтажные решения"/>
-      <subsystem id="6" name="MaximaMedium"		  bracket_id="7"  profile_id_first="3"  profile_id_second="15" solution="Междуэтажные решения"/>
-      <subsystem id="7" name="MaximaLight"		  bracket_id="8"  profile_id_first="15" profile_id_second="16" solution="Междуэтажные решения"/>
-      <subsystem id="8" name="MediumStrong 1,2"	bracket_id="9"  profile_id_first="9"  profile_id_second="-1" solution="Междуэтажные решения"/>
-      <subsystem id="9" name="MediumStrong 1,5"	bracket_id="10" profile_id_first="9"  profile_id_second="-1" solution="Междуэтажные решения"/>
-    </Subsystems>
     <Brackets>
       <!-- кронштейны -->
       <bracket id="0"  name="КПР 1,2"			      x="0"   b="-1"  c="20"/>
@@ -139,6 +126,19 @@
       <profile id="16" name="O-50х30х1.2" 	    weight="1.4"/>
       <profile id="17" name="U-40x120x2"	      weight="4.8"/>
     </Profiles>
+    <Subsystems>
+      <!-- подсистемы -->
+      <subsystem id="0" name="КПР"				      bracket_id="0"  profile_id_first="1"  profile_id_second="-1" solution="Рядовые решения"/>
+      <subsystem id="1" name="Optima"				    bracket_id="1"  profile_id_first="1"  profile_id_second="-1" solution="Рядовые решения"/>
+      <subsystem id="2" name="Standard"			    bracket_id="2"  profile_id_first="0"  profile_id_second="-1" solution="Рядовые решения"/>
+      <subsystem id="3" name="Strong 1.2"			  bracket_id="4"  profile_id_first="0"  profile_id_second="-1" solution="Рядовые решения"/>
+      <subsystem id="4" name="Strong 1.5"			  bracket_id="5"  profile_id_first="0"  profile_id_second="-1" solution="Рядовые решения"/>
+      <subsystem id="5" name="Maxima"				    bracket_id="6"  profile_id_first="16" profile_id_second="17" solution="Междуэтажные решения"/>
+      <subsystem id="6" name="MaximaMedium"		  bracket_id="7"  profile_id_first="3"  profile_id_second="15" solution="Междуэтажные решения"/>
+      <subsystem id="7" name="MaximaLight"		  bracket_id="8"  profile_id_first="15" profile_id_second="16" solution="Междуэтажные решения"/>
+      <subsystem id="8" name="MediumStrong 1,2"	bracket_id="9"  profile_id_first="9"  profile_id_second="-1" solution="Междуэтажные решения"/>
+      <subsystem id="9" name="MediumStrong 1,5"	bracket_id="10" profile_id_first="9"  profile_id_second="-1" solution="Междуэтажные решения"/>
+    </Subsystems>
   </Entity_Store>
 
   <!-- хранятся данные о переменных, константах -->

@@ -79,12 +79,16 @@ namespace zias {
 		static void calculate_ksi_ze(const float& my_height, std::shared_ptr<LocationType> my_location_type);
 
 		// TODO: добавляем вычислительные методы для остальных переменных
+		// Вес облицовки
 		static void calculate_weight_1(std::shared_ptr<Facing> my_facing, const float& my_weight, const bool& isFacing);
+		// Вес профиля
 		static void calculate_weight_2(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Profile> my_profile, const bool& isSubsystem);
+		// Параметры Q, q, I, i определяются по принципу: параметр_цифры_параграфа, кроме q_H и q_sum из 2го параграфа
 		static void calculate_Q_2();
 		static void calculate_q_2();
 		static void calculate_q_H(const float& my_v_step_profile);
 		static void calculate_q_sum();
+		// Аэродинамические коэф.
 		static void calculate_c_1(const float& my_c1, const bool& my_checkAerodynamicFactor);
 		static void calculate_c_2(const float& my_c2, const bool& my_checkAerodynamicFactor);
 		static void calculate_Q_311();

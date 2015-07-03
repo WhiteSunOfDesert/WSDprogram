@@ -125,6 +125,10 @@ namespace zias {
 		result_data.v_step_bracket_marginal_area = utils::toFloat(_tb_v_step_bracket_marginal_area->Text);
 		result_data.h_step_bracket_marginal_area = utils::toFloat(_tb_h_step_bracket_marginal_area->Text);
 		result_data.conclusion = utils::toStdWString(_tb_conclusion->Text);
+		result_data.isFacingStandart = _rb_facing_standart->Checked;
+		result_data.isSubsystemStandart = _rb_subsystem_standart->Checked;
+		result_data.v_step_profile = utils::toFloat(_tb_v_step_profile->Text);
+		result_data.h_step_profile = utils::toFloat(_tb_h_step_profile->Text);
 
 		return result_data;
 	}
