@@ -326,7 +326,18 @@ namespace zias {
 
 	void MainForm::calculateAccount() {
 
-		_tb_digging_anker->Text = L"";			// ...
+		// _tb_digging_anker = max{R_1, R_2, R_3}
+		if (VariableStorageManager::Instance()->getVariable("R_1") >= VariableStorageManager::Instance()->getVariable("R_2") &&
+			VariableStorageManager::Instance()->getVariable("R_1") >= VariableStorageManager::Instance()->getVariable("R_3")) {
+			_tb_digging_anker->Text = gcnew String("" + VariableStorageManager::Instance()->getVariable("R_1"));
+		}
+		else if (VariableStorageManager::Instance()->getVariable("R_2") >= VariableStorageManager::Instance()->getVariable("R_3")) {
+			_tb_digging_anker->Text = gcnew String("" + VariableStorageManager::Instance()->getVariable("R_2"));
+		}
+		else {
+			_tb_digging_anker->Text = gcnew String("" + VariableStorageManager::Instance()->getVariable("R_3"));
+		}
+
 		_tb_strength_profile->Text = L"";		// ...
 		_tb_strength_bracket->Text = L"";		// ...
 		_tb_strength_extension->Text = L"";		// ...

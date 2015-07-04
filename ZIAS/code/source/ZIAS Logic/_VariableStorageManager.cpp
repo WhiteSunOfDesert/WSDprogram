@@ -295,8 +295,8 @@ namespace zias {
 		calculate_N_3();
 		calculate_qy_0();
 		calculate_qy_1();
-		calculate_qz_0();
-		calculate_qz_1();
+		calculate_qz_0(my_args.isSubsystemStandart, my_args.subsystem);
+		calculate_qz_1(my_args.isSubsystemStandart, my_args.subsystem);
 		calculate_R_1(my_args.subsystem, my_args.bracket, my_args.isSubsystemStandart, my_args.facing_radius);
 		calculate_R_2(my_args.subsystem, my_args.bracket, my_args.isSubsystemStandart, my_args.facing_radius);
 		calculate_R_3(my_args.subsystem, my_args.bracket, my_args.isSubsystemStandart, my_args.facing_radius);
@@ -399,7 +399,7 @@ namespace zias {
 
 	// рядовые
 	void VariableStorageManager::calculate_q_sum_r() {
-		_variables.at("q_sum_r") = getVariable("q_2") + getVariable("q_H");
+		_variables.at("q_sum_r") = getVariable("q_2") + getVariable("q_H_2");
 	}
 
 	// междуэтажные
@@ -442,7 +442,7 @@ namespace zias {
 
 	void VariableStorageManager::calculate_I_312() {
 
-		_variables.at("I_312") = getVariable("b") * getVariable("k_ice") *
+		_variables.at("I_312") = getVariable("b_ice") * getVariable("k_ice") *
 			getVariable("mu_2") * getVariable("rho") * getVariable("g");
 	}
 
@@ -524,14 +524,46 @@ namespace zias {
 		_variables.at("qy_1") = getVariable("Q_411");
 	}
 
-	void VariableStorageManager::calculate_qz_0() {
+	void VariableStorageManager::calculate_qz_0(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem) {
 
-		_variables.at("qz_0") = getVariable("q_sum_r") + getVariable("i_312");
+		if (isSubsystem) {
+			if (my_subsystem->name == _SUBSYSTEM_MAXIMA_ ||
+				my_subsystem->name == _SUBSYSTEM_MAXIMA_MEDIUM_ ||
+				my_subsystem->name == _SUBSYSTEM_MAXIMA_LIGHT_) {
+
+				_variables.at("qz_0") = getVariable("q_sum_1") + getVariable("i_312");
+			}
+			else if (my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_1_ || my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_2_) {
+				_variables.at("qz_0") = getVariable("q_sum_med_1") + getVariable("i_312");
+			}
+			else {
+				_variables.at("qz_0") = getVariable("q_sum_r") + getVariable("i_312");
+			}
+		}
+		else {
+			_variables.at("qz_0") = getVariable("q_sum_r") + getVariable("i_312");
+		}
 	}
 
-	void VariableStorageManager::calculate_qz_1() {
+	void VariableStorageManager::calculate_qz_1(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem) {
 
-		_variables.at("qz_1") = getVariable("q_sum_r");
+		if (isSubsystem) {
+			if (my_subsystem->name == _SUBSYSTEM_MAXIMA_ ||
+				my_subsystem->name == _SUBSYSTEM_MAXIMA_MEDIUM_ ||
+				my_subsystem->name == _SUBSYSTEM_MAXIMA_LIGHT_) {
+
+				_variables.at("qz_1") = getVariable("q_sum_2");
+			}
+			else if (my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_1_ || my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_2_) {
+				_variables.at("qz_1") = getVariable("q_sum_med_2");
+			}
+			else {
+				_variables.at("qz_1") = getVariable("q_sum_r");
+			}
+		}
+		else {
+			_variables.at("qz_1") = getVariable("q_sum_r");
+		}
 	}
 
 	void VariableStorageManager::calculate_R_1(	std::shared_ptr<Subsystem> my_subsystem,

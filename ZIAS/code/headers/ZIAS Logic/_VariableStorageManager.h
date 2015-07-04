@@ -9,7 +9,6 @@
  *	Copyright(c) 20.06.2015 "Õ¿«¬¿Õ»≈ Õ¿ÿ≈… —”œ≈–‘»–Ã€"
  *	All rights reserved.
  */
-
 #pragma once
 
 namespace zias {
@@ -118,8 +117,8 @@ namespace zias {
 		static void calculate_N_3();
 		static void calculate_qy_0();
 		static void calculate_qy_1();
-		static void calculate_qz_0();
-		static void calculate_qz_1();
+		static void calculate_qz_0(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem);
+		static void calculate_qz_1(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem);
 		static void calculate_R_1(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);
 		static void calculate_R_2(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);
 		static void calculate_R_3(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);

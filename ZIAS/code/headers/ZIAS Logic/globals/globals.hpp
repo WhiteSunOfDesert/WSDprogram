@@ -37,3 +37,10 @@
 #define _HELP_DOCUMENT_NAME_		"Documntation.pdf"						// файл документации, которая будет выводится при клике
 																			// на иконку "книжки" в главной форме
 // ...
+
+// Типы подсистем
+#define _SUBSYSTEM_MAXIMA_			L"Maxima"
+#define _SUBSYSTEM_MAXIMA_MEDIUM_	L"MaximaMedium"
+#define _SUBSYSTEM_MAXIMA_LIGHT_	L"MaximaLight"
+#define _SUBSYSTEM_MEDIUM_STRONG_1_	L"MediumStrong 1,2"
+#define _SUBSYSTEM_MEDIUM_STRONG_2_	L"MediumStrong 1,5"
