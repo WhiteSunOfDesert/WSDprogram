@@ -46,11 +46,9 @@ namespace zias {
 				"q_H",
 				"q_sum",
 				"Q_311",
-				"Q_312",
 				"Q_321",
 				"Q_411",
 				"q_311",
-				"q_312",
 				"q_321",
 				"q_411",
 				"S_1",
@@ -65,12 +63,13 @@ namespace zias {
 				"qy_1",
 				"qz_0",
 				"qz_1",
-				"S_1",
 				"R_1",
 				"R_2",
 				"R_3",
 				"i_312",
-				"I_312"
+				"I_312",
+				"c_1",
+				"c_2"
 			};
 
 			for (auto& var : vars) {
@@ -288,7 +287,6 @@ namespace zias {
 		calculate_qy_1();
 		calculate_qz_0();
 		calculate_qz_1();
-		calculate_S_1(my_args.objectHeight, my_args.weight);
 		calculate_R_1(my_args.subsystem, my_args.bracket, my_args.isSubsystemStandart, my_args.facing_radius);
 		calculate_R_2(my_args.subsystem, my_args.bracket, my_args.isSubsystemStandart, my_args.facing_radius);
 		calculate_R_3(my_args.subsystem, my_args.bracket, my_args.isSubsystemStandart, my_args.facing_radius);
