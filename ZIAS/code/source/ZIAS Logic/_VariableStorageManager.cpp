@@ -43,8 +43,12 @@ namespace zias {
 				"weight_2",
 				"Q_2",
 				"q_2",
-				"q_H",
-				"q_sum",
+				"q_H_1",
+				"q_H_2",
+				"q_H_3",
+				"q_sum_r",
+				"q_sum_1",
+				"q_sum_2",
 				"Q_311",
 				"Q_321",
 				"Q_411",
@@ -68,8 +72,6 @@ namespace zias {
 				"R_3",
 				"i_312",
 				"I_312",
-				"c_1",
-				"c_2"
 			};
 
 			for (auto& var : vars) {
@@ -263,8 +265,12 @@ namespace zias {
 		calculate_weight_2(my_args.subsystem, my_args.profile, my_args.isSubsystemStandart);
 		calculate_Q_2();
 		calculate_q_2();
-		calculate_q_H(my_args.v_step_profile);
-		calculate_q_sum();
+		calculate_q_H_1(my_args.h_step_profile);
+		calculate_q_H_2(my_args.v_step_profile);
+		calculate_q_H_3(my_args.h_step_profile);
+		calculate_q_sum_r();
+		calculate_q_sum_1();
+		calculate_q_sum_2();
 		calculate_c_1(my_args.c1, my_args.checkAerodynamicFactor);
 		calculate_c_2(my_args.c2, my_args.checkAerodynamicFactor);
 		calculate_Q_311();
@@ -372,13 +378,34 @@ namespace zias {
 		_variables.at("q_2") = getVariable("Q_2") * getVariable("gamma_f_1");
 	}
 
-	void VariableStorageManager::calculate_q_H(const float& my_v_step_profile) {
-		_variables.at("q_H") = getVariable("weight_2") * getVariable("g") * getVariable("gamma_f_2") /
+	void VariableStorageManager::calculate_q_H_1(const float& my_h_step_profile) {
+		_variables.at("q_H_1") = getVariable("weight_1") * getVariable("g") * getVariable("gamma_f_2") /
+			my_h_step_profile;
+	}
+
+	void VariableStorageManager::calculate_q_H_2(const float& my_v_step_profile) {
+		_variables.at("q_H_2") = getVariable("weight_2") * getVariable("g") * getVariable("gamma_f_2") /
 			my_v_step_profile;
 	}
 
-	void VariableStorageManager::calculate_q_sum() {
-		_variables.at("q_sum") = getVariable("q_2") + getVariable("q_H");
+	void VariableStorageManager::calculate_q_H_3(const float& my_h_step_profile) {
+		_variables.at("q_H_3") = getVariable("weight_2") * getVariable("g") * getVariable("gamma_f_2") /
+			my_h_step_profile;
+	}
+
+	// рядовые
+	void VariableStorageManager::calculate_q_sum_r() {
+		_variables.at("q_sum_r") = getVariable("q_2") + getVariable("q_H");
+	}
+
+	// междуэтажные
+	void VariableStorageManager::calculate_q_sum_1() {
+		_variables.at("q_sum_1") = getVariable("q_2") + getVariable("q_H_1") + getVariable("q_H_2");
+	}
+
+	// междуэтажные
+	void VariableStorageManager::calculate_q_sum_2() {
+		_variables.at("q_sum_2") = getVariable("q_2") + getVariable("q_H_1") + getVariable("q_H_3");
 	}
 
 	void VariableStorageManager::calculate_c_1(const float& my_c1, const bool& my_checkAerodynamicFactor) {

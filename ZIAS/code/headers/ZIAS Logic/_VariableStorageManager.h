@@ -86,8 +86,12 @@ namespace zias {
 		// Параметры Q, q, I, i определяются по принципу: параметр_цифры_параграфа, кроме q_H и q_sum из 2го параграфа
 		static void calculate_Q_2();
 		static void calculate_q_2();
-		static void calculate_q_H(const float& my_v_step_profile);
-		static void calculate_q_sum();
+		static void calculate_q_H_1(const float& my_h_step_profile);
+		static void calculate_q_H_2(const float& my_v_step_profile);
+		static void calculate_q_H_3(const float& my_h_step_profile);
+		static void calculate_q_sum_r();
+		static void calculate_q_sum_1();
+		static void calculate_q_sum_2();
 		// Аэродинамические коэф.
 		static void calculate_c_1(const float& my_c1, const bool& my_checkAerodynamicFactor);
 		static void calculate_c_2(const float& my_c2, const bool& my_checkAerodynamicFactor);
