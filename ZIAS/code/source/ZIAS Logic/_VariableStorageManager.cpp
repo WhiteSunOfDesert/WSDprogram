@@ -492,7 +492,7 @@ namespace zias {
 	}
 
 	void VariableStorageManager::calculate_P_1() {
-		_variables.at("P_1") = (getVariable("i_312") + getVariable("q_sum")) * getVariable("S_1");
+		_variables.at("P_1") = (getVariable("i_312") + getVariable("q_sum_r")) * getVariable("S_1");
 	}
 
 	void VariableStorageManager::calculate_N_1() {
@@ -500,7 +500,7 @@ namespace zias {
 	}
 
 	void VariableStorageManager::calculate_P_2() {
-		_variables.at("P_2") = getVariable("q_sum") * getVariable("S_1");
+		_variables.at("P_2") = getVariable("q_sum_r") * getVariable("S_1");
 	}
 
 	void VariableStorageManager::calculate_N_2() {
@@ -512,7 +512,7 @@ namespace zias {
 	}
 
 	void VariableStorageManager::calculate_P_3() {
-		_variables.at("P_3") = getVariable("q_sum") * getVariable("S_2");
+		_variables.at("P_3") = getVariable("q_sum_r") * getVariable("S_2");
 	}
 
 	void VariableStorageManager::calculate_N_3() {
@@ -526,12 +526,12 @@ namespace zias {
 
 	void VariableStorageManager::calculate_qz_0() {
 
-		_variables.at("qz_0") = getVariable("q_sum") + getVariable("i_312");
+		_variables.at("qz_0") = getVariable("q_sum_r") + getVariable("i_312");
 	}
 
 	void VariableStorageManager::calculate_qz_1() {
 
-		_variables.at("qz_1") = getVariable("q_sum");
+		_variables.at("qz_1") = getVariable("q_sum_r");
 	}
 
 	void VariableStorageManager::calculate_R_1(	std::shared_ptr<Subsystem> my_subsystem,
