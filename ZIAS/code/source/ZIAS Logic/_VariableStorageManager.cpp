@@ -49,6 +49,8 @@ namespace zias {
 				"q_sum_r",
 				"q_sum_1",
 				"q_sum_2",
+				"q_sum_med_1",
+				"q_sum_med_2",
 				"Q_311",
 				"Q_321",
 				"Q_411",
@@ -271,6 +273,8 @@ namespace zias {
 		calculate_q_sum_r();
 		calculate_q_sum_1();
 		calculate_q_sum_2();
+		calculate_q_sum_med_1();
+		calculate_q_sum_med_2();
 		calculate_c_1(my_args.c1, my_args.checkAerodynamicFactor);
 		calculate_c_2(my_args.c2, my_args.checkAerodynamicFactor);
 		calculate_Q_311();
@@ -406,6 +410,16 @@ namespace zias {
 	// междуэтажные
 	void VariableStorageManager::calculate_q_sum_2() {
 		_variables.at("q_sum_2") = getVariable("q_2") + getVariable("q_H_1") + getVariable("q_H_3");
+	}
+
+	// Medium Strong
+	void VariableStorageManager::calculate_q_sum_med_1() {
+		_variables.at("q_sum_med_1") = getVariable("q_2") + getVariable("q_H_2");
+	}
+
+	// Medium Strong
+	void VariableStorageManager::calculate_q_sum_med_2() {
+		_variables.at("q_sum_med_2") = getVariable("q_2") + getVariable("q_H_3");
 	}
 
 	void VariableStorageManager::calculate_c_1(const float& my_c1, const bool& my_checkAerodynamicFactor) {

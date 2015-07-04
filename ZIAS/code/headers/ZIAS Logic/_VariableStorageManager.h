@@ -87,11 +87,16 @@ namespace zias {
 		static void calculate_Q_2();
 		static void calculate_q_2();
 		static void calculate_q_H_1(const float& my_h_step_profile);
-		static void calculate_q_H_2(const float& my_v_step_profile);
+		static void calculate_q_H_2(const float& my_v_step_profile); // Относится и к рядовым
 		static void calculate_q_H_3(const float& my_h_step_profile);
+		// Рядовые
 		static void calculate_q_sum_r();
+		// Междуэтажные
 		static void calculate_q_sum_1();
 		static void calculate_q_sum_2();
+		// Medium Strong
+		static void calculate_q_sum_med_1();
+		static void calculate_q_sum_med_2();
 		// Аэродинамические коэф.
 		static void calculate_c_1(const float& my_c1, const bool& my_checkAerodynamicFactor);
 		static void calculate_c_2(const float& my_c2, const bool& my_checkAerodynamicFactor);
