@@ -24,13 +24,13 @@ namespace zias {
 	}
 
 	VariableStorageManager::~VariableStorageManager() {
-		_variables.clear();
-
-		_table_b_ice.clear();
-		_table_w_0.clear();
-		_table_k_ice.clear();
-		_table_k_ze.clear();
-		_table_ksi_ze.clear();
+		if (!_variables.empty()) _variables.clear();
+		
+		if (!_table_b_ice.empty()) _table_b_ice.clear();
+		if (!_table_w_0.empty()) _table_w_0.clear();
+		if (!_table_k_ice.empty()) _table_k_ice.clear();
+		if (!_table_k_ze.empty()) _table_k_ze.clear();
+		if (!_table_ksi_ze.empty()) _table_ksi_ze.clear();
 	}
 
 	std::shared_ptr<VariableStorageManager>& VariableStorageManager::Instance() {

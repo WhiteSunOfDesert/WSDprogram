@@ -27,14 +27,14 @@ namespace zias {
 	}
 
 	FormDataStorageManager::~FormDataStorageManager() {
-		_cities.clear();
-		_wind_districts.clear();
-		_ice_district.clear();
-		_location_types.clear();
-		_facings.clear();
-		_subsystems.clear();
-		_brackets.clear();
-		_profiles.clear();
+		if (!_cities.empty()) _cities.clear();
+		if (!_wind_districts.empty()) _wind_districts.clear();
+		if (!_ice_district.empty()) _ice_district.clear();
+		if (!_location_types.empty()) _location_types.clear();
+		if (!_facings.empty()) _facings.clear();
+		if (!_subsystems.empty()) _subsystems.clear();
+		if (!_brackets.empty()) _brackets.clear();
+		if (!_profiles.empty()) _profiles.clear();
 	}
 
 	std::shared_ptr<FormDataStorageManager>& FormDataStorageManager::Instance() {
