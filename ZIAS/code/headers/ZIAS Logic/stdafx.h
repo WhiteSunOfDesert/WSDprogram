@@ -28,6 +28,7 @@
 #include <initializer_list>
 #include <regex>
 #include <shellapi.h>
+#include <array>
 
 // собственная библиотека утилитных функций
 #include <utils/utils.hpp>

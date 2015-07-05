@@ -378,7 +378,7 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldObjectResponsible() {
 		std::string str = utils::toStdString(_tb_responsible->Text);
-		std::regex regular("([а-яА-ЯёЁ .]+)?");
+		std::regex regular("([а-яА-ЯёЁ .-]+)?");
 		std::smatch match;
 		if (std::regex_match(str, match, regular) && str != ""
 			&& str != "Заполняет инженер") // костыль
