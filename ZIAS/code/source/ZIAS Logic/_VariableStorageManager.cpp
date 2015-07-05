@@ -41,16 +41,21 @@ namespace zias {
 			std::string vars[] = {
 				"weight_1",
 				"weight_2",
+				"weight_3",
 				"Q_2",
 				"q_2",
+				"q_H_r",
 				"q_H_1",
 				"q_H_2",
 				"q_H_3",
+				"q_H_max_1",
+				"q_H_max_2",
+				"q_H_max_3",
 				"q_sum_r",
 				"q_sum_1",
 				"q_sum_2",
-				"q_sum_med_1",
-				"q_sum_med_2",
+				"q_sum_max_1",
+				"q_sum_max_2",
 				"Q_311",
 				"Q_321",
 				"Q_411",
@@ -267,16 +272,21 @@ namespace zias {
 		calculate_ksi_ze(my_args.objectHeight, my_args.locationType);
 		calculate_weight_1(my_args.facing, my_args.weight, my_args.isFacingStandart);
 		calculate_weight_2(my_args.subsystem, my_args.profile, my_args.isSubsystemStandart);
+		calculate_weight_3(my_args.subsystem, my_args.profile, my_args.isSubsystemStandart); // С профилем разобраться !!!
 		calculate_Q_2();
 		calculate_q_2();
-		calculate_q_H_1(my_args.h_step_profile);
-		calculate_q_H_2(my_args.v_step_profile);
-		calculate_q_H_3(my_args.h_step_profile);
+		calculate_q_H_r(my_args.v_step_profile);
+		calculate_q_H_1(my_args.v_step_profile);
+		calculate_q_H_2(my_args.h_step_profile);
+		calculate_q_H_3(1.f, my_args.subsystem, my_args.isSubsystemStandart); // нужно H3 вставить!!!
+		calculate_q_H_max_1(1.f); // нужно H3 вставить!!!
+		calculate_q_H_max_2(my_args.v_step_profile);
+		calculate_q_H_max_3(my_args.h_step_profile);
 		calculate_q_sum_r();
 		calculate_q_sum_1();
 		calculate_q_sum_2();
-		calculate_q_sum_med_1();
-		calculate_q_sum_med_2();
+		calculate_q_sum_max_1();
+		calculate_q_sum_max_2();
 		calculate_c_1(my_args.c1, my_args.checkAerodynamicFactor);
 		calculate_c_2(my_args.c2, my_args.checkAerodynamicFactor);
 		calculate_Q_311();
@@ -376,6 +386,15 @@ namespace zias {
 		}
 	}
 
+	void VariableStorageManager::calculate_weight_3(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Profile> my_profile, const bool& isSubsystem) {
+		if (isSubsystem) {
+			_variables.at("weight_3") = my_subsystem->profile_second->weight;
+		}
+		else{
+			_variables.at("weight_3") = my_profile->weight;
+		}
+	}
+
 	void VariableStorageManager::calculate_Q_2() {
 		_variables.at("Q_2") = getVariable("weight_1") * getVariable("g");
 	}
@@ -384,8 +403,13 @@ namespace zias {
 		_variables.at("q_2") = getVariable("Q_2") * getVariable("gamma_f_1");
 	}
 
+	void VariableStorageManager::calculate_q_H_r(const float& my_v_step_profile) {
+		_variables.at("q_H_r") = getVariable("weight_2") * getVariable("g") * getVariable("gamma_f_2") /
+			my_v_step_profile;
+	}
+
 	void VariableStorageManager::calculate_q_H_1(const float& my_h_step_profile) {
-		_variables.at("q_H_1") = getVariable("weight_1") * getVariable("g") * getVariable("gamma_f_2") /
+		_variables.at("q_H_1") = getVariable("weight_2") * getVariable("g") * getVariable("gamma_f_2") /
 			my_h_step_profile;
 	}
 
@@ -394,34 +418,54 @@ namespace zias {
 			my_v_step_profile;
 	}
 
-	void VariableStorageManager::calculate_q_H_3(const float& my_h_step_profile) {
-		_variables.at("q_H_3") = getVariable("weight_2") * getVariable("g") * getVariable("gamma_f_2") /
+	void VariableStorageManager::calculate_q_H_3(const float& my_step_profile, std::shared_ptr<Subsystem> my_subsystem, const bool& isSubsystem) {
+		if (isSubsystem && (my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_1_ || my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_2_)) {
+			_variables.at("q_H_3") = 0.f;
+		}
+		else {
+			_variables.at("q_H_3") = getVariable("weight_3") * getVariable("g") * getVariable("gamma_f_2") /
+				my_step_profile;
+		}
+	}
+
+	void VariableStorageManager::calculate_q_H_max_1(const float& my_step_profile) {
+		_variables.at("q_H_max_1") = getVariable("weight_2") * getVariable("g") * getVariable("gamma_f_2") /
+			my_step_profile;
+	}
+
+	void VariableStorageManager::calculate_q_H_max_2(const float& my_v_step_profile) {
+		_variables.at("q_H_max_2") = getVariable("weight_3") * getVariable("g") * getVariable("gamma_f_2") /
+			my_v_step_profile;
+	}
+
+	void VariableStorageManager::calculate_q_H_max_3(const float& my_h_step_profile) {
+		_variables.at("q_H_max_3") = getVariable("weight_3") * getVariable("g") * getVariable("gamma_f_2") /
 			my_h_step_profile;
 	}
 
 	// рядовые
 	void VariableStorageManager::calculate_q_sum_r() {
-		_variables.at("q_sum_r") = getVariable("q_2") + getVariable("q_H_2");
+		_variables.at("q_sum_r") = getVariable("q_2") + getVariable("q_H_r");
 	}
 
 	// междуэтажные
 	void VariableStorageManager::calculate_q_sum_1() {
-		_variables.at("q_sum_1") = getVariable("q_2") + getVariable("q_H_1") + getVariable("q_H_2");
+		_variables.at("q_sum_1") = getVariable("q_2") + getVariable("q_H_1") + getVariable("q_H_3");
 	}
 
 	// междуэтажные
 	void VariableStorageManager::calculate_q_sum_2() {
-		_variables.at("q_sum_2") = getVariable("q_2") + getVariable("q_H_1") + getVariable("q_H_3");
+		_variables.at("q_sum_2") = getVariable("q_2") + getVariable("q_H_2") + getVariable("q_H_3");
 	}
 
 	// Medium Strong
-	void VariableStorageManager::calculate_q_sum_med_1() {
-		_variables.at("q_sum_med_1") = getVariable("q_2") + getVariable("q_H_2");
+	void VariableStorageManager::calculate_q_sum_max_1() {
+		_variables.at("q_sum_max_1") = getVariable("q_2") + getVariable("q_H_1") + getVariable("q_H_2");
 	}
 
 	// Medium Strong
-	void VariableStorageManager::calculate_q_sum_med_2() {
-		_variables.at("q_sum_med_2") = getVariable("q_2") + getVariable("q_H_3");
+	void VariableStorageManager::calculate_q_sum_max_2() {
+		_variables.at("q_sum_max_2") = getVariable("q_2") + getVariable("q_H_1") + getVariable("q_H_3");
 	}
 
 	void VariableStorageManager::calculate_c_1(const float& my_c1, const bool& my_checkAerodynamicFactor) {

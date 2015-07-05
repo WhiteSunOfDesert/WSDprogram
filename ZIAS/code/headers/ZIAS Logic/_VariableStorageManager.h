@@ -78,25 +78,31 @@ namespace zias {
 		// TODO: добавляем вычислительные методы для остальных переменных
 		// Вес облицовки
 		static void calculate_weight_1(std::shared_ptr<Facing> my_facing, const float& my_weight, const bool& isFacing);
-		// Вес профиля
+		// Вес 1го профиля
 		static void calculate_weight_2(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Profile> my_profile, const bool& isSubsystem);
+		// Вес 2го профиля     !!! Разобраться!!!
+		static void calculate_weight_3(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Profile> my_profile, const bool& isSubsystem);
 		// Параметры Q, q, I, i определяются по принципу: параметр_цифры_параграфа, кроме q_H и q_sum из 2го параграфа
 		static void calculate_Q_2();
 		static void calculate_q_2();
-		static void calculate_q_H_1(const float& my_h_step_profile);
-		static void calculate_q_H_2(const float& my_v_step_profile); // Относится и к рядовым
-		static void calculate_q_H_3(const float& my_h_step_profile);
-		// Рядовые
-		static void calculate_q_sum_r();
-		// Междуэтажные
-		static void calculate_q_sum_1();
-		static void calculate_q_sum_2();
-		// Medium Strong
-		static void calculate_q_sum_med_1();
-		static void calculate_q_sum_med_2();
+		static void calculate_q_H_r(const float& my_v_step_profile); // Относится к рядовым
+		static void calculate_q_H_1(const float& my_h_step_profile); // Относится к междуэтажным
+		static void calculate_q_H_2(const float& my_v_step_profile); // Относится к междуэтажным
+		// Разобраться с my_step_profile!!!
+		static void calculate_q_H_3(const float& my_step_profile, std::shared_ptr<Subsystem> my_subsystem, const bool& isSubsystem); // Относится к междуэтажным
+		// Разобраться с my_step_profile!!!
+		static void calculate_q_H_max_1(const float& my_step_profile); // Относится к maxima
+		static void calculate_q_H_max_2(const float& my_v_step_profile); // Относится к maxima
+		static void calculate_q_H_max_3(const float& my_h_step_profile); // Относится к maxima
+		static void calculate_q_sum_r(); // Относится к рядовым
+		static void calculate_q_sum_1(); // Относится к междуэтажным
+		static void calculate_q_sum_2(); // Относится к междуэтажным
+		static void calculate_q_sum_max_1(); // Относится к maxima
+		static void calculate_q_sum_max_2(); // Относится к maxima
 		// Аэродинамические коэф.
 		static void calculate_c_1(const float& my_c1, const bool& my_checkAerodynamicFactor);
 		static void calculate_c_2(const float& my_c2, const bool& my_checkAerodynamicFactor);
+
 		static void calculate_Q_311();
 		static void calculate_I_312();
 		static void calculate_Q_321();
