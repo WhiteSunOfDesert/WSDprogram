@@ -116,6 +116,7 @@ namespace zias {
 		result_data.checkAerodynamicFactor = _chb_aerodynamic_factor->Checked;
 		result_data.c1 = utils::toFloat(_tb_c1->Text);
 		result_data.c2 = utils::toFloat(_tb_c2->Text);
+		result_data.isCityClimate = _rb_climate_0->Checked;
 		result_data.checkAnker = _chb_anker->Checked;
 		result_data.checkNVFConnection = _chb_nvf_elements->Checked;
 		result_data.checkNVFElements = _chb_nvf_connection->Checked;
