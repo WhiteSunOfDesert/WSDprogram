@@ -111,6 +111,17 @@ namespace zias {
 			return result;
 		}
 
+		inline std::string toStdString(std::wstring my_str, std::locale my_loc = std::locale("russian")){
+			std::string result(my_str.length(), 0);
+
+			std::string::iterator s_iter = result.begin();
+			for (std::wstring::const_iterator w_iter = my_str.begin(); w_iter != my_str.end(); ++s_iter, ++w_iter) {
+				*s_iter = std::use_facet<std::ctype<wchar_t>>(my_loc).narrow(*w_iter);
+		}
+
+			return result;
+		}
+
 		inline float toFloat(System::String^ my_str){
 			return (float)std::atof(toStdString(my_str).c_str());
 		}
