@@ -79,8 +79,8 @@ namespace zias {
 				"R_3",
 				"i_312",
 				"I_312",
-				"c1",
-				"c2",
+				"c_1",
+				"c_2",
 			};
 
 			for (auto& var : vars) {
@@ -475,7 +475,7 @@ namespace zias {
 	}
 
 	void VariableStorageManager::calculate_c_2(const float& my_c2, const bool& my_checkAerodynamicFactor) {
-		_variables.at("c_") = my_checkAerodynamicFactor ? my_c2 : _variables.at("c_2_default");
+		_variables.at("c_2") = my_checkAerodynamicFactor ? my_c2 : _variables.at("c_2_default");
 	}
 
 	void VariableStorageManager::calculate_Q_311() {

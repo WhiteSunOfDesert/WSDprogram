@@ -20,10 +20,10 @@
 #define _PROJECT_		L"ZIAS FACADE SYSTEM - –ј—„≈“Ќџ…  ќћѕЋ≈ — (2015а)" + L" " + _BUILD_ + L" v." + _VERSION_
 
 // пути к рабочим директори€м
-#define _PATH_TO_DATA_XML_			"bin\\data\\data_source.xml"		// путь к xml c данными сущностей и численных переменных
-#define _PATH_TO_INPUT_REPORTS_		"bin\\reports\\input\\"				// путь к "входным" отчетам дл€ обработки
-#define _PATH_TO_OUTPUT_REPORTS_	"bin\\reports\\output\\"			// путь к "генерируемым" отчетам
-#define _PATH_TO_DOCUMENTATION_		"bin\\documentation\\"				// путь к папке с докупентацией
+#define _PATH_TO_DATA_XML_			"..\\bin\\data\\data_source.xml"		// путь к xml c данными сущностей и численных переменных
+#define _PATH_TO_INPUT_REPORTS_		"..\\bin\\reports\\input\\"				// путь к "входным" отчетам дл€ обработки
+#define _PATH_TO_OUTPUT_REPORTS_	"..\\bin\\reports\\output\\"			// путь к "генерируемым" отчетам
+#define _PATH_TO_DOCUMENTATION_		"..\\bin\\documentation\\"				// путь к папке с докупентацией
 // ...
 
 // название файлов отчетов
