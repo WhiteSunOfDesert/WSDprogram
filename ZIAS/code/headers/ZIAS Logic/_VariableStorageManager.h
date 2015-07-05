@@ -111,13 +111,15 @@ namespace zias {
 		static void calculate_i_312();
 		static void calculate_q_321();
 		static void calculate_q_411();
-		static void calculate_S_1(const float& my_v_step_bracket_ordinary_area, const float& my_v_step_profile);
-		static void calculate_P_1();
+		// Разобраться с Н3!!!
+		static void calculate_S_1(const float& my_v_step_bracket_ordinary_area, const float& my_v_step_profile, const float& my_step_profile, std::shared_ptr<Subsystem> my_subsystem, const bool& isSubsystem);
+		static void calculate_P_1(std::shared_ptr<Subsystem> my_subsystem, const bool& isSubsystem);
 		static void calculate_N_1();
-		static void calculate_P_2();
+		static void calculate_P_2(std::shared_ptr<Subsystem> my_subsystem, const bool& isSubsystem);
 		static void calculate_N_2();
-		static void calculate_S_2(const float& my_v_step_bracket_ordinary_area, const float& my_v_step_profile);
-		static void calculate_P_3();
+		// Разобраться с H3!!!
+		static void calculate_S_2(const float& my_v_step_bracket_ordinary_area, const float& my_h_step_bracket_ordinary_area, const float& my_v_step_profile, const float& my_step_profile, std::shared_ptr<Subsystem> my_subsystem, const bool& isSubsystem);
+		static void calculate_P_3(std::shared_ptr<Subsystem> my_subsystem, const bool& isSubsystem);
 		static void calculate_N_3();
 		static void calculate_qy_0();
 		static void calculate_qy_1();
