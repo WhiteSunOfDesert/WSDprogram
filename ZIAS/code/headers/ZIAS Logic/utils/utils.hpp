@@ -13,7 +13,9 @@
 
 namespace zias {
 	namespace utils {
-	
+		
+		/// сравнение двух строковых констант
+		/// true - при полном равенстве, false - false 
 		inline bool equals(const char* my_str_1, const char* my_str_2) {
 			if (my_str_1 == nullptr || my_str_2 == nullptr) {
 				return false;
@@ -27,8 +29,9 @@ namespace zias {
 			}
 			return false;
 		}
-
-		// lexical_cast<>
+		
+		/// lexical_cast<>
+		/// приведение к лексематичному виду стоковых переменных
 		template <typename T>
 		inline T lexical_cast(const char*);
 
@@ -90,7 +93,8 @@ namespace zias {
 			}
 			return 0;
 		}
-
+		
+		/// преобразование String^ к std::string с сохранением локали
 		inline std::string toStdString(System::String^ my_str){
 			using namespace System::Runtime::InteropServices;
 			char* char_str = (char*)(Marshal::StringToHGlobalAnsi(my_str)).ToPointer();
@@ -98,7 +102,8 @@ namespace zias {
 			Marshal::FreeHGlobal(System::IntPtr((void*)char_str));
 			return result;
 		}
-
+		
+		/// преобразование String^ к std::wstring с сохранением локали
 		inline std::wstring toStdWString(System::String^ my_str, std::locale my_loc = std::locale("russian")){
 			std::string stemp = toStdString(my_str);
 			std::wstring result(stemp.length(), 0);
@@ -110,7 +115,8 @@ namespace zias {
 
 			return result;
 		}
-
+		
+		/// преобразование std::wstring к std::string с сохранением локали
 		inline std::string toStdString(std::wstring my_str, std::locale my_loc = std::locale("russian")){
 			std::string result(my_str.length(), 0);
 
@@ -121,7 +127,9 @@ namespace zias {
 
 			return result;
 		}
-
+		
+		/// преобразование String^ к float
+		/// в качестве плавающей точки может выступать как '.', так и ','
 		inline float toFloat(System::String^ my_str){
 			float result = 0.f;
 			std::string s_number = toStdString(my_str);
@@ -151,11 +159,13 @@ namespace zias {
 
 			return result;
 		}
-
+		
+		/// преобразование String^ к int
 		inline int toInt(System::String^ my_str) {
 			return std::atoi(toStdString(my_str).c_str());
 		}
 		
+		/// округление переменной my_number типа float c заданной точностью my_precision
 		inline float doRound(const float& my_number, const unsigned& my_precision) {
 			unsigned factor = 1;
 			for (unsigned i = 0; i < my_precision; i++) {
