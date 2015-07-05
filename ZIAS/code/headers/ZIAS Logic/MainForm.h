@@ -34,6 +34,7 @@ namespace zias {
 		std::wstring					objectCipher;
 		std::wstring					objectResponsible;
 		float							objectHeight;
+		bool							isCityClimate;
 		bool							checkAerodynamicFactor;
 		float							c1;
 		float							c2;
@@ -1767,7 +1768,9 @@ namespace zias {
 			if (checkDataCorrectness()) {
 				FormDataArgs fda = collectData();
 				VariableStorageManager::Instance()->updateValues(fda);
+
 				ReportManager::Instance()->generateReport(fda);
+
 			} else {
 				// TODO: можно сделать окно об ошибке более информативным... а можно нет
 

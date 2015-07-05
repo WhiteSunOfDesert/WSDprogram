@@ -79,6 +79,8 @@ namespace zias {
 				"R_3",
 				"i_312",
 				"I_312",
+				"c_1",
+				"c_2",
 			};
 
 			for (auto& var : vars) {
@@ -173,8 +175,8 @@ namespace zias {
 										|| utils::equals(var_store->name(), "rho")
 										|| utils::equals(var_store->name(), "g")
 										|| utils::equals(var_store->name(), "nu")
-										|| utils::equals(var_store->name(), "c_1")
-										|| utils::equals(var_store->name(), "c_2")
+										|| utils::equals(var_store->name(), "c_1_default")
+										|| utils::equals(var_store->name(), "c_2_default")
 										|| utils::equals(var_store->name(), "gamma_f_1")
 										|| utils::equals(var_store->name(), "gamma_f_2")
 										|| utils::equals(var_store->name(), "gamma_f_3")
@@ -469,15 +471,11 @@ namespace zias {
 	}
 
 	void VariableStorageManager::calculate_c_1(const float& my_c1, const bool& my_checkAerodynamicFactor) {
-		if (my_checkAerodynamicFactor) {
-			_variables.at("c_1") = my_c1;
-		}
+		_variables.at("c_1") = my_checkAerodynamicFactor ?  my_c1 : _variables.at("c_1_default");
 	}
 
 	void VariableStorageManager::calculate_c_2(const float& my_c2, const bool& my_checkAerodynamicFactor) {
-		if (my_checkAerodynamicFactor) {
-			_variables.at("c_2") = my_c2;
-		}
+		_variables.at("c_2") = my_checkAerodynamicFactor ? my_c2 : _variables.at("c_2_default");
 	}
 
 	void VariableStorageManager::calculate_Q_311() {
