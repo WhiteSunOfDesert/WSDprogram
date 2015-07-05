@@ -9,8 +9,8 @@ namespace zias {
 	std::map<short, float> VariableStorageManager::_table_b_ice;
 	std::map<short, float> VariableStorageManager::_table_w_0;
 	std::map<float, float> VariableStorageManager::_table_k_ice;
-	std::map<float, float(*)[3]> VariableStorageManager::_table_k_ze;
-	std::map<float, float(*)[3]> VariableStorageManager::_table_ksi_ze;
+	std::map<float, std::array<float, 3>> VariableStorageManager::_table_k_ze;
+	std::map<float, std::array<float, 3>> VariableStorageManager::_table_ksi_ze;
 	// ---------------------
 
 	VariableStorageManager::VariableStorageManager() {
@@ -242,18 +242,20 @@ namespace zias {
 	void VariableStorageManager::addToTable_k_ze(const float& my_height, const float& my_Avalue, const float& my_Bvalue, const float& my_Cvalue) {
 		auto variable = _table_k_ze.find(my_height);
 		if (variable == end(_table_k_ze)) {
-			float mas[3] = { my_Avalue, my_Bvalue, my_Cvalue };
-			_table_k_ze.emplace(std::pair<float, float(*)[3]>(my_height, &mas));
+			std::array<float, 3> mas = { my_Avalue, my_Bvalue, my_Cvalue };
+			_table_k_ze.emplace(std::pair<float, std::array<float, 3>>(my_height, mas));
 		}
+
 		return;
 	}
 
 	void VariableStorageManager::addToTable_ksi_ze(const float& my_height, const float& my_Avalue, const float& my_Bvalue, const float& my_Cvalue) {
 		auto variable = _table_ksi_ze.find(my_height);
 		if (variable == end(_table_ksi_ze)) {
-			float mas[] = { my_Avalue, my_Bvalue, my_Cvalue };
-			_table_ksi_ze.emplace(std::pair<float, float(*)[3]>(my_height, &mas));
+			std::array<float, 3> mas = { my_Avalue, my_Bvalue, my_Cvalue };
+			_table_ksi_ze.emplace(std::pair<float, std::array<float, 3>>(my_height, mas));
 		}
+
 		return;
 	}
 
@@ -335,7 +337,7 @@ namespace zias {
 
 		for (auto& vect : _table_k_ze) {
 			heights.push_back(vect.first);
-			values.push_back(*(vect.second[location_type_id]));
+			values.push_back(vect.second[location_type_id]);
 		}
 		
 		_variables.at("k_ze") = utils::Interpolate(heights, values, my_height);
@@ -350,7 +352,7 @@ namespace zias {
 
 		for (auto& vect : _table_ksi_ze) {
 			heights.push_back(vect.first);
-			values.push_back(*(vect.second[location_type_id]));
+			values.push_back(vect.second[location_type_id]);
 		}
 
 		_variables.at("ksi_ze") = utils::Interpolate(heights, values, my_height);

@@ -50,8 +50,8 @@ namespace zias {
 		static std::map<short, float> _table_b_ice;
 		static std::map<short, float> _table_w_0;
 		static std::map<float, float> _table_k_ice;
-		static std::map<float, float(*)[3]> _table_k_ze;
-		static std::map<float, float(*)[3]> _table_ksi_ze;
+		static std::map<float, std::array<float, 3>> _table_k_ze;
+		static std::map<float, std::array<float, 3>> _table_ksi_ze;
 
 	public:
 		static std::shared_ptr<VariableStorageManager>& Instance();
@@ -67,8 +67,6 @@ namespace zias {
 		static void addToTable_k_ice(const float& my_height, const float& my_value);
 		static void addToTable_k_ze(const float& my_height, const float& my_Avalue, const float& my_Bvalue, const float& my_Cvalue);
 		static void addToTable_ksi_ze(const float& my_height, const float& my_Avalue, const float& my_Bvalue, const float& my_Cvalue);
-
-		static std::map<short, float> GetTableB() { return _table_b_ice; }
 
 	private:		
 		static void calculate_b_ice(std::shared_ptr<IceDistrict> my_ice_district);
