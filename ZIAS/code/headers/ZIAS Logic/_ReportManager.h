@@ -1,33 +1,33 @@
 /*	_ReportManager.h
-*
-*	Класс, генерирующий отчеты // в формате .docx
-*
-*	необходимо установить OpenXml SDK 2.5
-*	и добавить ссылку на DocumentFormat.OpenXml и WindowsBase
-*
-*	Copyright(c) 20.06.2015 "НАЗВАНИЕ НАШЕЙ СУПЕРФИРМЫ"
-*	All rights reserved.
-*/
-
+ *
+ *	Класс, генерирующий отчеты // в формате .docx
+ *
+ *	необходимо установить OpenXml SDK 2.5
+ *	и добавить ссылку на DocumentFormat.OpenXml и WindowsBase
+ *
+ *	Copyright(c) 20.06.2015 "НАЗВАНИЕ НАШЕЙ СУПЕРФИРМЫ"
+ *	All rights reserved.
+ */
 #pragma once
+#include "stdafx.h"
+using namespace System;
+
+
 
 namespace zias {
-	
-	using namespace System;
-	using namespace System::ComponentModel;
-	using namespace System::Collections;
-	using namespace System::Windows::Forms;
-	using namespace System::Data;
-	using namespace System::Drawing;
-	using namespace System::Text;
 
 	class ReportManager {
 	private:
 		static std::shared_ptr<ReportManager> _instance;
 
-		static void commonReport(const FormDataArgs&, String ^ doctext);
-		static void ankerReport(const FormDataArgs&, String ^ docText, String ^ subsystem);
-		static void checkExistsFile(String ^ nameFile);
+		static void commonReport(const FormDataArgs&, String ^);
+		static void ankerCommonReport(const FormDataArgs&, String ^ , String ^ );
+		static void commonConcreteSlabsReport(const FormDataArgs&, String ^);
+		static void maximaMediumNoAnkerReport(const FormDataArgs&, String ^);
+		static void maximaNoAnkerReport(const FormDataArgs&, String ^);
+		static void maximaAnkerReport(const FormDataArgs&, String ^);
+
+		//static void checkExistsFile(String ^ nameFile);
 
 	public:
 		static std::shared_ptr<ReportManager>& Instance();
