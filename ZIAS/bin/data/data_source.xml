@@ -130,7 +130,7 @@
       <!-- подсистемы -->
       <subsystem id="0" name="КПР"				      bracket_id="0"  profile_id_first="1"  profile_id_second="0" solution="Рядовые решения"/>
       <subsystem id="1" name="Optima"				    bracket_id="1"  profile_id_first="1"  profile_id_second="0" solution="Рядовые решения"/>
-      <subsystem id="2" name="Standard"			    bracket_id="2"  profile_id_first="0"  profile_id_second="0" solution="Рядовые решения"/>
+      <subsystem id="2" name="Standart"			    bracket_id="2"  profile_id_first="0"  profile_id_second="0" solution="Рядовые решения"/>
       <subsystem id="3" name="Strong 1.2"			  bracket_id="4"  profile_id_first="0"  profile_id_second="0" solution="Рядовые решения"/>
       <subsystem id="4" name="Strong 1.5"			  bracket_id="5"  profile_id_first="0"  profile_id_second="0" solution="Рядовые решения"/>
       <subsystem id="5" name="Maxima"				    bracket_id="6"  profile_id_first="16" profile_id_second="17" solution="Междуэтажные решения"/>
