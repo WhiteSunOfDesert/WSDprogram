@@ -86,8 +86,8 @@ namespace zias {
 			result_data.windDistrict = result_data.city->wind_district;
 		} else if (_rb_climate_1->Checked) {
 			result_data.city.reset();
-			result_data.iceDistrict = FormDataStorageManager::Instance()->getIceDistrict(utils::toStdWString(_cb_wind_districs->Text));
-			result_data.windDistrict = FormDataStorageManager::Instance()->getWindDistrict(utils::toStdWString(_cb_ice_districs->Text));
+			result_data.iceDistrict = FormDataStorageManager::Instance()->getIceDistrict(utils::toStdWString(_cb_ice_districs->Text));
+			result_data.windDistrict = FormDataStorageManager::Instance()->getWindDistrict(utils::toStdWString(_cb_wind_districs->Text));
 		}
 
 		if (_rb_facing_standart->Checked) {
