@@ -479,11 +479,11 @@ namespace zias {
 	}
 
 	void VariableStorageManager::calculate_qy_0() {
-		if (getVariable("Q_311") > getVariable("Q_321")) {
-			_variables.at("qy_0") = getVariable("Q_311");
+		if (getVariable("q_311") > getVariable("q_321")) {
+			_variables.at("qy_0") = getVariable("q_311");
 		}
 		else {
-			_variables.at("qy_0") = getVariable("Q_321");
+			_variables.at("qy_0") = getVariable("q_321");
 		}
 	}
 
@@ -521,7 +521,7 @@ namespace zias {
 
 	void VariableStorageManager::calculate_qy_1() {
 
-		_variables.at("qy_1") = getVariable("Q_411");
+		_variables.at("qy_1") = getVariable("q_411");
 	}
 
 	void VariableStorageManager::calculate_qz_0(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem) {
