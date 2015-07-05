@@ -152,10 +152,25 @@ namespace zias {
 			return result;
 		}
 
-		inline int toInt(System::String^ my_str){
+		inline int toInt(System::String^ my_str) {
 			return std::atoi(toStdString(my_str).c_str());
 		}
 		
+		inline float doRound(const float& my_number, const unsigned& my_precision) {
+			unsigned factor = 1;
+			for (unsigned i = 0; i < my_precision; i++) {
+				factor *= 10;
+			}
+
+			if (my_number > 0.f) {
+				return floor(my_number * factor + 0.5f) / factor;
+			} else {
+				return ceil(my_number * factor - 0.5f) / factor;
+			}
+
+			return 0.f;
+		}
+
 		// по двум входящим векторам и значению, выдает интерполированное значение...
 		template <typename T1, typename T2>
 		T2 Interpolate(std::vector<T1> my_vector_1, std::vector<T2> my_vector_2, T1 my_value_1) {

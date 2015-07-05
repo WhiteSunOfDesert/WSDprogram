@@ -211,7 +211,7 @@ namespace zias {
 	float VariableStorageManager::getVariable(const std::string& my_name) {
 		auto variable = _variables.find(my_name);
 		if (variable != end(_variables)) {
-			return _variables[my_name];
+			return utils::doRound(_variables[my_name], 2);
 		}
 		return 0.f;
 	}
