@@ -117,13 +117,39 @@ namespace zias {
 			std::string::iterator s_iter = result.begin();
 			for (std::wstring::const_iterator w_iter = my_str.begin(); w_iter != my_str.end(); ++s_iter, ++w_iter) {
 				*s_iter = std::use_facet<std::ctype<wchar_t>>(my_loc).narrow(*w_iter);
-		}
+			}
 
 			return result;
 		}
 
 		inline float toFloat(System::String^ my_str){
-			return (float)std::atof(toStdString(my_str).c_str());
+			float result = 0.f;
+			std::string s_number = toStdString(my_str);
+			
+			int digit[2] = {0, 0};
+			for (auto iter = s_number.begin(); iter != s_number.end(); ++iter) {
+				if (digit[1] == 0) {
+					digit[0]++;
+				} else {
+					digit[1]++;
+				}
+				if (*iter == ',' || *iter == '.') {
+					digit[1]++;
+					digit[0]--;
+				}
+			}
+			digit[1]--;
+			
+			int temp = digit[1] + 1;
+			for (auto iter = s_number.begin(); iter != s_number.end(); ++iter) {
+				if (*iter == ',' || *iter == '.') {
+					continue;
+				}
+	
+				result += (*iter - 48.f) * std::pow(10.f, digit[0] ? --digit[0] : digit[1]-- - temp);
+			}
+
+			return result;
 		}
 
 		inline int toInt(System::String^ my_str){
