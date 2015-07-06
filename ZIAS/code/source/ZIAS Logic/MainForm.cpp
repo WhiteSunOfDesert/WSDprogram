@@ -327,18 +327,7 @@ namespace zias {
 
 	void MainForm::calculateAccount() {
 
-		// _tb_digging_anker = max{R_1, R_2, R_3}
-		if (VariableStorageManager::Instance()->getVariable("R_1") >= VariableStorageManager::Instance()->getVariable("R_2") &&
-			VariableStorageManager::Instance()->getVariable("R_1") >= VariableStorageManager::Instance()->getVariable("R_3")) {
-			_tb_digging_anker->Text = gcnew String("" + VariableStorageManager::Instance()->getVariable("R_1"));
-		}
-		else if (VariableStorageManager::Instance()->getVariable("R_2") >= VariableStorageManager::Instance()->getVariable("R_3")) {
-			_tb_digging_anker->Text = gcnew String("" + VariableStorageManager::Instance()->getVariable("R_2"));
-		}
-		else {
-			_tb_digging_anker->Text = gcnew String("" + VariableStorageManager::Instance()->getVariable("R_3"));
-		}
-
+		_tb_digging_anker->Text = gcnew String("" + VariableStorageManager::Instance()->getVariable("digging_anker"));
 		_tb_strength_profile->Text = L"";		// ...
 		_tb_strength_bracket->Text = L"";		// ...
 		_tb_strength_extension->Text = L"";		// ...
@@ -367,7 +356,7 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldObjectCipher() {
 		std::string str = utils::toStdString(_tb_code->Text);
-		std::regex regular("^([А-ЯЁA-Z0-9.-_]+)$");
+		std::regex regular("^([А-Яа-яЁёA-Za-z0-9.-]+)$");
 		std::smatch match;
 		if (std::regex_match(str, match, regular) && str != ""
 			&& str != "Заполняет инженер") // костыль

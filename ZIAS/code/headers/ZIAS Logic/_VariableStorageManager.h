@@ -118,9 +118,13 @@ namespace zias {
 		static void calculate_qy_1();
 		static void calculate_qz_0();
 		static void calculate_qz_1(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem);
-		static void calculate_R_1(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);
-		static void calculate_R_2(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);
-		static void calculate_R_3(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);
+		static void calculate_R_1_1(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);
+		static void calculate_R_2_1(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);
+		static void calculate_R_3_1(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);
+		static void calculate_R_1_2(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);
+		static void calculate_R_2_2(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);
+		static void calculate_R_3_2(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);
+		static void calculate_digging_anker();
 		
 	public:
 		~VariableStorageManager();
