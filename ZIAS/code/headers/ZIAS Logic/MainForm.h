@@ -1768,9 +1768,15 @@ namespace zias {
 			if (checkDataCorrectness()) {
 				FormDataArgs fda = collectData();
 				VariableStorageManager::Instance()->updateValues(fda);
-
-				ReportManager::Instance()->generateReport(fda);
-
+				
+				// диалоговое окно на сохранение файла
+				SaveFileDialog^ ofd = gcnew SaveFileDialog();
+				ofd->Filter = "DOCX Files|*.docx";
+				if (ofd->ShowDialog() != System::Windows::Forms::DialogResult::OK) {
+					ReportManager::Instance()->generateReport(fda, ofd->FileName);
+				}
+				
+				MessageBox::Show(L"Отчет сгенерирован. Приятно поработать!");
 			} else {
 				// TODO: можно сделать окно об ошибке более информативным... а можно нет
 
