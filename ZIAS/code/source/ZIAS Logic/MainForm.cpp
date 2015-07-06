@@ -110,7 +110,7 @@ namespace zias {
 		
 		result_data.locationType = FormDataStorageManager::Instance()->getLocationType(utils::toStdWString(_cb_location_types->Text));
 		result_data.objectName = utils::toStdWString(_tb_name->Text);
-		result_data.objectCipher = utils::toStdWString(_tb_code->Text);
+		result_data.objectCipher = utils::toStdWString(_tb_code->Text->ToUpper());
 		result_data.objectResponsible = utils::toStdWString(_tb_responsible->Text);
 		result_data.objectHeight = utils::toFloat(_tb_height->Text);
 		result_data.checkAerodynamicFactor = _chb_aerodynamic_factor->Checked;
@@ -356,7 +356,7 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldObjectCipher() {
 		std::string str = utils::toStdString(_tb_code->Text);
-		std::regex regular("^([А-Яа-яЁёA-Za-z0-9.-]+)$");
+		std::regex regular("^([а-яА-ЯёЁa-zA-Z0-9.-_]+)$");
 		std::smatch match;
 		if (std::regex_match(str, match, regular) && str != ""
 			&& str != "Заполняет инженер") // костыль

@@ -32,7 +32,7 @@ namespace zias {
 		return _instance;
 	}
 
-	void ReportManager::generateReport(const FormDataArgs& my_fda) 
+	void ReportManager::generateReport(const FormDataArgs& my_fda, const String^ my_file_name)
 	{
 		String ^ nameSubsystem;
 		std::string nameDoc = _PATH_TO_INPUT_REPORTS_;
