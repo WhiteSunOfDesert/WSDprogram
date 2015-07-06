@@ -1773,8 +1773,10 @@ namespace zias {
 				SaveFileDialog^ ofd = gcnew SaveFileDialog();
 				ofd->Filter = "DOCX Files|*.docx";
 				if (ofd->ShowDialog() != System::Windows::Forms::DialogResult::OK) {
-					ReportManager::Instance()->generateReport(fda, ofd->FileName);
+					return;
 				}
+
+				ReportManager::Instance()->generateReport(fda, ofd->FileName);
 
 			} else {
 				// TODO: можно сделать окно об ошибке более информативным... а можно нет
