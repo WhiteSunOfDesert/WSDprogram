@@ -133,9 +133,8 @@ namespace zias {
 	
 		newNameDoc += result;*/
 		newNameDoc += ".docx";
-
 		CopyFile(nameDoc.c_str(), newNameDoc.c_str(), false); 
-
+	
 		//по типу документа вызываем соответствующие функции
 		switch (checkNameDocument)
 		{
@@ -195,7 +194,6 @@ namespace zias {
 
 		sr->Close();
 
-		docText1 = docText1->Replace("zias", gcnew String(my_fda.facing->ziasN.c_str()));
 		docText1 = docText1->Replace("subsystem1", gcnew String(my_fda.subsystem->name.c_str()));
 		docText1 = docText1->Replace("nameObject", gcnew String(my_fda.objectName.c_str()));
 		docText1 = docText1->Replace("cipher", gcnew String(my_fda.objectCipher.c_str()));
@@ -212,13 +210,18 @@ namespace zias {
 		str += std::to_string(tblock->tm_year + 1900);
 
 		docText1 = docText1->Replace("date", gcnew String(str.c_str()));
+
 		if (my_fda.isFacingStandart)
 		{
 			docText1 = docText1->Replace("facing", gcnew String(my_fda.facing->name.c_str()));
+			docText1 = docText1->Replace("weightOne", Convert::ToString(my_fda.facing->weight));
+			docText1 = docText1->Replace("zias", gcnew String(my_fda.facing->ziasN.c_str()));
 		}
 		else
 		{
-			docText1 = docText1->Replace("facing", Convert::ToString(my_fda.weight));
+			docText1 = docText1->Replace("weightOne", Convert::ToString(my_fda.weight));
+			docText1 = docText1->Replace("facing", "");
+			docText1 = docText1->Replace("zias", "");
 		}
 
 		docText1 = docText1->Replace("bracket", gcnew String(my_fda.subsystem->bracket->name.c_str()));
@@ -227,17 +230,25 @@ namespace zias {
 		docText1 = docText1->Replace("profile2", gcnew String(my_fda.subsystem->profile_second->name.c_str()));
 		docText1 = docText1->Replace("weightThree", Convert::ToString(my_fda.subsystem->profile_second->weight));
 
-		docText1 = docText1->Replace("constH1", Convert::ToString(my_fda.v_step_bracket_ordinary_area));
-		docText1 = docText1->Replace("constH2", Convert::ToString(my_fda.v_step_bracket_marginal_area));
-		//docText1 = docText1->Replace("constH3", Convert::ToString(my_fda.v_step_profile));
-		docText1 = docText1->Replace("constB1", Convert::ToString(my_fda.h_step_bracket_ordinary_area));
+		docText1 = docText1->Replace("constH1", Convert::ToString(VariableStorageManager::Instance()->getVariable("H_1")));
+		docText1 = docText1->Replace("constH2", Convert::ToString(VariableStorageManager::Instance()->getVariable("H_2")));
+		docText1 = docText1->Replace("constH3", Convert::ToString(VariableStorageManager::Instance()->getVariable("H_3")));
+		docText1 = docText1->Replace("constB1", Convert::ToString(VariableStorageManager::Instance()->getVariable("B_1")));
 
 		docText1 = docText1->Replace("height", Convert::ToString(my_fda.objectHeight));
-		docText1 = docText1->Replace("windDistrict", gcnew String(my_fda.city->wind_district->name.c_str()));
 		docText1 = docText1->Replace("locationType", gcnew String(my_fda.locationType->name.c_str()));
-		docText1 = docText1->Replace("iceDistrict", gcnew String(my_fda.city->ice_district->name.c_str()));
 
-		docText1 = docText1->Replace("weightOne", Convert::ToString(my_fda.facing->weight));
+		if (my_fda.isCityClimate)
+		{
+			docText1 = docText1->Replace("windDistrict", gcnew String(my_fda.city->wind_district->name.c_str()));
+			docText1 = docText1->Replace("iceDistrict", gcnew String(my_fda.city->ice_district->name.c_str()));
+		}
+		else
+		{
+			docText1 = docText1->Replace("windDistrict", gcnew String(my_fda.windDistrict->name.c_str()));
+			docText1 = docText1->Replace("iceDistrict", gcnew String(my_fda.iceDistrict->name.c_str()));
+		}
+
 		docText1 = docText1->Replace("qzn", Convert::ToString(VariableStorageManager::Instance()->getVariable("Q_2")));
 		docText1 = docText1->Replace("qzh1", Convert::ToString(VariableStorageManager::Instance()->getVariable("q_H_1")));
 		docText1 = docText1->Replace("qzh2", Convert::ToString(VariableStorageManager::Instance()->getVariable("q_H_2")));
@@ -251,10 +262,19 @@ namespace zias {
 		docText1 = docText1->Replace("w0", Convert::ToString(VariableStorageManager::Instance()->getVariable("w_0")));
 		docText1 = docText1->Replace("kz1", Convert::ToString(VariableStorageManager::Instance()->getVariable("k_ze")));
 		docText1 = docText1->Replace("ksiz", Convert::ToString(VariableStorageManager::Instance()->getVariable("ksi_ze")));
-		docText1 = docText1->Replace("c1", Convert::ToString(VariableStorageManager::Instance()->getVariable("c_1")));
-		docText1 = docText1->Replace("c2", Convert::ToString(VariableStorageManager::Instance()->getVariable("c_2")));
-		docText1 = docText1->Replace("NU", Convert::ToString(VariableStorageManager::Instance()->getVariable("nu")));
 
+		if (!my_fda.checkAerodynamicFactor)
+		{
+			docText1 = docText1->Replace("c1", Convert::ToString(VariableStorageManager::Instance()->getVariable("c_1")));
+			docText1 = docText1->Replace("c2", Convert::ToString(VariableStorageManager::Instance()->getVariable("c_2")));
+		}
+		else
+		{
+			docText1 = docText1->Replace("c1", Convert::ToString(my_fda.c1));
+			docText1 = docText1->Replace("c2", Convert::ToString(my_fda.c2));
+		}
+
+		docText1 = docText1->Replace("NU", Convert::ToString(VariableStorageManager::Instance()->getVariable("nu")));
 		docText1 = docText1->Replace("QynWinterOrdinary", Convert::ToString(VariableStorageManager::Instance()->getVariable("Q_311")));
 		docText1 = docText1->Replace("qy1", Convert::ToString(VariableStorageManager::Instance()->getVariable("q_311")));
 		docText1 = docText1->Replace("gammaf3", Convert::ToString(VariableStorageManager::Instance()->getVariable("gamma_f_3")));
@@ -292,7 +312,6 @@ namespace zias {
 
 		sr->Close();
 
-		docText1 = docText1->Replace("zias", gcnew String(my_fda.facing->ziasN.c_str()));
 		docText1 = docText1->Replace("subsystem1", gcnew String(my_fda.subsystem->name.c_str()));
 		docText1 = docText1->Replace("nameObject", gcnew String(my_fda.objectName.c_str()));
 		docText1 = docText1->Replace("cipher", gcnew String(my_fda.objectCipher.c_str()));
@@ -309,30 +328,42 @@ namespace zias {
 		str += std::to_string(tblock->tm_year + 1900);
 
 		docText1 = docText1->Replace("date", gcnew String(str.c_str()));
+
 		if (my_fda.isFacingStandart)
 		{
 			docText1 = docText1->Replace("facing", gcnew String(my_fda.facing->name.c_str()));
+			docText1 = docText1->Replace("weightOne", Convert::ToString(my_fda.facing->weight));
+			docText1 = docText1->Replace("zias", gcnew String(my_fda.facing->ziasN.c_str()));
 		}
 		else
 		{
-			docText1 = docText1->Replace("facing", Convert::ToString(my_fda.weight));
+			docText1 = docText1->Replace("weightOne", Convert::ToString(my_fda.weight));
+			docText1 = docText1->Replace("facing", "");
+			docText1 = docText1->Replace("zias", "");
 		}
 
 		docText1 = docText1->Replace("bracket", gcnew String(my_fda.subsystem->bracket->name.c_str()));
 		docText1 = docText1->Replace("profile", gcnew String(my_fda.subsystem->profile_first->name.c_str()));
 		docText1 = docText1->Replace("weightTwo", Convert::ToString(my_fda.subsystem->profile_first->weight));
 
-		docText1 = docText1->Replace("constH1", Convert::ToString(my_fda.v_step_bracket_ordinary_area));
-		docText1 = docText1->Replace("constH2", Convert::ToString(my_fda.v_step_bracket_marginal_area));
-		docText1 = docText1->Replace("constB1", Convert::ToString(my_fda.h_step_bracket_ordinary_area));
+		docText1 = docText1->Replace("constH1", Convert::ToString(VariableStorageManager::Instance()->getVariable("H_1")));
+		docText1 = docText1->Replace("constH2", Convert::ToString(VariableStorageManager::Instance()->getVariable("H_2")));
+		docText1 = docText1->Replace("constB1", Convert::ToString(VariableStorageManager::Instance()->getVariable("B_1")));
 
+		docText1 = docText1->Replace("locationType", gcnew String(my_fda.locationType->name.c_str()));
 
 		docText1 = docText1->Replace("height", Convert::ToString(my_fda.objectHeight));
-		docText1 = docText1->Replace("windDistrict", gcnew String(my_fda.city->wind_district->name.c_str()));
-		docText1 = docText1->Replace("locationType", gcnew String(my_fda.locationType->name.c_str()));
-		docText1 = docText1->Replace("iceDistrict", gcnew String(my_fda.city->ice_district->name.c_str()));
+		if (my_fda.isCityClimate)
+		{
+			docText1 = docText1->Replace("windDistrict", gcnew String(my_fda.city->wind_district->name.c_str()));
+			docText1 = docText1->Replace("iceDistrict", gcnew String(my_fda.city->ice_district->name.c_str()));
+		}
+		else
+		{
+			docText1 = docText1->Replace("windDistrict", gcnew String(my_fda.windDistrict->name.c_str()));
+			docText1 = docText1->Replace("iceDistrict", gcnew String(my_fda.iceDistrict->name.c_str()));
+		}
 
-		docText1 = docText1->Replace("weightOne", Convert::ToString(my_fda.facing->weight));
 		docText1 = docText1->Replace("qzn", Convert::ToString(VariableStorageManager::Instance()->getVariable("Q_2")));
 		docText1 = docText1->Replace("qzh1", Convert::ToString(VariableStorageManager::Instance()->getVariable("q_H_1")));
 		docText1 = docText1->Replace("qzh2", Convert::ToString(VariableStorageManager::Instance()->getVariable("q_H_2")));
@@ -346,10 +377,19 @@ namespace zias {
 		docText1 = docText1->Replace("w0", Convert::ToString(VariableStorageManager::Instance()->getVariable("w_0")));
 		docText1 = docText1->Replace("kz1", Convert::ToString(VariableStorageManager::Instance()->getVariable("k_ze")));
 		docText1 = docText1->Replace("ksiz", Convert::ToString(VariableStorageManager::Instance()->getVariable("ksi_ze")));
-		docText1 = docText1->Replace("c1", Convert::ToString(VariableStorageManager::Instance()->getVariable("c_1")));
-		docText1 = docText1->Replace("c2", Convert::ToString(VariableStorageManager::Instance()->getVariable("c_2")));
-		docText1 = docText1->Replace("NU", Convert::ToString(VariableStorageManager::Instance()->getVariable("nu")));
 
+		if (!my_fda.checkAerodynamicFactor)
+		{
+			docText1 = docText1->Replace("c1", Convert::ToString(VariableStorageManager::Instance()->getVariable("c_1")));
+			docText1 = docText1->Replace("c2", Convert::ToString(VariableStorageManager::Instance()->getVariable("c_2")));
+		}
+		else
+		{
+			docText1 = docText1->Replace("c1", Convert::ToString(my_fda.c1));
+			docText1 = docText1->Replace("c2", Convert::ToString(my_fda.c2));
+		}
+
+		docText1 = docText1->Replace("NU", Convert::ToString(VariableStorageManager::Instance()->getVariable("nu")));
 		docText1 = docText1->Replace("QynWinterOrdinary", Convert::ToString(VariableStorageManager::Instance()->getVariable("Q_311")));
 		docText1 = docText1->Replace("qy1", Convert::ToString(VariableStorageManager::Instance()->getVariable("q_311")));
 		docText1 = docText1->Replace("gammaf3", Convert::ToString(VariableStorageManager::Instance()->getVariable("gamma_f_3")));
@@ -383,7 +423,6 @@ namespace zias {
 
 		sr->Close();
 
-		docText1 = docText1->Replace("zias", gcnew String(my_fda.facing->ziasN.c_str()));
 		docText1 = docText1->Replace("subsystem1", gcnew String(my_fda.subsystem->name.c_str()));
 		docText1 = docText1->Replace("nameObject", gcnew String(my_fda.objectName.c_str()));
 		docText1 = docText1->Replace("cipher", gcnew String(my_fda.objectCipher.c_str()));
@@ -403,10 +442,14 @@ namespace zias {
 		if (my_fda.isFacingStandart)
 		{
 			docText1 = docText1->Replace("facing", gcnew String(my_fda.facing->name.c_str()));
+			docText1 = docText1->Replace("weightOne", Convert::ToString(my_fda.facing->weight));
+			docText1 = docText1->Replace("zias", gcnew String(my_fda.facing->ziasN.c_str()));
 		}
 		else
 		{
-			docText1 = docText1->Replace("facing", Convert::ToString(my_fda.weight));
+			docText1 = docText1->Replace("weightOne", Convert::ToString(my_fda.weight));
+			docText1 = docText1->Replace("facing", "");
+			docText1 = docText1->Replace("zias", "");
 		}
 	
 		docText1 = docText1->Replace("bracket", gcnew String(my_fda.subsystem->bracket->name.c_str()));
@@ -415,18 +458,26 @@ namespace zias {
 		docText1 = docText1->Replace("profile2", gcnew String(my_fda.subsystem->profile_second->name.c_str()));
 		docText1 = docText1->Replace("weightThree", Convert::ToString(my_fda.subsystem->profile_second->weight));
 
-		docText1 = docText1->Replace("constH1", Convert::ToString(my_fda.v_step_bracket_ordinary_area));
-		docText1 = docText1->Replace("constH2", Convert::ToString(my_fda.v_step_bracket_marginal_area));
-		//docText1 = docText1->Replace("constH3", Convert::ToString(my_fda.v_step_profile));
-		docText1 = docText1->Replace("constB1", Convert::ToString(my_fda.h_step_bracket_ordinary_area));
-		docText1 = docText1->Replace("constB2", Convert::ToString(my_fda.h_step_bracket_marginal_area));
+
+		docText1 = docText1->Replace("constH1", Convert::ToString(VariableStorageManager::Instance()->getVariable("H_1")));
+		docText1 = docText1->Replace("constH2", Convert::ToString(VariableStorageManager::Instance()->getVariable("H_2")));
+		docText1 = docText1->Replace("constH3", Convert::ToString(VariableStorageManager::Instance()->getVariable("H_3")));
+		docText1 = docText1->Replace("constB1", Convert::ToString(VariableStorageManager::Instance()->getVariable("B_1")));
+		docText1 = docText1->Replace("constB2", Convert::ToString(VariableStorageManager::Instance()->getVariable("B_2")));
 
 		docText1 = docText1->Replace("height", Convert::ToString(my_fda.objectHeight));
-		docText1 = docText1->Replace("windDistrict", gcnew String(my_fda.city->wind_district->name.c_str()));
 		docText1 = docText1->Replace("locationType", gcnew String(my_fda.locationType->name.c_str()));
-		docText1 = docText1->Replace("iceDistrict", gcnew String(my_fda.city->ice_district->name.c_str()));
+		if (my_fda.isCityClimate)
+		{
+			docText1 = docText1->Replace("windDistrict", gcnew String(my_fda.city->wind_district->name.c_str()));
+			docText1 = docText1->Replace("iceDistrict", gcnew String(my_fda.city->ice_district->name.c_str()));
+		}
+		else
+		{
+			docText1 = docText1->Replace("windDistrict", gcnew String(my_fda.windDistrict->name.c_str()));
+			docText1 = docText1->Replace("iceDistrict", gcnew String(my_fda.iceDistrict->name.c_str()));
+		}
 
-		docText1 = docText1->Replace("weightOne", Convert::ToString(my_fda.facing->weight));
 		docText1 = docText1->Replace("qzn", Convert::ToString(VariableStorageManager::Instance()->getVariable("Q_2")));
 		docText1 = docText1->Replace("qzh1", Convert::ToString(VariableStorageManager::Instance()->getVariable("q_H_1")));
 		docText1 = docText1->Replace("qzh2", Convert::ToString(VariableStorageManager::Instance()->getVariable("q_H_2")));
@@ -440,10 +491,19 @@ namespace zias {
 		docText1 = docText1->Replace("w0", Convert::ToString(VariableStorageManager::Instance()->getVariable("w_0")));
 		docText1 = docText1->Replace("kz1", Convert::ToString(VariableStorageManager::Instance()->getVariable("k_ze")));
 		docText1 = docText1->Replace("ksiz", Convert::ToString(VariableStorageManager::Instance()->getVariable("ksi_ze")));
-		docText1 = docText1->Replace("c1", Convert::ToString(VariableStorageManager::Instance()->getVariable("c_1")));
-		docText1 = docText1->Replace("c2", Convert::ToString(VariableStorageManager::Instance()->getVariable("c_2")));
-		docText1 = docText1->Replace("NU", Convert::ToString(VariableStorageManager::Instance()->getVariable("nu")));
 
+		if (!my_fda.checkAerodynamicFactor)
+		{
+			docText1 = docText1->Replace("c1", Convert::ToString(VariableStorageManager::Instance()->getVariable("c_1")));
+			docText1 = docText1->Replace("c2", Convert::ToString(VariableStorageManager::Instance()->getVariable("c_2")));
+		}
+		else
+		{
+			docText1 = docText1->Replace("c1", Convert::ToString(my_fda.c1));
+			docText1 = docText1->Replace("c2", Convert::ToString(my_fda.c2));
+		}
+
+		docText1 = docText1->Replace("NU", Convert::ToString(VariableStorageManager::Instance()->getVariable("nu")));
 		docText1 = docText1->Replace("QynWinterOrdinary", Convert::ToString(VariableStorageManager::Instance()->getVariable("Q_311")));
 		docText1 = docText1->Replace("qy1", Convert::ToString(VariableStorageManager::Instance()->getVariable("q_311")));
 		docText1 = docText1->Replace("gammaf3", Convert::ToString(VariableStorageManager::Instance()->getVariable("gamma_f_3")));
@@ -524,7 +584,7 @@ namespace zias {
 
 		sr->Close();
 
-		docText1 = docText1->Replace("zias", gcnew String(my_fda.facing->ziasN.c_str()));
+		
 		
 		docText1 = docText1->Replace("nameObject", gcnew String(my_fda.objectName.c_str()));
 		docText1 = docText1->Replace("cipher", gcnew String(my_fda.objectCipher.c_str()));
@@ -544,11 +604,16 @@ namespace zias {
 		if (my_fda.isFacingStandart)
 		{
 			docText1 = docText1->Replace("facing", gcnew String(my_fda.facing->name.c_str()));
+			docText1 = docText1->Replace("weightOne", Convert::ToString(my_fda.facing->weight));
+			docText1 = docText1->Replace("zias", gcnew String(my_fda.facing->ziasN.c_str()));
 		}
 		else
 		{
-			docText1 = docText1->Replace("facing", Convert::ToString(my_fda.weight));
+			docText1 = docText1->Replace("weightOne", Convert::ToString(my_fda.weight));
+			docText1 = docText1->Replace("facing", "");
+			docText1 = docText1->Replace("zias", "");
 		}
+
 		if (my_fda.isSubsystemStandart)
 		{
 			docText1 = docText1->Replace("subsystem1", gcnew String(my_fda.subsystem->name.c_str()));
@@ -564,14 +629,23 @@ namespace zias {
 			docText1 = docText1->Replace("weightTwo", Convert::ToString(my_fda.profile->weight));
 		}
 
-		docText1 = docText1->Replace("constH1", Convert::ToString(my_fda.v_step_profile));
-		docText1 = docText1->Replace("constB1", Convert::ToString(my_fda.h_step_bracket_ordinary_area));
-		docText1 = docText1->Replace("constB2", Convert::ToString(my_fda.h_step_bracket_marginal_area));
+		docText1 = docText1->Replace("constH1", Convert::ToString(VariableStorageManager::Instance()->getVariable("H_1")));
+		docText1 = docText1->Replace("constB1", Convert::ToString(VariableStorageManager::Instance()->getVariable("B_1")));
+		docText1 = docText1->Replace("constB2", Convert::ToString(VariableStorageManager::Instance()->getVariable("B_2")));
 		docText1 = docText1->Replace("height", Convert::ToString(my_fda.objectHeight));
-		docText1 = docText1->Replace("windDistrict", gcnew String(my_fda.city->wind_district->name.c_str()));
 		docText1 = docText1->Replace("locationType", gcnew String(my_fda.locationType->name.c_str()));
-		docText1 = docText1->Replace("iceDistrict", gcnew String(my_fda.city->ice_district->name.c_str()));
-		docText1 = docText1->Replace("weightOne", Convert::ToString(my_fda.facing->weight));
+
+		if (my_fda.isCityClimate)
+		{
+			docText1 = docText1->Replace("windDistrict", gcnew String(my_fda.city->wind_district->name.c_str()));
+			docText1 = docText1->Replace("iceDistrict", gcnew String(my_fda.city->ice_district->name.c_str()));
+		}
+		else
+		{
+			docText1 = docText1->Replace("windDistrict", gcnew String(my_fda.windDistrict->name.c_str()));
+			docText1 = docText1->Replace("iceDistrict", gcnew String(my_fda.iceDistrict->name.c_str()));
+		}
+
 		docText1 = docText1->Replace("qzn", Convert::ToString(VariableStorageManager::Instance()->getVariable("Q_2")));
 		docText1 = docText1->Replace("qzh", Convert::ToString(VariableStorageManager::Instance()->getVariable("q_H_2")));
 		docText1 = docText1->Replace("qz", Convert::ToString(VariableStorageManager::Instance()->getVariable("q_2")));
@@ -581,10 +655,18 @@ namespace zias {
 		docText1 = docText1->Replace("w0", Convert::ToString(VariableStorageManager::Instance()->getVariable("w_0")));
 		docText1 = docText1->Replace("kz1", Convert::ToString(VariableStorageManager::Instance()->getVariable("k_ze")));
 		docText1 = docText1->Replace("ksiz", Convert::ToString(VariableStorageManager::Instance()->getVariable("ksi_ze")));
-		docText1 = docText1->Replace("c1", Convert::ToString(VariableStorageManager::Instance()->getVariable("c_1")));
-		docText1 = docText1->Replace("c2", Convert::ToString(VariableStorageManager::Instance()->getVariable("c_2")));
-		docText1 = docText1->Replace("NU", Convert::ToString(VariableStorageManager::Instance()->getVariable("nu")));
+		if (!my_fda.checkAerodynamicFactor)
+		{
+			docText1 = docText1->Replace("c1", Convert::ToString(VariableStorageManager::Instance()->getVariable("c_1")));
+			docText1 = docText1->Replace("c2", Convert::ToString(VariableStorageManager::Instance()->getVariable("c_2")));
+		}
+		else
+		{
+			docText1 = docText1->Replace("c1", Convert::ToString(my_fda.c1));
+			docText1 = docText1->Replace("c2", Convert::ToString(my_fda.c2));
+		}
 
+		docText1 = docText1->Replace("NU", Convert::ToString(VariableStorageManager::Instance()->getVariable("nu")));
 		docText1 = docText1->Replace("QynWinterOrdinary", Convert::ToString(VariableStorageManager::Instance()->getVariable("Q_311")));
 		docText1 = docText1->Replace("qy1", Convert::ToString(VariableStorageManager::Instance()->getVariable("q_311")));
 		docText1 = docText1->Replace("gammaf3", Convert::ToString(VariableStorageManager::Instance()->getVariable("gamma_f_3")));

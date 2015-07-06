@@ -1234,11 +1234,11 @@ namespace zias {
 			// 
 			this->_l_h_step_bracket->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(100)),
 				static_cast<System::Int32>(static_cast<System::Byte>(100)));
-			this->_l_h_step_bracket->Location = System::Drawing::Point(5, 134);
+			this->_l_h_step_bracket->Location = System::Drawing::Point(16, 147);
 			this->_l_h_step_bracket->Name = L"_l_h_step_bracket";
-			this->_l_h_step_bracket->Size = System::Drawing::Size(140, 26);
+			this->_l_h_step_bracket->Size = System::Drawing::Size(118, 13);
 			this->_l_h_step_bracket->TabIndex = 64;
-			this->_l_h_step_bracket->Text = L"Горизонтальный шаг кронштейнов:";
+			this->_l_h_step_bracket->Text = L"Горизонтальный шаг:";
 			// 
 			// _tb_v_step_bracket_marginal_area
 			// 
@@ -1268,11 +1268,11 @@ namespace zias {
 			// 
 			this->_l_v_step_bracket->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(100)),
 				static_cast<System::Int32>(static_cast<System::Byte>(100)));
-			this->_l_v_step_bracket->Location = System::Drawing::Point(5, 77);
+			this->_l_v_step_bracket->Location = System::Drawing::Point(22, 90);
 			this->_l_v_step_bracket->Name = L"_l_v_step_bracket";
-			this->_l_v_step_bracket->Size = System::Drawing::Size(140, 26);
+			this->_l_v_step_bracket->Size = System::Drawing::Size(106, 13);
 			this->_l_v_step_bracket->TabIndex = 61;
-			this->_l_v_step_bracket->Text = L"Вертикальный шаг кронштейнов:";
+			this->_l_v_step_bracket->Text = L"Вертикальный шаг:";
 			// 
 			// _tb_facing_radius
 			// 

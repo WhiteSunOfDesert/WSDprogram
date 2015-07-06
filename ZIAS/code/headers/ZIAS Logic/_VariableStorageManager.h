@@ -35,7 +35,6 @@ namespace zias {
 	 *					Qy_1		 form		yes
 	 *					Qz_0		 form		yes
 	 *					Qz_1		 form		yes
-	 *					S_1			 form		yes		// грузовая площадь
 	 *					R_1			 form		yes		// расчетное вырывающее усилие (рядовая зона - зимний период)
 	 *					R_2			 form		yes		// расчетное вырывающее усилие (рядовая зона - летний период)
 	 *					R_3			 form		yes		// расчетное вырывающее усилие (краевая зона - летний период)
@@ -80,25 +79,21 @@ namespace zias {
 		static void calculate_weight_1(std::shared_ptr<Facing> my_facing, const float& my_weight, const bool& isFacing);
 		// Вес 1го профиля
 		static void calculate_weight_2(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Profile> my_profile, const bool& isSubsystem);
-		// Вес 2го профиля     !!! Разобраться!!!
+		// Вес 2го профиля
 		static void calculate_weight_3(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Profile> my_profile, const bool& isSubsystem);
 		// Параметры Q, q, I, i определяются по принципу: параметр_цифры_параграфа, кроме q_H и q_sum из 2го параграфа
 		static void calculate_Q_2();
 		static void calculate_q_2();
-		static void calculate_q_H_r(const float& my_v_step_profile); // Относится к рядовым
-		static void calculate_q_H_1(const float& my_h_step_profile); // Относится к междуэтажным
-		static void calculate_q_H_2(const float& my_v_step_profile); // Относится к междуэтажным
-		// Разобраться с my_step_profile!!!
-		static void calculate_q_H_3(const float& my_step_profile, std::shared_ptr<Subsystem> my_subsystem, const bool& isSubsystem); // Относится к междуэтажным
-		// Разобраться с my_step_profile!!!
-		static void calculate_q_H_max_1(const float& my_step_profile); // Относится к maxima
-		static void calculate_q_H_max_2(const float& my_v_step_profile); // Относится к maxima
-		static void calculate_q_H_max_3(const float& my_h_step_profile); // Относится к maxima
-		static void calculate_q_sum_r(); // Относится к рядовым
-		static void calculate_q_sum_1(); // Относится к междуэтажным
-		static void calculate_q_sum_2(); // Относится к междуэтажным
-		static void calculate_q_sum_max_1(); // Относится к maxima
-		static void calculate_q_sum_max_2(); // Относится к maxima
+		static void calculate_H_1(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem, const float& my_v_step_profile, const float& my_v_step_bracket_ordinary_area, const float& my_h_step_bracket_ordinary_area);
+		static void calculate_H_2(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem, const float& my_v_step_bracket_marginal_area, const float& my_h_step_bracket_marginal_area);
+		static void calculate_H_3(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem, const float& my_h_step_profile);
+		static void calculate_B_1(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem, const float& my_v_step_profile, const float& my_v_step_bracket_ordinary_area, const float& my_h_step_bracket_ordinary_area);
+		static void calculate_B_2(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem, const float& my_v_step_bracket_marginal_area, const float& my_h_step_bracket_marginal_area);
+		static void calculate_q_H_1(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem);
+		static void calculate_q_H_2(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem);
+		static void calculate_q_H_3(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem);
+		static void calculate_q_sum_1(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem);
+		static void calculate_q_sum_2(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem);
 		// Аэродинамические коэф.
 		static void calculate_c_1(const float& my_c1, const bool& my_checkAerodynamicFactor);
 		static void calculate_c_2(const float& my_c2, const bool& my_checkAerodynamicFactor);
@@ -111,19 +106,17 @@ namespace zias {
 		static void calculate_i_312();
 		static void calculate_q_321();
 		static void calculate_q_411();
-		// Разобраться с Н3!!!
-		static void calculate_S_1(const float& my_v_step_bracket_ordinary_area, const float& my_v_step_profile, const float& my_step_profile, std::shared_ptr<Subsystem> my_subsystem, const bool& isSubsystem);
-		static void calculate_P_1(std::shared_ptr<Subsystem> my_subsystem, const bool& isSubsystem);
+		static void calculate_S_1(std::shared_ptr<Subsystem> my_subsystem, const bool& isSubsystem);
+		static void calculate_P_1();
 		static void calculate_N_1();
-		static void calculate_P_2(std::shared_ptr<Subsystem> my_subsystem, const bool& isSubsystem);
+		static void calculate_P_2();
 		static void calculate_N_2();
-		// Разобраться с H3!!!
-		static void calculate_S_2(const float& my_v_step_bracket_ordinary_area, const float& my_h_step_bracket_ordinary_area, const float& my_v_step_profile, const float& my_step_profile, std::shared_ptr<Subsystem> my_subsystem, const bool& isSubsystem);
+		static void calculate_S_2(std::shared_ptr<Subsystem> my_subsystem, const bool& isSubsystem);
 		static void calculate_P_3(std::shared_ptr<Subsystem> my_subsystem, const bool& isSubsystem);
 		static void calculate_N_3();
 		static void calculate_qy_0();
 		static void calculate_qy_1();
-		static void calculate_qz_0(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem);
+		static void calculate_qz_0();
 		static void calculate_qz_1(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem);
 		static void calculate_R_1(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);
 		static void calculate_R_2(std::shared_ptr<Subsystem> my_subsystem, std::shared_ptr<Bracket> my_bracket, const bool& isSubsystem, const float& my_facing_radius);
