@@ -1775,8 +1775,7 @@ namespace zias {
 				if (ofd->ShowDialog() != System::Windows::Forms::DialogResult::OK) {
 					ReportManager::Instance()->generateReport(fda, ofd->FileName);
 				}
-				
-				MessageBox::Show(L"Отчет сгенерирован. Приятно поработать!");
+
 			} else {
 				// TODO: можно сделать окно об ошибке более информативным... а можно нет
 
