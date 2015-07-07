@@ -1,4 +1,5 @@
 #include "stdafx.h"
+//#include <vld.h>							// раскомментировать для теста утечек памяти
 
 using namespace System;
 using namespace System::Windows::Forms;

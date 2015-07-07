@@ -13,6 +13,7 @@ namespace zias {
 		if (this->_cb_cities->Items->Count) {
 			this->_cb_cities->SelectedIndex = 0;
 		}
+		_cb_cities->DropDownStyle = ComboBoxStyle::DropDownList;
 		// wind_districs
 		std::vector<std::shared_ptr<WindDistrict>> wind_districs = zias::FormDataStorageManager::Instance()->getWindDistricts();
 		for (auto& value : wind_districs) {
@@ -22,6 +23,7 @@ namespace zias {
 		if (this->_cb_wind_districs->Items->Count) {
 			this->_cb_wind_districs->SelectedIndex = 0;
 		}
+		_cb_wind_districs->DropDownStyle = ComboBoxStyle::DropDownList;
 		// ice_districs
 		std::vector<std::shared_ptr<IceDistrict>> ice_districs = zias::FormDataStorageManager::Instance()->getIceDistricts();
 		for (auto& value : ice_districs) {
@@ -31,6 +33,7 @@ namespace zias {
 		if (this->_cb_ice_districs->Items->Count) {
 			this->_cb_ice_districs->SelectedIndex = 0;
 		}
+		_cb_ice_districs->DropDownStyle = ComboBoxStyle::DropDownList;
 		// location_types
 		std::vector<std::shared_ptr<LocationType>> location_types = zias::FormDataStorageManager::Instance()->getLocationTypes();
 		for (auto& value : location_types) {
@@ -40,6 +43,7 @@ namespace zias {
 		if (this->_cb_location_types->Items->Count) {
 			this->_cb_location_types->SelectedIndex = 0;
 		}
+		_cb_location_types->DropDownStyle = ComboBoxStyle::DropDownList;
 		// facings
 		std::vector<std::shared_ptr<Facing>> facings = zias::FormDataStorageManager::Instance()->getFacings();
 		for (auto& value : facings) {
@@ -49,6 +53,7 @@ namespace zias {
 		if (this->_cb_facing->Items->Count) {
 			this->_cb_facing->SelectedIndex = 0;
 		}
+		_cb_facing->DropDownStyle = ComboBoxStyle::DropDownList;
 		// subsystems
 		std::vector<std::shared_ptr<Subsystem>> subsystems = zias::FormDataStorageManager::Instance()->getSubsystems();
 		for (auto& value : subsystems) {
@@ -58,6 +63,7 @@ namespace zias {
 		if (this->_cb_subsystem->Items->Count) {
 			this->_cb_subsystem->SelectedIndex = 0;
 		}
+		_cb_subsystem->DropDownStyle = ComboBoxStyle::DropDownList;
 		getConstructionFields();
 		// brackets
 		std::vector<std::shared_ptr<Bracket>> brackets = zias::FormDataStorageManager::Instance()->getBrackets();
@@ -68,6 +74,7 @@ namespace zias {
 		if (this->_cb_bracket->Items->Count) {
 			this->_cb_bracket->SelectedIndex = 0;
 		}
+		_cb_bracket->DropDownStyle = ComboBoxStyle::DropDownList;
 		// profiles
 		std::vector<std::shared_ptr<Profile>> profiles = zias::FormDataStorageManager::Instance()->getProfiles();
 		for (auto& value : profiles) {
@@ -77,6 +84,7 @@ namespace zias {
 		if (this->_cb_profile->Items->Count) {
 			this->_cb_profile->SelectedIndex = 0;
 		}
+		_cb_profile->DropDownStyle = ComboBoxStyle::DropDownList;
 	}
 
 	FormDataArgs MainForm::collectData() {
