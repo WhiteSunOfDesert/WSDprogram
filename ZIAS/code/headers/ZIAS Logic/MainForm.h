@@ -1816,10 +1816,11 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
 				SaveFileDialog^ ofd = gcnew SaveFileDialog();
 				ofd->Filter = "DOCX Files|*.docx";
 				if (ofd->ShowDialog() != System::Windows::Forms::DialogResult::OK) {
-					ReportManager::Instance()->generateReport(fda, ofd->FileName);
+					return;
 				}
-				
-				MessageBox::Show(L"Отчет сгенерирован. Приятно поработать!");
+
+				ReportManager::Instance()->generateReport(fda, ofd->FileName);
+
 			} else {
 				// TODO: можно сделать окно об ошибке более информативным... а можно нет
 
