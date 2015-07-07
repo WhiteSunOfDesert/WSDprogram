@@ -254,6 +254,7 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_ordinary_area;
 	private: System::Windows::Forms::PictureBox^  _pb_climate_top_left;
 	private: System::Windows::Forms::PictureBox^  _pb_object_bottom_left;
 private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
+private: System::Windows::Forms::PictureBox^  _pb_line;
 
 	private:
 		/// <summary>
@@ -358,6 +359,7 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
 			this->_pnl_results = (gcnew System::Windows::Forms::Panel());
 			this->_tb_conclusion = (gcnew System::Windows::Forms::TextBox());
 			this->_pb_helper = (gcnew System::Windows::Forms::PictureBox());
+			this->_pb_line = (gcnew System::Windows::Forms::PictureBox());
 			this->_pnl_climate->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_climate_top_left))->BeginInit();
 			this->_pnl_object->SuspendLayout();
@@ -369,6 +371,7 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
 			this->_pnl_account->SuspendLayout();
 			this->_pnl_results->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_helper))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_line))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// _rb_climate_0
@@ -944,6 +947,7 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
 			this->_pnl_climate->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(240)), static_cast<System::Int32>(static_cast<System::Byte>(240)),
 				static_cast<System::Int32>(static_cast<System::Byte>(240)));
 			this->_pnl_climate->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->_pnl_climate->Controls->Add(this->_pb_line);
 			this->_pnl_climate->Controls->Add(this->_pb_climate_top_left);
 			this->_pnl_climate->Controls->Add(this->_l_climate);
 			this->_pnl_climate->Controls->Add(this->_rb_climate_0);
@@ -1417,6 +1421,15 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
 			this->_pb_helper->TabStop = false;
 			this->_pb_helper->Click += gcnew System::EventHandler(this, &MainForm::openDocumentation);
 			// 
+			// _pb_line
+			// 
+			this->_pb_line->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"_pb_line.Image")));
+			this->_pb_line->Location = System::Drawing::Point(0, 173);
+			this->_pb_line->Name = L"_pb_line";
+			this->_pb_line->Size = System::Drawing::Size(150, 10);
+			this->_pb_line->TabIndex = 62;
+			this->_pb_line->TabStop = false;
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -1460,6 +1473,7 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
 			this->_pnl_results->ResumeLayout(false);
 			this->_pnl_results->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_helper))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_line))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
