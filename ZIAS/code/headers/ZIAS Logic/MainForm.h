@@ -338,6 +338,7 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
 			this->_tb_weight = (gcnew System::Windows::Forms::TextBox());
 			this->_pnl_subsystem = (gcnew System::Windows::Forms::Panel());
 			this->_pnl_constructions = (gcnew System::Windows::Forms::Panel());
+			this->_tb_v_step_profile_marginal_area = (gcnew System::Windows::Forms::TextBox());
 			this->_tb_h_step_profile = (gcnew System::Windows::Forms::TextBox());
 			this->_l_h_step_profile = (gcnew System::Windows::Forms::Label());
 			this->_tb_v_step_profile_ordinary_area = (gcnew System::Windows::Forms::TextBox());
@@ -356,7 +357,6 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
 			this->_pnl_results = (gcnew System::Windows::Forms::Panel());
 			this->_tb_conclusion = (gcnew System::Windows::Forms::TextBox());
 			this->_pb_helper = (gcnew System::Windows::Forms::PictureBox());
-			this->_tb_v_step_profile_marginal_area = (gcnew System::Windows::Forms::TextBox());
 			this->_pnl_climate->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_climate_top_left))->BeginInit();
 			this->_pnl_object->SuspendLayout();
@@ -410,7 +410,7 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
 			// 
 			// _cb_cities
 			// 
-			this->_cb_cities->DropDownWidth = 150;
+			this->_cb_cities->DropDownWidth = 165;
 			this->_cb_cities->FormattingEnabled = true;
 			this->_cb_cities->Location = System::Drawing::Point(25, 35);
 			this->_cb_cities->Name = L"_cb_cities";
@@ -774,7 +774,7 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
 			this->_l_qy->AutoSize = true;
 			this->_l_qy->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(100)),
 				static_cast<System::Int32>(static_cast<System::Byte>(100)));
-			this->_l_qy->Location = System::Drawing::Point(0, 193);
+			this->_l_qy->Location = System::Drawing::Point(2, 193);
 			this->_l_qy->Name = L"_l_qy";
 			this->_l_qy->Size = System::Drawing::Size(52, 13);
 			this->_l_qy->TabIndex = 36;
@@ -785,7 +785,7 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
 			this->_l_qz->AutoSize = true;
 			this->_l_qz->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(100)),
 				static_cast<System::Int32>(static_cast<System::Byte>(100)));
-			this->_l_qz->Location = System::Drawing::Point(0, 223);
+			this->_l_qz->Location = System::Drawing::Point(2, 223);
 			this->_l_qz->Name = L"_l_qz";
 			this->_l_qz->Size = System::Drawing::Size(52, 13);
 			this->_l_qz->TabIndex = 37;
@@ -904,9 +904,9 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
 			// _tb_Qy_0
 			// 
 			this->_tb_Qy_0->Enabled = false;
-			this->_tb_Qy_0->Location = System::Drawing::Point(50, 189);
+			this->_tb_Qy_0->Location = System::Drawing::Point(55, 189);
 			this->_tb_Qy_0->Name = L"_tb_Qy_0";
-			this->_tb_Qy_0->Size = System::Drawing::Size(120, 20);
+			this->_tb_Qy_0->Size = System::Drawing::Size(115, 20);
 			this->_tb_Qy_0->TabIndex = 49;
 			this->_tb_Qy_0->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
@@ -922,9 +922,9 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
 			// _tb_Qz_0
 			// 
 			this->_tb_Qz_0->Enabled = false;
-			this->_tb_Qz_0->Location = System::Drawing::Point(50, 219);
+			this->_tb_Qz_0->Location = System::Drawing::Point(55, 219);
 			this->_tb_Qz_0->Name = L"_tb_Qz_0";
-			this->_tb_Qz_0->Size = System::Drawing::Size(120, 20);
+			this->_tb_Qz_0->Size = System::Drawing::Size(115, 20);
 			this->_tb_Qz_0->TabIndex = 51;
 			this->_tb_Qz_0->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
@@ -1180,6 +1180,18 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
 			this->_pnl_constructions->Size = System::Drawing::Size(155, 312);
 			this->_pnl_constructions->TabIndex = 57;
 			// 
+			// _tb_v_step_profile_marginal_area
+			// 
+			this->_tb_v_step_profile_marginal_area->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(150)),
+				static_cast<System::Int32>(static_cast<System::Byte>(150)), static_cast<System::Int32>(static_cast<System::Byte>(150)));
+			this->_tb_v_step_profile_marginal_area->Location = System::Drawing::Point(78, 223);
+			this->_tb_v_step_profile_marginal_area->Name = L"_tb_v_step_profile_marginal_area";
+			this->_tb_v_step_profile_marginal_area->Size = System::Drawing::Size(67, 20);
+			this->_tb_v_step_profile_marginal_area->TabIndex = 71;
+			this->_tb_v_step_profile_marginal_area->Text = L"ÊÇ";
+			this->_tb_v_step_profile_marginal_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->_tb_v_step_profile_marginal_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_v_step_profile_marginal_area_MouseClick);
+			// 
 			// _tb_h_step_profile
 			// 
 			this->_tb_h_step_profile->Location = System::Drawing::Point(25, 280);
@@ -1402,18 +1414,6 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
 			this->_pb_helper->TabIndex = 61;
 			this->_pb_helper->TabStop = false;
 			this->_pb_helper->Click += gcnew System::EventHandler(this, &MainForm::openDocumentation);
-			// 
-			// _tb_v_step_profile_marginal_area
-			// 
-			this->_tb_v_step_profile_marginal_area->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(150)),
-				static_cast<System::Int32>(static_cast<System::Byte>(150)), static_cast<System::Int32>(static_cast<System::Byte>(150)));
-			this->_tb_v_step_profile_marginal_area->Location = System::Drawing::Point(78, 223);
-			this->_tb_v_step_profile_marginal_area->Name = L"_tb_v_step_profile_marginal_area";
-			this->_tb_v_step_profile_marginal_area->Size = System::Drawing::Size(67, 20);
-			this->_tb_v_step_profile_marginal_area->TabIndex = 71;
-			this->_tb_v_step_profile_marginal_area->Text = L"ÊÇ";
-			this->_tb_v_step_profile_marginal_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
-			this->_tb_v_step_profile_marginal_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_v_step_profile_marginal_area_MouseClick);
 			// 
 			// MainForm
 			// 
