@@ -101,6 +101,29 @@ namespace zias {
 				 solution(my_solution) {}
 	};
 
+	struct Construction {
+		short id;
+		short subsystem_id;
+		bool v_bracket_rz;
+		bool v_bracket_kz;
+		bool h_bracket_rz;
+		bool h_bracket_kz;
+		bool v_profile_rz;
+		bool v_profile_kz;
+		bool h_profile;
+
+		Construction(short my_id = -1, short my_subsystem_id = -1, bool my_v_bracket_rz = false, bool my_v_bracket_kz = false, bool my_h_bracket_rz = false, bool my_h_bracket_kz = false, bool my_v_profile_rz = false, bool my_v_profile_kz = false, bool my_h_profile = false)
+			: id(my_id),
+			subsystem_id(my_subsystem_id),
+			v_bracket_rz(my_v_bracket_rz),
+			v_bracket_kz(my_v_bracket_kz),
+			h_bracket_rz(my_h_bracket_rz),
+			h_bracket_kz(my_h_bracket_kz),
+			v_profile_rz(my_v_profile_rz),
+			v_profile_kz(my_v_profile_kz),
+			h_profile(my_h_profile) {}
+	};
+
 	class FormDataStorageManager {
 		private:
 			static std::shared_ptr<FormDataStorageManager> _instance;
@@ -111,6 +134,7 @@ namespace zias {
 			static std::vector<std::shared_ptr<LocationType>> _location_types;
 			static std::vector<std::shared_ptr<Facing>> _facings;
 			static std::vector<std::shared_ptr<Subsystem>> _subsystems;
+			static std::vector<std::shared_ptr<Construction>> _constructions;
 			static std::vector<std::shared_ptr<Bracket>> _brackets;
 			static std::vector<std::shared_ptr<Profile>> _profiles;
 		public:
@@ -135,6 +159,16 @@ namespace zias {
 										std::shared_ptr<Profile> my_profile_first,
 										std::shared_ptr<Profile> my_profile_second,
 										const std::wstring& my_solution);
+			
+			static void addConstruction(const short& my_id,
+				const short& my_subsystem_id,
+				const bool& my_v_bracket_rz,
+				const bool& my_v_bracket_kz,
+				const bool& my_h_bracket_rz,
+				const bool& my_h_bracket_kz,
+				const bool& my_v_profile_rz,
+				const bool& my_v_profile_kz,
+				const bool& my_h_profile);
 
 			static void addBracket(	const short& my_id,
 									const std::wstring& my_name,
@@ -161,6 +195,8 @@ namespace zias {
 			static std::shared_ptr<Subsystem> getSubsystem(const short& my_id);
 			static std::shared_ptr<Subsystem> getSubsystem(const std::wstring& my_name);
 
+			static std::shared_ptr<Construction> getConstruction(const short& my_subsystem_id);
+
 			static std::shared_ptr<Bracket> getBracket(const short& my_id);
 			static std::shared_ptr<Bracket> getBracket(const std::wstring& my_name);
 
@@ -173,6 +209,7 @@ namespace zias {
 			static std::vector<std::shared_ptr<LocationType>> getLocationTypes();
 			static std::vector<std::shared_ptr<Facing>> getFacings();
 			static std::vector<std::shared_ptr<Subsystem>> getSubsystems();
+			static std::vector<std::shared_ptr<Construction>> getConstructions();
 			static std::vector<std::shared_ptr<Bracket>> getBrackets();
 			static std::vector<std::shared_ptr<Profile>> getProfiles();
 		

@@ -95,15 +95,13 @@
       <!-- кронштейны, x,b,c (мм) -->
       <bracket id="0"  name="КПР 1,2"			      x="0"   b="-1"  c="20"/>
       <bracket id="1"  name="Optima"			      x="25"  b="34"  c="34"/>
-      <bracket id="2"  name="Standart (2+1,2)"  x="14"  b="34"  c="45"/>
-      <bracket id="3"  name="Standart (2+2)"	  x="14"  b="34"  c="45"/>
+      <bracket id="2"  name="Standard (2+1,2)"  x="14"  b="34"  c="45"/>
+      <bracket id="3"  name="Standard (2+2)"	  x="14"  b="34"  c="45"/>
       <bracket id="4"  name="Strong 1.2"		    x="0"   b="-1"  c="52"/>
       <bracket id="5"  name="Strong 1.5"		    x="0"   b="-1"  c="52"/>
       <bracket id="6"  name="Maxima"			      x="-1"  b="140" c="140"/>
-      <bracket id="7"  name="MaximaMedium"	    x="-1"  b="-1"  c="-1"/>
-      <bracket id="8"  name="MaximaLight"		    x="-1"  b="-1"  c="-1"/>
-      <bracket id="9"  name="MediumStrong 1,2"  x="0"   b="-1"  c="85"/>
-      <bracket id="10" name="MediumStrong 1,5"  x="0"   b="-1"  c="85"/>
+      <bracket id="7"  name="MediumStrong 1,2"  x="0"   b="-1"  c="85"/>
+      <bracket id="8"  name="MediumStrong 1,5"  x="0"   b="-1"  c="85"/>
     </Brackets>
     <Profiles>
       <!-- профили -->
@@ -130,16 +128,30 @@
       <!-- подсистемы -->
       <subsystem id="0" name="КПР"				      bracket_id="0"  profile_id_first="1"  profile_id_second="0" solution="Рядовые решения"/>
       <subsystem id="1" name="Optima"				    bracket_id="1"  profile_id_first="1"  profile_id_second="0" solution="Рядовые решения"/>
-      <subsystem id="2" name="Standart"			    bracket_id="2"  profile_id_first="0"  profile_id_second="0" solution="Рядовые решения"/>
+      <subsystem id="2" name="Standard"			    bracket_id="2"  profile_id_first="0"  profile_id_second="0" solution="Рядовые решения"/>
       <subsystem id="3" name="Strong 1.2"			  bracket_id="4"  profile_id_first="0"  profile_id_second="0" solution="Рядовые решения"/>
       <subsystem id="4" name="Strong 1.5"			  bracket_id="5"  profile_id_first="0"  profile_id_second="0" solution="Рядовые решения"/>
       <subsystem id="5" name="Maxima"				    bracket_id="6"  profile_id_first="16" profile_id_second="17" solution="Междуэтажные решения"/>
-      <subsystem id="6" name="MaximaMedium"		  bracket_id="7"  profile_id_first="3"  profile_id_second="15" solution="Междуэтажные решения"/>
-      <subsystem id="7" name="MaximaLight"		  bracket_id="8"  profile_id_first="15" profile_id_second="16" solution="Междуэтажные решения"/>
-      <subsystem id="8" name="MediumStrong 1,2"	bracket_id="9"  profile_id_first="9"  profile_id_second="0" solution="Междуэтажные решения"/>
-      <subsystem id="9" name="MediumStrong 1,5"	bracket_id="10" profile_id_first="9"  profile_id_second="0" solution="Междуэтажные решения"/>
+      <subsystem id="6" name="MaximaMedium"		  bracket_id="6"  profile_id_first="3"  profile_id_second="15" solution="Междуэтажные решения"/>
+      <subsystem id="7" name="MaximaLight"		  bracket_id="6"  profile_id_first="15" profile_id_second="16" solution="Междуэтажные решения"/>
+      <subsystem id="8" name="MediumStrong 1,2"	bracket_id="7"  profile_id_first="9"  profile_id_second="0" solution="Междуэтажные решения"/>
+      <subsystem id="9" name="MediumStrong 1,5"	bracket_id="8" profile_id_first="9"  profile_id_second="0" solution="Междуэтажные решения"/>
     </Subsystems>
-  </Entity_Store>
+    <Constructions>
+      <!-- Конструкции (привязка подсистем к полям в форме в Конструкции: bool) -->
+      <construction id="0" subsystem_id="0" v_bracket_rz="1"  v_bracket_kz="1"  h_bracket_rz="0"  h_bracket_kz="0"  v_profile_rz="1"  v_profile_kz="0"  h_profile="0"/>
+      <construction id="1" subsystem_id="1" v_bracket_rz="1"  v_bracket_kz="1"  h_bracket_rz="0"  h_bracket_kz="0"  v_profile_rz="1"  v_profile_kz="0"  h_profile="0"/>
+      <construction id="2" subsystem_id="2" v_bracket_rz="1"  v_bracket_kz="1"  h_bracket_rz="0"  h_bracket_kz="0"  v_profile_rz="1"  v_profile_kz="0"  h_profile="0"/>
+      <construction id="3" subsystem_id="3" v_bracket_rz="1"  v_bracket_kz="1"  h_bracket_rz="0"  h_bracket_kz="0"  v_profile_rz="1"  v_profile_kz="0"  h_profile="0"/>
+      <construction id="4" subsystem_id="4" v_bracket_rz="1"  v_bracket_kz="1"  h_bracket_rz="0"  h_bracket_kz="0"  v_profile_rz="1"  v_profile_kz="0"  h_profile="0"/>
+      <construction id="5" subsystem_id="5" v_bracket_rz="1"  v_bracket_kz="0"  h_bracket_rz="0"  h_bracket_kz="0"  v_profile_rz="1"  v_profile_kz="1"  h_profile="1"/>
+      <construction id="6" subsystem_id="6" v_bracket_rz="0"  v_bracket_kz="0"  h_bracket_rz="1"  h_bracket_kz="1"  v_profile_rz="1"  v_profile_kz="1"  h_profile="1"/>
+      <construction id="7" subsystem_id="7" v_bracket_rz="0"  v_bracket_kz="0"  h_bracket_rz="1"  h_bracket_kz="1"  v_profile_rz="1"  v_profile_kz="1"  h_profile="1"/>
+      <construction id="8" subsystem_id="8" v_bracket_rz="1"  v_bracket_kz="0"  h_bracket_rz="0"  h_bracket_kz="0"  v_profile_rz="1"  v_profile_kz="1"  h_profile="0"/>
+      <construction id="9" subsystem_id="9" v_bracket_rz="1"  v_bracket_kz="0"  h_bracket_rz="0"  h_bracket_kz="0"  v_profile_rz="1"  v_profile_kz="1"  h_profile="0"/>
+    </Constructions>
+  
+</Entity_Store>
 
   <!-- хранятся данные о переменных, константах -->
   <Var_Store>

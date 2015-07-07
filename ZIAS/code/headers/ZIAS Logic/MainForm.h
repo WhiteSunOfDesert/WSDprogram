@@ -119,6 +119,7 @@ namespace zias {
 		bool checkDataCorrectness();
 		void calculateAccount();
 		FormDataArgs collectData();
+		void getConstructionFields();
 
 		bool isCorrectFieldObjectName();
 		bool isCorrectFieldObjectCipher();
@@ -557,6 +558,7 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
 			this->_cb_subsystem->Name = L"_cb_subsystem";
 			this->_cb_subsystem->Size = System::Drawing::Size(120, 21);
 			this->_cb_subsystem->TabIndex = 17;
+			this->_cb_subsystem->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::_cb_subsystem_SelectedIndexChanged);
 			// 
 			// _rb_subsystem_variations
 			// 
@@ -1827,5 +1829,10 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
 				MessageBox::Show(L"Заполните поля правильно", L"Некорректные введеные данные", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			}
 		}
-	};
+
+		//  _cb_subsystem_SelectedIndexChanged
+		private: System::Void _cb_subsystem_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+			getConstructionFields();
+		}
+};
 } // zias

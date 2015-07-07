@@ -58,6 +58,7 @@ namespace zias {
 		if (this->_cb_subsystem->Items->Count) {
 			this->_cb_subsystem->SelectedIndex = 0;
 		}
+		getConstructionFields();
 		// brackets
 		std::vector<std::shared_ptr<Bracket>> brackets = zias::FormDataStorageManager::Instance()->getBrackets();
 		for (auto& value : brackets) {
@@ -133,6 +134,75 @@ namespace zias {
 		result_data.h_step_profile = utils::toFloat(_tb_h_step_profile->Text);
 
 		return result_data;
+	}
+
+	void MainForm::getConstructionFields() {
+		std::shared_ptr<Construction> _construction = FormDataStorageManager::Instance()->getConstruction(
+			FormDataStorageManager::Instance()->getSubsystem(utils::toStdWString(_cb_subsystem->Text))->id);
+
+		// Блокирование или разблокирование полей Конструкции согласно выбранной подсистемы
+		if (_construction->v_bracket_rz) {
+			_tb_v_step_bracket_ordinary_area->Enabled = true;
+			_tb_v_step_bracket_ordinary_area_state = fsCommon;
+		}
+		else {
+			_tb_v_step_bracket_ordinary_area->Enabled = false;
+			_tb_v_step_bracket_ordinary_area_state = fsLocked;
+		}
+
+		if (_construction->v_bracket_kz) {
+			_tb_v_step_bracket_marginal_area->Enabled = true;
+			_tb_v_step_bracket_marginal_area_state = fsCommon;
+		}
+		else {
+			_tb_v_step_bracket_marginal_area->Enabled = false;
+			_tb_v_step_bracket_marginal_area_state = fsLocked;
+		}
+
+		if (_construction->h_bracket_rz) {
+			_tb_h_step_bracket_ordinary_area->Enabled = true;
+			_tb_h_step_bracket_ordinary_area_state = fsCommon;
+		}
+		else {
+			_tb_h_step_bracket_ordinary_area->Enabled = false;
+			_tb_h_step_bracket_ordinary_area_state = fsLocked;
+		}
+
+		if (_construction->h_bracket_kz) {
+			_tb_h_step_bracket_marginal_area->Enabled = true;
+			_tb_h_step_bracket_marginal_area_state = fsCommon;
+		}
+		else {
+			_tb_h_step_bracket_marginal_area->Enabled = false;
+			_tb_h_step_bracket_marginal_area_state = fsLocked;
+		}
+
+		if (_construction->v_profile_rz) {
+			_tb_v_step_profile_ordinary_area->Enabled = true;
+			_tb_v_step_profile_ordinary_area_state = fsCommon;
+		}
+		else {
+			_tb_v_step_profile_ordinary_area->Enabled = false;
+			_tb_v_step_profile_ordinary_area_state = fsLocked;
+		}
+
+		if (_construction->v_profile_kz) {
+			_tb_v_step_profile_marginal_area->Enabled = true;
+			_tb_v_step_profile_marginal_area_state = fsCommon;
+		}
+		else {
+			_tb_v_step_profile_marginal_area->Enabled = false;
+			_tb_v_step_profile_marginal_area_state = fsLocked;
+		}
+
+		if (_construction->h_profile) {
+			_tb_h_step_profile->Enabled = true;
+			_tb_h_step_profile_state = fsCommon;
+		}
+		else {
+			_tb_h_step_profile->Enabled = false;
+			_tb_h_step_profile_state = fsLocked;
+		}
 	}
 	
 	bool MainForm::checkDataCorrectness() {
@@ -370,11 +440,11 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldObjectCipher() {
 		std::string str = utils::toStdString(_tb_code->Text);
-		//std::regex regular("^([а-яА-ЯёЁa-zA-Z0-9.-]+)$");
-		std::regex regular("^([а-яА-ЯёЁa-zA-Z0-9.-:| ]+)$");
+		std::regex regular("^([а-яА-ЯёЁa-zA-Z0-9.-]+)$");
 		std::smatch match;
-		if (std::regex_match(str, match, regular) && str != ""
-			&& str != "Заполняет инженер") // костыль
+		if (//std::regex_match(str, match, regular) &&
+			str != "" &&
+			str != "Заполняет инженер") // костыль
 		{
 			return true;
 		}
@@ -456,7 +526,8 @@ namespace zias {
 		std::string str = utils::toStdString(_tb_v_step_bracket_ordinary_area->Text);
 		std::regex regular("([0-9]+[.,]{0,1}[0-9]{0,2})?");
 		std::smatch match;
-		if (std::regex_match(str, match, regular) && str != "") {
+		if ((_tb_v_step_bracket_ordinary_area_state == fsLocked) ||
+			(std::regex_match(str, match, regular) && str != "")) {
 			return true;
 		}
 		return false;
@@ -466,7 +537,8 @@ namespace zias {
 		std::string str = utils::toStdString(_tb_v_step_bracket_marginal_area->Text);
 		std::regex regular("([0-9]+[.,]{0,1}[0-9]{0,2})?");
 		std::smatch match;
-		if (std::regex_match(str, match, regular) && str != "") {
+		if ((_tb_v_step_bracket_marginal_area_state == fsLocked) ||
+			(std::regex_match(str, match, regular) && str != "")) {
 			return true;
 		}
 		return false;
@@ -476,7 +548,8 @@ namespace zias {
 		std::string str = utils::toStdString(_tb_h_step_bracket_ordinary_area->Text);
 		std::regex regular("([0-9]+[.,]{0,1}[0-9]{0,2})?");
 		std::smatch match;
-		if (std::regex_match(str, match, regular) && str != "") {
+		if ((_tb_h_step_bracket_ordinary_area_state == fsLocked) ||
+			(std::regex_match(str, match, regular) && str != "")) {
 			return true;
 		}
 		return false;
@@ -486,7 +559,8 @@ namespace zias {
 		std::string str = utils::toStdString(_tb_h_step_bracket_marginal_area->Text);
 		std::regex regular("([0-9]+[.,]{0,1}[0-9]{0,2})?");
 		std::smatch match;
-		if (std::regex_match(str, match, regular) && str != "") {
+		if ((_tb_h_step_bracket_marginal_area_state == fsLocked) ||
+			(std::regex_match(str, match, regular) && str != "")) {
 			return true;
 		}
 		return false;
@@ -496,7 +570,8 @@ namespace zias {
 		std::string str = utils::toStdString(_tb_v_step_profile_ordinary_area->Text);
 		std::regex regular("([0-9]+[.,]{0,1}[0-9]{0,2})?");
 		std::smatch match;
-		if (std::regex_match(str, match, regular) && str != "") {
+		if ((_tb_v_step_profile_ordinary_area_state == fsLocked) ||
+			(std::regex_match(str, match, regular) && str != "")) {
 			return true;
 		}
 		return false;
@@ -506,7 +581,8 @@ namespace zias {
 		std::string str = utils::toStdString(_tb_v_step_profile_marginal_area->Text);
 		std::regex regular("([0-9]+[.,]{0,1}[0-9]{0,2})?");
 		std::smatch match;
-		if (std::regex_match(str, match, regular) && str != "") {
+		if ((_tb_v_step_profile_marginal_area_state == fsLocked) ||
+			(std::regex_match(str, match, regular) && str != "")) {
 			return true;
 		}
 		return false;
@@ -516,7 +592,8 @@ namespace zias {
 		std::string str = utils::toStdString(_tb_h_step_profile->Text);
 		std::regex regular("([0-9]+[.,]{0,1}[0-9]{0,2})?");
 		std::smatch match;
-		if (std::regex_match(str, match, regular) && str != "") {
+		if ((_tb_h_step_profile_state == fsLocked) ||
+			(std::regex_match(str, match, regular) && str != "")) {
 			return true;
 		}
 		return false;

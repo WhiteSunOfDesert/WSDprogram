@@ -11,6 +11,7 @@ namespace zias {
 	std::vector<std::shared_ptr<LocationType>> FormDataStorageManager::_location_types;
 	std::vector<std::shared_ptr<Facing>> FormDataStorageManager::_facings;
 	std::vector<std::shared_ptr<Subsystem>> FormDataStorageManager::_subsystems;
+	std::vector<std::shared_ptr<Construction>> FormDataStorageManager::_constructions;
 	std::vector<std::shared_ptr<Bracket>> FormDataStorageManager::_brackets;
 	std::vector<std::shared_ptr<Profile>> FormDataStorageManager::_profiles;
 	// ---------------------
@@ -22,6 +23,7 @@ namespace zias {
 		_location_types.clear();
 		_facings.clear();
 		_subsystems.clear();
+		_constructions.clear();
 		_brackets.clear();
 		_profiles.clear();
 	}
@@ -33,6 +35,7 @@ namespace zias {
 		if (!_location_types.empty()) _location_types.clear();
 		if (!_facings.empty()) _facings.clear();
 		if (!_subsystems.empty()) _subsystems.clear();
+		if (!_constructions.empty()) _constructions.clear();
 		if (!_brackets.empty()) _brackets.clear();
 		if (!_profiles.empty()) _profiles.clear();
 	}
@@ -148,6 +151,23 @@ namespace zias {
 											}
 										}
 									}
+									if (utils::equals(entity_store->name(), "Constructions")) {
+										for (auto constructions = entity_store->first_node(); constructions != nullptr; constructions = constructions->next_sibling()) {
+											if (utils::equals(constructions->name(), "construction")) {
+												short id = utils::lexical_cast<short>(constructions->first_attribute("id")->value());
+												short subsystem_id = utils::lexical_cast<short>(constructions->first_attribute("subsystem_id")->value());
+												bool v_bracket_rz = utils::lexical_cast<bool>(constructions->first_attribute("v_bracket_rz")->value());
+												bool v_bracket_kz = utils::lexical_cast<bool>(constructions->first_attribute("v_bracket_kz")->value());
+												bool h_bracket_rz = utils::lexical_cast<bool>(constructions->first_attribute("h_bracket_rz")->value());
+												bool h_bracket_kz = utils::lexical_cast<bool>(constructions->first_attribute("h_bracket_kz")->value());
+												bool v_profile_rz = utils::lexical_cast<bool>(constructions->first_attribute("v_profile_rz")->value());
+												bool v_profile_kz = utils::lexical_cast<bool>(constructions->first_attribute("v_profile_kz")->value());
+												bool h_profile = utils::lexical_cast<bool>(constructions->first_attribute("h_profile")->value());
+
+												addConstruction(id, subsystem_id, v_bracket_rz, v_bracket_kz, h_bracket_rz, h_bracket_kz, v_profile_rz, v_profile_kz, h_profile);
+											}
+										}
+									}
 								}
 							}
 						}
@@ -210,6 +230,20 @@ namespace zias {
 												const std::wstring& my_solution) {
 		if (!getSubsystem(my_id) && !getSubsystem(my_name)) {
 			_subsystems.emplace_back(new Subsystem(my_id, my_name, my_bracket, my_profile_first, my_profile_second, my_solution));
+		}
+	}
+
+	void FormDataStorageManager::addConstruction(const short& my_id,
+		const short& my_subsystem_id,
+		const bool& my_v_bracket_rz,
+		const bool& my_v_bracket_kz,
+		const bool& my_h_bracket_rz,
+		const bool& my_h_bracket_kz,
+		const bool& my_v_profile_rz,
+		const bool& my_v_profile_kz,
+		const bool& my_h_profile) {
+		if (!getConstruction(my_subsystem_id)) {
+			_constructions.emplace_back(new Construction(my_id, my_subsystem_id, my_v_bracket_rz, my_v_bracket_kz, my_h_bracket_rz, my_h_bracket_kz, my_v_profile_rz, my_v_profile_kz, my_h_profile));
 		}
 	}
 
@@ -339,6 +373,15 @@ namespace zias {
 		return nullptr;
 	}
 
+	std::shared_ptr<Construction> FormDataStorageManager::getConstruction(const short& my_subsystem_id) {
+		for (auto& value : _constructions) {
+			if (value->subsystem_id == my_subsystem_id) {
+				return value;
+			}
+		}
+		return nullptr;
+	}
+
 	std::shared_ptr<Bracket> FormDataStorageManager::getBracket(const short& my_id) {
 		for (auto& value : _brackets) {
 			if (value->id == my_id) {
@@ -397,6 +440,10 @@ namespace zias {
 
 	std::vector<std::shared_ptr<Subsystem>> FormDataStorageManager::getSubsystems() {
 		return _subsystems;
+	}
+
+	std::vector<std::shared_ptr<Construction>> FormDataStorageManager::getConstructions() {
+		return _constructions;
 	}
 
 	std::vector<std::shared_ptr<Bracket>> FormDataStorageManager::getBrackets() {

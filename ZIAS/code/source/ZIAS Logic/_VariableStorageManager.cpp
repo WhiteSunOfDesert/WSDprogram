@@ -874,16 +874,16 @@ namespace zias {
 		if (tmp < getVariable("R_1_2")) {
 			tmp = getVariable("R_1_2");
 		}
-		else if (tmp < getVariable("R_2_1")) {
+		if (tmp < getVariable("R_2_1")) {
 			tmp = getVariable("R_2_1");
 		}
-		else if (tmp < getVariable("R_2_2")) {
+		if (tmp < getVariable("R_2_2")) {
 			tmp = getVariable("R_2_2");
 		}
-		else if (tmp < getVariable("R_3_1")) {
+		if (tmp < getVariable("R_3_1")) {
 			tmp = getVariable("R_3_1");
 		}
-		else if (tmp < getVariable("R_3_2")) {
+		if (tmp < getVariable("R_3_2")) {
 			tmp = getVariable("R_3_2");
 		}
 		

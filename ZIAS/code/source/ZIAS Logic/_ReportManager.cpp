@@ -42,16 +42,16 @@ namespace zias {
 		//Определение типа документа
 		if (!my_fda.isSubsystemStandart)
 		{
-			nameDoc += "Standart\\Standart";
+			nameDoc += "Standard\\Standard";
 			checkNameDocument = 1;
 			nameSubsystem = "";
 		}
 		else
 		{
 			nameSubsystem = gcnew String(my_fda.subsystem->name.c_str());
-			if (nameSubsystem->IndexOf("Standart") != -1)
+			if (nameSubsystem->IndexOf("Standard") != -1)
 			{
-				nameDoc += "Standart\\Standart";
+				nameDoc += "Standard\\Standard";
 				checkNameDocument = 1;
 			}
 			else if (nameSubsystem->IndexOf("Optima") != -1)

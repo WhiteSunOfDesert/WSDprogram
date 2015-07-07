@@ -79,6 +79,14 @@ namespace zias {
 		}
 
 		template <>
+		inline bool lexical_cast(const char* my_str) {
+			if (my_str != nullptr) {
+				return (bool)std::atoi(my_str);
+			}
+			return false;
+		}
+
+		template <>
 		inline short lexical_cast(const char* my_str) {
 			if (my_str != nullptr) {
 				return (short)std::atoi(my_str);
