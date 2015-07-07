@@ -128,7 +128,8 @@ namespace zias {
 		result_data.conclusion = utils::toStdWString(_tb_conclusion->Text);
 		result_data.isFacingStandart = _rb_facing_standart->Checked;
 		result_data.isSubsystemStandart = _rb_subsystem_standart->Checked;
-		result_data.v_step_profile = utils::toFloat(_tb_v_step_profile->Text);
+		result_data.v_step_profile_ordinary_area = utils::toFloat(_tb_v_step_profile_ordinary_area->Text);
+		result_data.v_step_profile_marginal_area = utils::toFloat(_tb_v_step_profile_marginal_area->Text);
 		result_data.h_step_profile = utils::toFloat(_tb_h_step_profile->Text);
 
 		return result_data;
@@ -295,12 +296,25 @@ namespace zias {
 
 			flag = false;
 		}
-		if (!isCorrectFieldVerticalStep()) {
+		if (!isCorrectFieldVerticalStepRZ()) {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
-			_tb_v_step_profile->BackColor = System::Drawing::Color::Pink;
-			_tb_v_step_profile_state = fsUncorrect;
-			_tb_v_step_profile->Text = L"";
+			_tb_v_step_profile_ordinary_area->BackColor = System::Drawing::Color::Pink;
+			_tb_v_step_profile_ordinary_area_state = fsUncorrect;
+			_tb_v_step_profile_ordinary_area->Text = L"";
+
+			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
+			//		 или выдавать "облоко" подсказку к полю. второй вариант предпочтительней, так как в сам 
+			//		 текстовый бокс может не влезть вся информация
+
+			flag = false;
+		}
+		if (!isCorrectFieldVerticalStepKZ()) {
+
+			// подсвечиваем поле и выдаем сообщение о некорректности данных
+			_tb_v_step_profile_marginal_area->BackColor = System::Drawing::Color::Pink;
+			_tb_v_step_profile_marginal_area_state = fsUncorrect;
+			_tb_v_step_profile_marginal_area->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
 			//		 или выдавать "облоко" подсказку к полю. второй вариант предпочтительней, так как в сам 
@@ -356,7 +370,8 @@ namespace zias {
 
 	bool MainForm::isCorrectFieldObjectCipher() {
 		std::string str = utils::toStdString(_tb_code->Text);
-		std::regex regular("^([а-яА-ЯёЁa-zA-Z0-9.-_]+)$");
+		//std::regex regular("^([а-яА-ЯёЁa-zA-Z0-9.-]+)$");
+		std::regex regular("^([а-яА-ЯёЁa-zA-Z0-9.-:| ]+)$");
 		std::smatch match;
 		if (std::regex_match(str, match, regular) && str != ""
 			&& str != "Заполняет инженер") // костыль
@@ -477,8 +492,18 @@ namespace zias {
 		return false;
 	}
 
-	bool MainForm::isCorrectFieldVerticalStep() {
-		std::string str = utils::toStdString(_tb_v_step_profile->Text);
+	bool MainForm::isCorrectFieldVerticalStepRZ() {
+		std::string str = utils::toStdString(_tb_v_step_profile_ordinary_area->Text);
+		std::regex regular("([0-9]+[.,]{0,1}[0-9]{0,2})?");
+		std::smatch match;
+		if (std::regex_match(str, match, regular) && str != "") {
+			return true;
+		}
+		return false;
+	}
+
+	bool MainForm::isCorrectFieldVerticalStepKZ() {
+		std::string str = utils::toStdString(_tb_v_step_profile_marginal_area->Text);
 		std::regex regular("([0-9]+[.,]{0,1}[0-9]{0,2})?");
 		std::smatch match;
 		if (std::regex_match(str, match, regular) && str != "") {

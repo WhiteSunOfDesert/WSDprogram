@@ -279,10 +279,10 @@ namespace zias {
 		calculate_weight_3(my_args.subsystem, my_args.profile, my_args.isSubsystemStandart);
 		calculate_Q_2();
 		calculate_q_2();
-		calculate_H_1(my_args.isSubsystemStandart, my_args.subsystem, my_args.v_step_profile, my_args.v_step_bracket_ordinary_area, my_args.h_step_bracket_ordinary_area);
-		calculate_H_2(my_args.isSubsystemStandart, my_args.subsystem, my_args.v_step_bracket_marginal_area, my_args.h_step_bracket_marginal_area);
+		calculate_H_1(my_args.v_step_profile_ordinary_area);
+		calculate_H_2(my_args.isSubsystemStandart, my_args.subsystem, my_args.v_step_profile_marginal_area);
 		calculate_H_3(my_args.isSubsystemStandart, my_args.subsystem, my_args.h_step_profile);
-		calculate_B_1(my_args.isSubsystemStandart, my_args.subsystem, my_args.v_step_profile, my_args.v_step_bracket_ordinary_area, my_args.h_step_bracket_ordinary_area);
+		calculate_B_1(my_args.isSubsystemStandart, my_args.subsystem, my_args.v_step_bracket_ordinary_area, my_args.h_step_bracket_ordinary_area);
 		calculate_B_2(my_args.isSubsystemStandart, my_args.subsystem, my_args.v_step_bracket_marginal_area, my_args.h_step_bracket_marginal_area);
 		calculate_q_H_1(my_args.isSubsystemStandart, my_args.subsystem);
 		calculate_q_H_2(my_args.isSubsystemStandart, my_args.subsystem);
@@ -323,7 +323,7 @@ namespace zias {
 	}
 
 	void VariableStorageManager::calculate_b_ice(std::shared_ptr<IceDistrict> my_ice_district) {
-		_variables.at("b_ice") = _table_b_ice.at(my_ice_district->id) / 1000.f;
+		_variables.at("b_ice") = _table_b_ice.at(my_ice_district->id);
 	}
 
 	void VariableStorageManager::calculate_w_0(std::shared_ptr<WindDistrict> my_wind_district) {
@@ -417,27 +417,13 @@ namespace zias {
 		_variables.at("q_2") = getVariable("Q_2") * getVariable("gamma_f_1");
 	}
 
-	void VariableStorageManager::calculate_H_1(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem,
-		const float& my_v_step_profile, const float& my_v_step_bracket_ordinary_area, const float& my_h_step_bracket_ordinary_area) {
+	void VariableStorageManager::calculate_H_1(const float& my_v_step_profile_ordinary_area) {
 
-		if ((!isSubsystem) || (isSubsystem && (my_subsystem->name == _SUBSYSTEM_STANDART_ ||
-			my_subsystem->name == _SUBSYSTEM_OPTIMA_ ||
-			my_subsystem->name == _SUBSYSTEM_KPR_ ||
-			my_subsystem->name == _SUBSYSTEM_STRONG_1_ ||
-			my_subsystem->name == _SUBSYSTEM_STRONG_2_))) {
-
-			_variables.at("H_1") = my_v_step_profile;
-		}
-		else if (my_subsystem->name == _SUBSYSTEM_MAXIMA_LIGHT_ || my_subsystem->name == _SUBSYSTEM_MAXIMA_MEDIUM_) {
-			_variables.at("H_1") = my_v_step_bracket_ordinary_area;
-		}
-		else {
-			_variables.at("H_1") = my_h_step_bracket_ordinary_area;
-		}
+		_variables.at("H_1") = my_v_step_profile_ordinary_area;
 	}
 
 	void VariableStorageManager::calculate_H_2(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem,
-		const float& my_v_step_bracket_marginal_area, const float& my_h_step_bracket_marginal_area) {
+		const float& my_v_step_profile_marginal_area) {
 
 		if ((!isSubsystem) || (isSubsystem && (my_subsystem->name == _SUBSYSTEM_STANDART_ ||
 			my_subsystem->name == _SUBSYSTEM_OPTIMA_ ||
@@ -447,11 +433,8 @@ namespace zias {
 
 			_variables.at("H_2") = 0.f;
 		}
-		else if (my_subsystem->name == _SUBSYSTEM_MAXIMA_LIGHT_ || my_subsystem->name == _SUBSYSTEM_MAXIMA_MEDIUM_) {
-			_variables.at("H_2") = my_v_step_bracket_marginal_area;
-		}
 		else {
-			_variables.at("H_2") = my_h_step_bracket_marginal_area;
+			_variables.at("H_2") = my_v_step_profile_marginal_area;
 		}
 	}
 
@@ -473,21 +456,13 @@ namespace zias {
 	}
 
 	void VariableStorageManager::calculate_B_1(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem,
-		const float& my_v_step_profile, const float& my_v_step_bracket_ordinary_area, const float& my_h_step_bracket_ordinary_area) {
+		const float& my_v_step_bracket_ordinary_area, const float& my_h_step_bracket_ordinary_area) {
 
-		if ((!isSubsystem) || (isSubsystem && (my_subsystem->name == _SUBSYSTEM_STANDART_ ||
-			my_subsystem->name == _SUBSYSTEM_OPTIMA_ ||
-			my_subsystem->name == _SUBSYSTEM_KPR_ ||
-			my_subsystem->name == _SUBSYSTEM_STRONG_1_ ||
-			my_subsystem->name == _SUBSYSTEM_STRONG_2_))) {
-
-			_variables.at("B_1") = my_v_step_bracket_ordinary_area;
-		}
-		else if (my_subsystem->name == _SUBSYSTEM_MAXIMA_LIGHT_ || my_subsystem->name == _SUBSYSTEM_MAXIMA_MEDIUM_) {
+		if (my_subsystem->name == _SUBSYSTEM_MAXIMA_LIGHT_ || my_subsystem->name == _SUBSYSTEM_MAXIMA_MEDIUM_) {
 			_variables.at("B_1") = my_h_step_bracket_ordinary_area;
 		}
 		else {
-			_variables.at("B_1") = my_v_step_profile;
+			_variables.at("B_1") = my_v_step_bracket_ordinary_area;
 		}
 	}
 
@@ -596,7 +571,7 @@ namespace zias {
 	void VariableStorageManager::calculate_I_312() {
 
 		_variables.at("I_312") = getVariable("b_ice") * getVariable("k_ice") *
-			getVariable("mu_2") * getVariable("rho") * getVariable("g");
+			getVariable("mu_2") * getVariable("rho") * getVariable("g") / 1000.f;
 	}
 
 	void VariableStorageManager::calculate_Q_321() {
@@ -647,7 +622,8 @@ namespace zias {
 			my_subsystem->name == _SUBSYSTEM_KPR_ ||
 			my_subsystem->name == _SUBSYSTEM_STRONG_1_ || 
 			my_subsystem->name == _SUBSYSTEM_STRONG_2_ ||
-			my_subsystem->name == _SUBSYSTEM_MAXIMA_))) {
+			my_subsystem->name == _SUBSYSTEM_MAXIMA_ ||
+			my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_1_ || my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_2_))) {
 
 			_variables.at("S_1") = getVariable("B_1") * getVariable("H_1");
 		}
@@ -680,8 +656,13 @@ namespace zias {
 			my_subsystem->name == _SUBSYSTEM_OPTIMA_ ||
 			my_subsystem->name == _SUBSYSTEM_KPR_ ||
 			my_subsystem->name == _SUBSYSTEM_STRONG_1_ ||
-			my_subsystem->name == _SUBSYSTEM_STRONG_2_ ||
-			my_subsystem->name == _SUBSYSTEM_MAXIMA_))) {
+			my_subsystem->name == _SUBSYSTEM_STRONG_2_))) {
+
+			_variables.at("S_2") = getVariable("B_2") * getVariable("H_1");
+		}
+		else if (my_subsystem->name == _SUBSYSTEM_MAXIMA_ ||
+			my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_1_ ||
+			my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_2_) {
 
 			_variables.at("S_2") = getVariable("B_1") * getVariable("H_2");
 		}

@@ -44,7 +44,8 @@ namespace zias {
 		float							weight;
 		bool							isFacingStandart;
 		bool							isSubsystemStandart;
-		float							v_step_profile;
+		float							v_step_profile_ordinary_area;
+		float							v_step_profile_marginal_area;
 		float							h_step_profile;
 		float							facing_radius;
 		float							v_step_bracket_ordinary_area;
@@ -75,7 +76,8 @@ namespace zias {
 			weight(0.f),
 			isFacingStandart(true),
 			isSubsystemStandart(true),
-			v_step_profile(0.f),
+			v_step_profile_ordinary_area(0.f),
+			v_step_profile_marginal_area(0.f),
 			h_step_profile(0.f),
 			facing_radius(0.f),
 			v_step_bracket_ordinary_area(0.f),
@@ -130,7 +132,8 @@ namespace zias {
 		bool isCorrectFieldVerticalKZ();
 		bool isCorrectFieldHorizontalRZ();
 		bool isCorrectFieldHorizontalKZ();
-		bool isCorrectFieldVerticalStep();
+		bool isCorrectFieldVerticalStepRZ();
+		bool isCorrectFieldVerticalStepKZ();
 		bool isCorrectFieldHorizontalStep();
 
 	protected:
@@ -153,7 +156,8 @@ namespace zias {
 	private: eFieldStates _tb_h_step_bracket_ordinary_area_state = fsNone;
 	private: eFieldStates _tb_h_step_bracket_marginal_area_state = fsNone;
 	private: eFieldStates _tb_conclusion_state = fsNone;
-	private: eFieldStates _tb_v_step_profile_state = fsNone;
+	private: eFieldStates _tb_v_step_profile_ordinary_area_state = fsNone;
+	private: eFieldStates _tb_v_step_profile_marginal_area_state = fsNone;
 	private: eFieldStates _tb_h_step_profile_state = fsNone;
 	private: eFieldStates _tb_facing_radius_state = fsNone;
 	private: eFieldStates _tb_weight_state = fsNone;
@@ -230,7 +234,8 @@ namespace zias {
 	private: System::Windows::Forms::Label^  _l_constructions;
 	private: System::Windows::Forms::TextBox^  _tb_h_step_profile;
 	private: System::Windows::Forms::Label^  _l_h_step_profile;
-	private: System::Windows::Forms::TextBox^  _tb_v_step_profile;
+private: System::Windows::Forms::TextBox^  _tb_v_step_profile_ordinary_area;
+
 	private: System::Windows::Forms::Label^  _l_v_step_profile;
 	private: System::Windows::Forms::TextBox^  _tb_h_step_bracket_marginal_area;
 	private: System::Windows::Forms::TextBox^  _tb_h_step_bracket_ordinary_area;
@@ -247,6 +252,8 @@ namespace zias {
 	private: System::Windows::Forms::PictureBox^  _pb_helper;
 	private: System::Windows::Forms::PictureBox^  _pb_climate_top_left;
 	private: System::Windows::Forms::PictureBox^  _pb_object_bottom_left;
+private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
+
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -333,7 +340,7 @@ namespace zias {
 			this->_pnl_constructions = (gcnew System::Windows::Forms::Panel());
 			this->_tb_h_step_profile = (gcnew System::Windows::Forms::TextBox());
 			this->_l_h_step_profile = (gcnew System::Windows::Forms::Label());
-			this->_tb_v_step_profile = (gcnew System::Windows::Forms::TextBox());
+			this->_tb_v_step_profile_ordinary_area = (gcnew System::Windows::Forms::TextBox());
 			this->_l_v_step_profile = (gcnew System::Windows::Forms::Label());
 			this->_tb_h_step_bracket_marginal_area = (gcnew System::Windows::Forms::TextBox());
 			this->_tb_h_step_bracket_ordinary_area = (gcnew System::Windows::Forms::TextBox());
@@ -349,6 +356,7 @@ namespace zias {
 			this->_pnl_results = (gcnew System::Windows::Forms::Panel());
 			this->_tb_conclusion = (gcnew System::Windows::Forms::TextBox());
 			this->_pb_helper = (gcnew System::Windows::Forms::PictureBox());
+			this->_tb_v_step_profile_marginal_area = (gcnew System::Windows::Forms::TextBox());
 			this->_pnl_climate->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_climate_top_left))->BeginInit();
 			this->_pnl_object->SuspendLayout();
@@ -402,6 +410,7 @@ namespace zias {
 			// 
 			// _cb_cities
 			// 
+			this->_cb_cities->DropDownWidth = 150;
 			this->_cb_cities->FormattingEnabled = true;
 			this->_cb_cities->Location = System::Drawing::Point(25, 35);
 			this->_cb_cities->Name = L"_cb_cities";
@@ -510,6 +519,7 @@ namespace zias {
 			// 
 			// _cb_facing
 			// 
+			this->_cb_facing->DropDownWidth = 250;
 			this->_cb_facing->FormattingEnabled = true;
 			this->_cb_facing->Location = System::Drawing::Point(25, 62);
 			this->_cb_facing->Name = L"_cb_facing";
@@ -595,6 +605,7 @@ namespace zias {
 			// _cb_profile
 			// 
 			this->_cb_profile->Cursor = System::Windows::Forms::Cursors::Default;
+			this->_cb_profile->DropDownWidth = 150;
 			this->_cb_profile->Enabled = false;
 			this->_cb_profile->FormattingEnabled = true;
 			this->_cb_profile->Location = System::Drawing::Point(25, 150);
@@ -743,9 +754,9 @@ namespace zias {
 				static_cast<System::Int32>(static_cast<System::Byte>(100)));
 			this->_l_digging_anker->Location = System::Drawing::Point(5, 43);
 			this->_l_digging_anker->Name = L"_l_digging_anker";
-			this->_l_digging_anker->Size = System::Drawing::Size(87, 13);
+			this->_l_digging_anker->Size = System::Drawing::Size(104, 13);
 			this->_l_digging_anker->TabIndex = 34;
-			this->_l_digging_anker->Text = L"Вырыв анкера -";
+			this->_l_digging_anker->Text = L"Вырыв анкера (Н) -";
 			// 
 			// _l_connections
 			// 
@@ -763,22 +774,22 @@ namespace zias {
 			this->_l_qy->AutoSize = true;
 			this->_l_qy->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(100)),
 				static_cast<System::Int32>(static_cast<System::Byte>(100)));
-			this->_l_qy->Location = System::Drawing::Point(5, 193);
+			this->_l_qy->Location = System::Drawing::Point(0, 193);
 			this->_l_qy->Name = L"_l_qy";
-			this->_l_qy->Size = System::Drawing::Size(32, 13);
+			this->_l_qy->Size = System::Drawing::Size(52, 13);
 			this->_l_qy->TabIndex = 36;
-			this->_l_qy->Text = L"Q(y) -";
+			this->_l_qy->Text = L"Q(y) (Па):";
 			// 
 			// _l_qz
 			// 
 			this->_l_qz->AutoSize = true;
 			this->_l_qz->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(100)),
 				static_cast<System::Int32>(static_cast<System::Byte>(100)));
-			this->_l_qz->Location = System::Drawing::Point(5, 223);
+			this->_l_qz->Location = System::Drawing::Point(0, 223);
 			this->_l_qz->Name = L"_l_qz";
-			this->_l_qz->Size = System::Drawing::Size(32, 13);
+			this->_l_qz->Size = System::Drawing::Size(52, 13);
 			this->_l_qz->TabIndex = 37;
-			this->_l_qz->Text = L"Q(z) -";
+			this->_l_qz->Text = L"Q(z) (Па):";
 			// 
 			// _l_sp_20_13330_2011
 			// 
@@ -893,9 +904,9 @@ namespace zias {
 			// _tb_Qy_0
 			// 
 			this->_tb_Qy_0->Enabled = false;
-			this->_tb_Qy_0->Location = System::Drawing::Point(40, 189);
+			this->_tb_Qy_0->Location = System::Drawing::Point(50, 189);
 			this->_tb_Qy_0->Name = L"_tb_Qy_0";
-			this->_tb_Qy_0->Size = System::Drawing::Size(130, 20);
+			this->_tb_Qy_0->Size = System::Drawing::Size(120, 20);
 			this->_tb_Qy_0->TabIndex = 49;
 			this->_tb_Qy_0->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
@@ -911,9 +922,9 @@ namespace zias {
 			// _tb_Qz_0
 			// 
 			this->_tb_Qz_0->Enabled = false;
-			this->_tb_Qz_0->Location = System::Drawing::Point(40, 219);
+			this->_tb_Qz_0->Location = System::Drawing::Point(50, 219);
 			this->_tb_Qz_0->Name = L"_tb_Qz_0";
-			this->_tb_Qz_0->Size = System::Drawing::Size(130, 20);
+			this->_tb_Qz_0->Size = System::Drawing::Size(120, 20);
 			this->_tb_Qz_0->TabIndex = 51;
 			this->_tb_Qz_0->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
@@ -1040,11 +1051,11 @@ namespace zias {
 			this->_l_height->AutoSize = true;
 			this->_l_height->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(100)),
 				static_cast<System::Int32>(static_cast<System::Byte>(100)));
-			this->_l_height->Location = System::Drawing::Point(99, 165);
+			this->_l_height->Location = System::Drawing::Point(82, 165);
 			this->_l_height->Name = L"_l_height";
-			this->_l_height->Size = System::Drawing::Size(48, 13);
+			this->_l_height->Size = System::Drawing::Size(65, 13);
 			this->_l_height->TabIndex = 61;
-			this->_l_height->Text = L"Высота:";
+			this->_l_height->Text = L"Высота (м):";
 			// 
 			// _l_responsible
 			// 
@@ -1113,16 +1124,16 @@ namespace zias {
 				static_cast<System::Int32>(static_cast<System::Byte>(100)));
 			this->_l_weight->Location = System::Drawing::Point(5, 129);
 			this->_l_weight->Name = L"_l_weight";
-			this->_l_weight->Size = System::Drawing::Size(29, 13);
+			this->_l_weight->Size = System::Drawing::Size(49, 13);
 			this->_l_weight->TabIndex = 10;
-			this->_l_weight->Text = L"Вес:";
+			this->_l_weight->Text = L"Вес (кг):";
 			// 
 			// _tb_weight
 			// 
 			this->_tb_weight->Enabled = false;
-			this->_tb_weight->Location = System::Drawing::Point(40, 125);
+			this->_tb_weight->Location = System::Drawing::Point(55, 125);
 			this->_tb_weight->Name = L"_tb_weight";
-			this->_tb_weight->Size = System::Drawing::Size(105, 20);
+			this->_tb_weight->Size = System::Drawing::Size(90, 20);
 			this->_tb_weight->TabIndex = 56;
 			this->_tb_weight->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_weight->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_weight_MouseClick);
@@ -1150,9 +1161,10 @@ namespace zias {
 			this->_pnl_constructions->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(240)),
 				static_cast<System::Int32>(static_cast<System::Byte>(240)), static_cast<System::Int32>(static_cast<System::Byte>(240)));
 			this->_pnl_constructions->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->_pnl_constructions->Controls->Add(this->_tb_v_step_profile_marginal_area);
 			this->_pnl_constructions->Controls->Add(this->_tb_h_step_profile);
 			this->_pnl_constructions->Controls->Add(this->_l_h_step_profile);
-			this->_pnl_constructions->Controls->Add(this->_tb_v_step_profile);
+			this->_pnl_constructions->Controls->Add(this->_tb_v_step_profile_ordinary_area);
 			this->_pnl_constructions->Controls->Add(this->_l_v_step_profile);
 			this->_pnl_constructions->Controls->Add(this->_tb_h_step_bracket_marginal_area);
 			this->_pnl_constructions->Controls->Add(this->_tb_h_step_bracket_ordinary_area);
@@ -1181,30 +1193,33 @@ namespace zias {
 			// 
 			this->_l_h_step_profile->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(100)),
 				static_cast<System::Int32>(static_cast<System::Byte>(100)));
-			this->_l_h_step_profile->Location = System::Drawing::Point(5, 248);
+			this->_l_h_step_profile->Location = System::Drawing::Point(0, 248);
 			this->_l_h_step_profile->Name = L"_l_h_step_profile";
-			this->_l_h_step_profile->Size = System::Drawing::Size(140, 26);
+			this->_l_h_step_profile->Size = System::Drawing::Size(150, 26);
 			this->_l_h_step_profile->TabIndex = 69;
-			this->_l_h_step_profile->Text = L"Шаг горизонтального профиля:";
+			this->_l_h_step_profile->Text = L"Шаг горизонтального профиля по вертикали (мм):";
 			// 
-			// _tb_v_step_profile
+			// _tb_v_step_profile_ordinary_area
 			// 
-			this->_tb_v_step_profile->Location = System::Drawing::Point(25, 223);
-			this->_tb_v_step_profile->Name = L"_tb_v_step_profile";
-			this->_tb_v_step_profile->Size = System::Drawing::Size(102, 20);
-			this->_tb_v_step_profile->TabIndex = 68;
-			this->_tb_v_step_profile->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
-			this->_tb_v_step_profile->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_v_step_profile_MouseClick);
+			this->_tb_v_step_profile_ordinary_area->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(150)),
+				static_cast<System::Int32>(static_cast<System::Byte>(150)), static_cast<System::Int32>(static_cast<System::Byte>(150)));
+			this->_tb_v_step_profile_ordinary_area->Location = System::Drawing::Point(5, 223);
+			this->_tb_v_step_profile_ordinary_area->Name = L"_tb_v_step_profile_ordinary_area";
+			this->_tb_v_step_profile_ordinary_area->Size = System::Drawing::Size(67, 20);
+			this->_tb_v_step_profile_ordinary_area->TabIndex = 68;
+			this->_tb_v_step_profile_ordinary_area->Text = L"РЗ";
+			this->_tb_v_step_profile_ordinary_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->_tb_v_step_profile_ordinary_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_v_step_profile_ordinary_area_MouseClick);
 			// 
 			// _l_v_step_profile
 			// 
 			this->_l_v_step_profile->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(100)),
 				static_cast<System::Int32>(static_cast<System::Byte>(100)));
-			this->_l_v_step_profile->Location = System::Drawing::Point(5, 191);
+			this->_l_v_step_profile->Location = System::Drawing::Point(0, 191);
 			this->_l_v_step_profile->Name = L"_l_v_step_profile";
-			this->_l_v_step_profile->Size = System::Drawing::Size(140, 26);
+			this->_l_v_step_profile->Size = System::Drawing::Size(153, 26);
 			this->_l_v_step_profile->TabIndex = 67;
-			this->_l_v_step_profile->Text = L"Шаг вертикального профиля:";
+			this->_l_v_step_profile->Text = L"Шаг вертикального профиля по горизонтали (мм):";
 			// 
 			// _tb_h_step_bracket_marginal_area
 			// 
@@ -1234,11 +1249,11 @@ namespace zias {
 			// 
 			this->_l_h_step_bracket->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(100)),
 				static_cast<System::Int32>(static_cast<System::Byte>(100)));
-			this->_l_h_step_bracket->Location = System::Drawing::Point(16, 147);
+			this->_l_h_step_bracket->Location = System::Drawing::Point(5, 134);
 			this->_l_h_step_bracket->Name = L"_l_h_step_bracket";
-			this->_l_h_step_bracket->Size = System::Drawing::Size(118, 13);
+			this->_l_h_step_bracket->Size = System::Drawing::Size(140, 26);
 			this->_l_h_step_bracket->TabIndex = 64;
-			this->_l_h_step_bracket->Text = L"Горизонтальный шаг:";
+			this->_l_h_step_bracket->Text = L"Шаг кронштейнов по горизонтали (мм):";
 			// 
 			// _tb_v_step_bracket_marginal_area
 			// 
@@ -1268,11 +1283,11 @@ namespace zias {
 			// 
 			this->_l_v_step_bracket->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(100)),
 				static_cast<System::Int32>(static_cast<System::Byte>(100)));
-			this->_l_v_step_bracket->Location = System::Drawing::Point(22, 90);
+			this->_l_v_step_bracket->Location = System::Drawing::Point(5, 77);
 			this->_l_v_step_bracket->Name = L"_l_v_step_bracket";
-			this->_l_v_step_bracket->Size = System::Drawing::Size(106, 13);
+			this->_l_v_step_bracket->Size = System::Drawing::Size(140, 26);
 			this->_l_v_step_bracket->TabIndex = 61;
-			this->_l_v_step_bracket->Text = L"Вертикальный шаг:";
+			this->_l_v_step_bracket->Text = L"Шаг кронштейнов по вертикали (мм):";
 			// 
 			// _tb_facing_radius
 			// 
@@ -1288,11 +1303,11 @@ namespace zias {
 			this->_l_facing_radius->AutoSize = true;
 			this->_l_facing_radius->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(100)),
 				static_cast<System::Int32>(static_cast<System::Byte>(100)));
-			this->_l_facing_radius->Location = System::Drawing::Point(28, 33);
+			this->_l_facing_radius->Location = System::Drawing::Point(15, 33);
 			this->_l_facing_radius->Name = L"_l_facing_radius";
-			this->_l_facing_radius->Size = System::Drawing::Size(99, 13);
+			this->_l_facing_radius->Size = System::Drawing::Size(124, 13);
 			this->_l_facing_radius->TabIndex = 59;
-			this->_l_facing_radius->Text = L"Вылет облицовки:";
+			this->_l_facing_radius->Text = L"Вылет облицовки (мм):";
 			// 
 			// _l_constructions
 			// 
@@ -1387,6 +1402,18 @@ namespace zias {
 			this->_pb_helper->TabIndex = 61;
 			this->_pb_helper->TabStop = false;
 			this->_pb_helper->Click += gcnew System::EventHandler(this, &MainForm::openDocumentation);
+			// 
+			// _tb_v_step_profile_marginal_area
+			// 
+			this->_tb_v_step_profile_marginal_area->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(150)),
+				static_cast<System::Int32>(static_cast<System::Byte>(150)), static_cast<System::Int32>(static_cast<System::Byte>(150)));
+			this->_tb_v_step_profile_marginal_area->Location = System::Drawing::Point(78, 223);
+			this->_tb_v_step_profile_marginal_area->Name = L"_tb_v_step_profile_marginal_area";
+			this->_tb_v_step_profile_marginal_area->Size = System::Drawing::Size(67, 20);
+			this->_tb_v_step_profile_marginal_area->TabIndex = 71;
+			this->_tb_v_step_profile_marginal_area->Text = L"КЗ";
+			this->_tb_v_step_profile_marginal_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->_tb_v_step_profile_marginal_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_v_step_profile_marginal_area_MouseClick);
 			// 
 			// MainForm
 			// 
@@ -1597,18 +1624,34 @@ namespace zias {
 			}
 		}
 
-		// _tb_v_step_profile_MouseClick
-		private: System::Void _tb_v_step_profile_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			switch (_tb_v_step_profile_state) {
+		// _tb_v_step_profile_ordinary_area_MouseClick
+		private: System::Void _tb_v_step_profile_ordinary_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			switch (_tb_v_step_profile_ordinary_area_state) {
 				case fsNone : {
-					_tb_v_step_profile->ForeColor = System::Drawing::Color::Black;
-					_tb_v_step_profile->Text = L"";
-					_tb_v_step_profile_state = fsCommon;
+					_tb_v_step_profile_ordinary_area->ForeColor = System::Drawing::Color::Black;
+					_tb_v_step_profile_ordinary_area->Text = L"";
+					_tb_v_step_profile_ordinary_area_state = fsCommon;
 				} case fsUncorrect : {
-					_tb_v_step_profile->BackColor = System::Drawing::Color::White;
-					_tb_v_step_profile_state = fsCommon;
+					_tb_v_step_profile_ordinary_area->BackColor = System::Drawing::Color::White;
+					_tb_v_step_profile_ordinary_area_state = fsCommon;
 				} default : {
 				
+				}
+			}
+		}
+
+		// _tb_v_step_profile_marginal_area_MouseClick
+		private: System::Void _tb_v_step_profile_marginal_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+			switch (_tb_v_step_profile_marginal_area_state) {
+				case fsNone: {
+					_tb_v_step_profile_marginal_area->ForeColor = System::Drawing::Color::Black;
+					_tb_v_step_profile_marginal_area->Text = L"";
+					_tb_v_step_profile_marginal_area_state = fsCommon;
+				} case fsUncorrect: {
+					_tb_v_step_profile_marginal_area->BackColor = System::Drawing::Color::White;
+					_tb_v_step_profile_marginal_area_state = fsCommon;
+				} default: {
+
 				}
 			}
 		}

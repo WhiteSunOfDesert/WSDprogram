@@ -84,10 +84,10 @@ namespace zias {
 		// Параметры Q, q, I, i определяются по принципу: параметр_цифры_параграфа, кроме q_H и q_sum из 2го параграфа
 		static void calculate_Q_2();
 		static void calculate_q_2();
-		static void calculate_H_1(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem, const float& my_v_step_profile, const float& my_v_step_bracket_ordinary_area, const float& my_h_step_bracket_ordinary_area);
-		static void calculate_H_2(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem, const float& my_v_step_bracket_marginal_area, const float& my_h_step_bracket_marginal_area);
+		static void calculate_H_1(const float& my_v_step_profile_ordinary_area);
+		static void calculate_H_2(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem, const float& my_v_step_profile_marginal_area);
 		static void calculate_H_3(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem, const float& my_h_step_profile);
-		static void calculate_B_1(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem, const float& my_v_step_profile, const float& my_v_step_bracket_ordinary_area, const float& my_h_step_bracket_ordinary_area);
+		static void calculate_B_1(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem, const float& my_v_step_bracket_ordinary_area, const float& my_h_step_bracket_ordinary_area);
 		static void calculate_B_2(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem, const float& my_v_step_bracket_marginal_area, const float& my_h_step_bracket_marginal_area);
 		static void calculate_q_H_1(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem);
 		static void calculate_q_H_2(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem);

@@ -27,12 +27,10 @@ namespace zias {
 		static void maximaNoAnkerReport(const FormDataArgs&, String ^);
 		static void maximaAnkerReport(const FormDataArgs&, String ^);
 
-		//static void checkExistsFile(String ^ nameFile);
-
 	public:
 		static std::shared_ptr<ReportManager>& Instance();
 
-		static void generateReport(const FormDataArgs&, const String^);
+		static void generateReport(const FormDataArgs&, String^);
 	public:
 		~ReportManager();
 	private:
