@@ -97,18 +97,20 @@ namespace zias {
 
 		fsCount				// количество возможных состояний
 	};
+	
+	// мапа, хранит значения полей, требующих проверки
+	// к сожаленюю вижуал ругается, если в мапе хранить String^, что влечет за собой некоторое 
+	// число переконвертаций для работы с этой мапой (это порешаем на следущих итерациях, скорее всего нужно будет
+	// вообще по другому зафигачить, т.к. надо еще проверки на регулярные выражения сделать одной функцией)
+	static std::map<std::string, eFieldStates> m_checking_field_states_map;
 
 	/// <summary>
 	/// Summary for MainForm
 	/// </summary>
 	public ref class MainForm : public System::Windows::Forms::Form
 	{
-	private:
-		Encoding^ _encoding_1;
-
 	public:
 		MainForm(void) 
-			: _encoding_1(Encoding::GetEncoding(1251))
 		{	
 			InitializeComponent();
 			FillData();
@@ -148,22 +150,6 @@ namespace zias {
 				delete components;
 			}
 		}
-	private: eFieldStates _tb_name_state = fsNone;
-	private: eFieldStates _tb_code_state = fsNone;
-	private: eFieldStates _tb_responsible_state = fsNone;
-	private: eFieldStates _tb_height_state = fsNone;
-	private: eFieldStates _tb_v_step_bracket_ordinary_area_state = fsNone;
-	private: eFieldStates _tb_v_step_bracket_marginal_area_state = fsNone;
-	private: eFieldStates _tb_h_step_bracket_ordinary_area_state = fsNone;
-	private: eFieldStates _tb_h_step_bracket_marginal_area_state = fsNone;
-	private: eFieldStates _tb_conclusion_state = fsNone;
-	private: eFieldStates _tb_v_step_profile_ordinary_area_state = fsNone;
-	private: eFieldStates _tb_v_step_profile_marginal_area_state = fsNone;
-	private: eFieldStates _tb_h_step_profile_state = fsNone;
-	private: eFieldStates _tb_facing_radius_state = fsNone;
-	private: eFieldStates _tb_weight_state = fsNone;
-	private: eFieldStates _tb_c1_state = fsNone;
-	private: eFieldStates _tb_c2_state = fsNone;
 	private: System::Windows::Forms::RadioButton^  _rb_climate_0;
 	private: System::Windows::Forms::RadioButton^  _rb_climate_1;
 	private: System::Windows::Forms::Label^  _l_climate;
@@ -179,9 +165,7 @@ namespace zias {
 	private: System::Windows::Forms::RadioButton^  _rb_facing_unstandart;
 	private: System::Windows::Forms::ComboBox^  _cb_facing;
 	private: System::Windows::Forms::Label^  _l_subsystem;
-
 	private: System::Windows::Forms::ComboBox^  _cb_subsystem;
-
 	private: System::Windows::Forms::Label^  _l_bracket;
 	private: System::Windows::Forms::ComboBox^  _cb_bracket;
 	private: System::Windows::Forms::Label^  _l_profile;
@@ -235,8 +219,7 @@ namespace zias {
 	private: System::Windows::Forms::Label^  _l_constructions;
 	private: System::Windows::Forms::TextBox^  _tb_h_step_profile;
 	private: System::Windows::Forms::Label^  _l_h_step_profile;
-private: System::Windows::Forms::TextBox^  _tb_v_step_profile_ordinary_area;
-
+	private: System::Windows::Forms::TextBox^  _tb_v_step_profile_ordinary_area;
 	private: System::Windows::Forms::Label^  _l_v_step_profile;
 	private: System::Windows::Forms::TextBox^  _tb_h_step_bracket_marginal_area;
 	private: System::Windows::Forms::TextBox^  _tb_h_step_bracket_ordinary_area;
@@ -253,9 +236,9 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_ordinary_area;
 	private: System::Windows::Forms::PictureBox^  _pb_helper;
 	private: System::Windows::Forms::PictureBox^  _pb_climate_top_left;
 	private: System::Windows::Forms::PictureBox^  _pb_object_bottom_left;
-private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
-private: System::Windows::Forms::PictureBox^  _pb_line;
-private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
+	private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
+	private: System::Windows::Forms::PictureBox^  _pb_line;
+	private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 
 	private:
 		/// <summary>
@@ -339,6 +322,7 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_l_weight = (gcnew System::Windows::Forms::Label());
 			this->_tb_weight = (gcnew System::Windows::Forms::TextBox());
 			this->_pnl_subsystem = (gcnew System::Windows::Forms::Panel());
+			this->_chb_subsystem_variation = (gcnew System::Windows::Forms::CheckBox());
 			this->_pnl_constructions = (gcnew System::Windows::Forms::Panel());
 			this->_tb_v_step_profile_marginal_area = (gcnew System::Windows::Forms::TextBox());
 			this->_tb_h_step_profile = (gcnew System::Windows::Forms::TextBox());
@@ -359,7 +343,6 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_pnl_results = (gcnew System::Windows::Forms::Panel());
 			this->_tb_conclusion = (gcnew System::Windows::Forms::TextBox());
 			this->_pb_helper = (gcnew System::Windows::Forms::PictureBox());
-			this->_chb_subsystem_variation = (gcnew System::Windows::Forms::CheckBox());
 			this->_pnl_climate->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_line))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_climate_top_left))->BeginInit();
@@ -823,7 +806,7 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_tb_c1->Size = System::Drawing::Size(80, 20);
 			this->_tb_c1->TabIndex = 42;
 			this->_tb_c1->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
-			this->_tb_c1->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_c1_MouseClick);
+			this->_tb_c1->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
 			// _tb_c2
 			// 
@@ -833,7 +816,7 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_tb_c2->Size = System::Drawing::Size(80, 20);
 			this->_tb_c2->TabIndex = 43;
 			this->_tb_c2->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
-			this->_tb_c2->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_c2_MouseClick);
+			this->_tb_c2->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
 			// _tb_digging_anker
 			// 
@@ -997,7 +980,7 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_tb_height->TabIndex = 65;
 			this->_tb_height->Text = L"Заполняет инженер";
 			this->_tb_height->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
-			this->_tb_height->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_height_MouseClick);
+			this->_tb_height->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
 			// _tb_responsible
 			// 
@@ -1009,7 +992,7 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_tb_responsible->TabIndex = 64;
 			this->_tb_responsible->Text = L"Заполняет инженер";
 			this->_tb_responsible->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
-			this->_tb_responsible->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_responsible_MouseClick);
+			this->_tb_responsible->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
 			// _tb_code
 			// 
@@ -1021,7 +1004,7 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_tb_code->TabIndex = 63;
 			this->_tb_code->Text = L"Заполняет инженер";
 			this->_tb_code->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
-			this->_tb_code->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_code_MouseClick);
+			this->_tb_code->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
 			// _tb_name
 			// 
@@ -1033,7 +1016,7 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_tb_name->TabIndex = 62;
 			this->_tb_name->Text = L"Заполняет инженер";
 			this->_tb_name->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
-			this->_tb_name->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_name_MouseClick);
+			this->_tb_name->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
 			// _l_height
 			// 
@@ -1125,7 +1108,7 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_tb_weight->Size = System::Drawing::Size(90, 20);
 			this->_tb_weight->TabIndex = 56;
 			this->_tb_weight->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
-			this->_tb_weight->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_weight_MouseClick);
+			this->_tb_weight->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
 			// _pnl_subsystem
 			// 
@@ -1143,6 +1126,19 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_pnl_subsystem->Name = L"_pnl_subsystem";
 			this->_pnl_subsystem->Size = System::Drawing::Size(155, 480);
 			this->_pnl_subsystem->TabIndex = 56;
+			// 
+			// _chb_subsystem_variation
+			// 
+			this->_chb_subsystem_variation->AutoSize = true;
+			this->_chb_subsystem_variation->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(100)), static_cast<System::Int32>(static_cast<System::Byte>(100)));
+			this->_chb_subsystem_variation->Location = System::Drawing::Point(5, 65);
+			this->_chb_subsystem_variation->Name = L"_chb_subsystem_variation";
+			this->_chb_subsystem_variation->Size = System::Drawing::Size(86, 17);
+			this->_chb_subsystem_variation->TabIndex = 23;
+			this->_chb_subsystem_variation->Text = L"ВАРИАЦИИ";
+			this->_chb_subsystem_variation->UseVisualStyleBackColor = true;
+			this->_chb_subsystem_variation->CheckedChanged += gcnew System::EventHandler(this, &MainForm::_changedValueSubsystemCheckBox);
 			// 
 			// _pnl_constructions
 			// 
@@ -1178,7 +1174,7 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_tb_v_step_profile_marginal_area->TabIndex = 71;
 			this->_tb_v_step_profile_marginal_area->Text = L"КЗ";
 			this->_tb_v_step_profile_marginal_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
-			this->_tb_v_step_profile_marginal_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_v_step_profile_marginal_area_MouseClick);
+			this->_tb_v_step_profile_marginal_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
 			// _tb_h_step_profile
 			// 
@@ -1187,7 +1183,7 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_tb_h_step_profile->Size = System::Drawing::Size(102, 20);
 			this->_tb_h_step_profile->TabIndex = 70;
 			this->_tb_h_step_profile->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
-			this->_tb_h_step_profile->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_h_step_profile_MouseClick);
+			this->_tb_h_step_profile->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
 			// _l_h_step_profile
 			// 
@@ -1209,7 +1205,7 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_tb_v_step_profile_ordinary_area->TabIndex = 68;
 			this->_tb_v_step_profile_ordinary_area->Text = L"РЗ";
 			this->_tb_v_step_profile_ordinary_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
-			this->_tb_v_step_profile_ordinary_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_v_step_profile_ordinary_area_MouseClick);
+			this->_tb_v_step_profile_ordinary_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
 			// _l_v_step_profile
 			// 
@@ -1231,7 +1227,7 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_tb_h_step_bracket_marginal_area->TabIndex = 66;
 			this->_tb_h_step_bracket_marginal_area->Text = L"КЗ";
 			this->_tb_h_step_bracket_marginal_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
-			this->_tb_h_step_bracket_marginal_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_h_step_bracket_marginal_area_MouseClick);
+			this->_tb_h_step_bracket_marginal_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
 			// _tb_h_step_bracket_ordinary_area
 			// 
@@ -1243,7 +1239,7 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_tb_h_step_bracket_ordinary_area->TabIndex = 65;
 			this->_tb_h_step_bracket_ordinary_area->Text = L"РЗ";
 			this->_tb_h_step_bracket_ordinary_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
-			this->_tb_h_step_bracket_ordinary_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_h_step_bracket_ordinary_area_MouseClick);
+			this->_tb_h_step_bracket_ordinary_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
 			// _l_h_step_bracket
 			// 
@@ -1265,7 +1261,7 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_tb_v_step_bracket_marginal_area->TabIndex = 63;
 			this->_tb_v_step_bracket_marginal_area->Text = L"КЗ";
 			this->_tb_v_step_bracket_marginal_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
-			this->_tb_v_step_bracket_marginal_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_v_step_bracket_marginal_area_MouseClick);
+			this->_tb_v_step_bracket_marginal_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
 			// _tb_v_step_bracket_ordinary_area
 			// 
@@ -1277,7 +1273,7 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_tb_v_step_bracket_ordinary_area->TabIndex = 62;
 			this->_tb_v_step_bracket_ordinary_area->Text = L"РЗ";
 			this->_tb_v_step_bracket_ordinary_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
-			this->_tb_v_step_bracket_ordinary_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_v_step_bracket_ordinary_area_MouseClick);
+			this->_tb_v_step_bracket_ordinary_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
 			// _l_v_step_bracket
 			// 
@@ -1296,7 +1292,7 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_tb_facing_radius->Size = System::Drawing::Size(102, 20);
 			this->_tb_facing_radius->TabIndex = 60;
 			this->_tb_facing_radius->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
-			this->_tb_facing_radius->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_facing_radius_MouseClick);
+			this->_tb_facing_radius->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
 			// _l_facing_radius
 			// 
@@ -1389,7 +1385,7 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_tb_conclusion->Size = System::Drawing::Size(315, 56);
 			this->_tb_conclusion->TabIndex = 53;
 			this->_tb_conclusion->Text = L"Вывод";
-			this->_tb_conclusion->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::_tb_conclusion_MouseClick);
+			this->_tb_conclusion->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
 			// _pb_helper
 			// 
@@ -1402,19 +1398,6 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_pb_helper->TabIndex = 61;
 			this->_pb_helper->TabStop = false;
 			this->_pb_helper->Click += gcnew System::EventHandler(this, &MainForm::openDocumentation);
-			// 
-			// _chb_subsystem_variation
-			// 
-			this->_chb_subsystem_variation->AutoSize = true;
-			this->_chb_subsystem_variation->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
-				static_cast<System::Int32>(static_cast<System::Byte>(100)), static_cast<System::Int32>(static_cast<System::Byte>(100)));
-			this->_chb_subsystem_variation->Location = System::Drawing::Point(5, 65);
-			this->_chb_subsystem_variation->Name = L"_chb_subsystem_variation";
-			this->_chb_subsystem_variation->Size = System::Drawing::Size(86, 17);
-			this->_chb_subsystem_variation->TabIndex = 23;
-			this->_chb_subsystem_variation->Text = L"ВАРИАЦИИ";
-			this->_chb_subsystem_variation->UseVisualStyleBackColor = true;
-			this->_chb_subsystem_variation->CheckedChanged += gcnew System::EventHandler(this, &MainForm::_changedValueSubsystemCheckBox);
 			// 
 			// MainForm
 			// 
@@ -1466,370 +1449,15 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 		}
 #pragma endregion
 
-		// _tb_name_MouseClick
-		private: System::Void _tb_name_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			switch (_tb_name_state) {
-				case fsNone : {
-					_tb_name->ForeColor = System::Drawing::Color::Black;
-					_tb_name->Text = L"";
-					_tb_name_state = fsCommon;
-				} case fsUncorrect : {
-					_tb_name->BackColor = System::Drawing::Color::White;
-					_tb_name_state = fsCommon;
-				} default : {
-				
-				}
-			}
-		}
-
-		// _tb_code_MouseClick
-		private: System::Void _tb_code_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			switch (_tb_code_state) {
-				case fsNone : {
-					_tb_code->ForeColor = System::Drawing::Color::Black;
-					_tb_code->Text = L"";
-					_tb_code_state = fsCommon;
-				} case fsUncorrect : {
-					_tb_code->BackColor = System::Drawing::Color::White;
-					_tb_code_state = fsCommon;
-				} default : {
-				
-				}
-			}
-		}
-
-		// _tb_responsible_MouseClick
-		private: System::Void _tb_responsible_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			switch (_tb_responsible_state) {
-				case fsNone : {
-					_tb_responsible->ForeColor = System::Drawing::Color::Black;
-					_tb_responsible->Text = L"";
-					_tb_responsible_state = fsCommon;
-				} case fsUncorrect : {
-					_tb_responsible->BackColor = System::Drawing::Color::White;
-					_tb_responsible_state = fsCommon;
-				} default : {
-				
-				}
-			}
-		}
-
-		// _tb_height_MouseClick
-		private: System::Void _tb_height_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			switch (_tb_height_state) {
-				case fsNone : {
-					_tb_height->ForeColor = System::Drawing::Color::Black;
-					_tb_height->Text = L"";
-					_tb_height_state = fsCommon;
-				} case fsUncorrect : {
-					_tb_height->BackColor = System::Drawing::Color::White;
-					_tb_height_state = fsCommon;
-				} default : {
-				
-				}
-			}
-		}
-
-		// _tb_v_step_bracket_ordinary_area_MouseClick
-		private: System::Void _tb_v_step_bracket_ordinary_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			switch (_tb_v_step_bracket_ordinary_area_state) {
-				case fsNone : {
-					_tb_v_step_bracket_ordinary_area->ForeColor = System::Drawing::Color::Black;
-					_tb_v_step_bracket_ordinary_area->Text = L"";
-					_tb_v_step_bracket_ordinary_area_state = fsCommon;
-				} case fsUncorrect : {
-					_tb_v_step_bracket_ordinary_area->BackColor = System::Drawing::Color::White;
-					_tb_v_step_bracket_ordinary_area_state = fsCommon;
-				} default : {
-				
-				}
-			}
-		}
-
-		// _tb_v_step_bracket_marginal_area_MouseClick
-		private: System::Void _tb_v_step_bracket_marginal_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			switch (_tb_v_step_bracket_marginal_area_state) {
-				case fsNone : {
-					_tb_v_step_bracket_marginal_area->ForeColor = System::Drawing::Color::Black;
-					_tb_v_step_bracket_marginal_area->Text = L"";
-					_tb_v_step_bracket_marginal_area_state = fsCommon;
-				} case fsUncorrect : {
-					_tb_v_step_bracket_marginal_area->BackColor = System::Drawing::Color::White;
-					_tb_v_step_bracket_marginal_area_state = fsCommon;
-				} default : {
-				
-				}
-			}
-		}
-
-		// _tb_h_step_bracket_ordinary_area_MouseClick
-		private: System::Void _tb_h_step_bracket_ordinary_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			switch (_tb_h_step_bracket_ordinary_area_state) {
-				case fsNone : {
-					_tb_h_step_bracket_ordinary_area->ForeColor = System::Drawing::Color::Black;
-					_tb_h_step_bracket_ordinary_area->Text = L"";
-					_tb_h_step_bracket_ordinary_area_state = fsCommon;
-				} case fsUncorrect : {
-					_tb_h_step_bracket_ordinary_area->BackColor = System::Drawing::Color::White;
-					_tb_h_step_bracket_ordinary_area_state = fsCommon;
-				} default : {
-				
-				}
-			}
-		}
-
-		// _tb_h_step_bracket_marginal_area_MouseClick
-		private: System::Void _tb_h_step_bracket_marginal_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			switch (_tb_h_step_bracket_marginal_area_state) {
-				case fsNone : {
-					_tb_h_step_bracket_marginal_area->ForeColor = System::Drawing::Color::Black;
-					_tb_h_step_bracket_marginal_area->Text = L"";
-					_tb_h_step_bracket_marginal_area_state = fsCommon;
-				} case fsUncorrect : {
-					_tb_h_step_bracket_marginal_area->BackColor = System::Drawing::Color::White;
-					_tb_h_step_bracket_marginal_area_state = fsCommon;
-				} default : {
-				
-				}
-			}
-		}
-
-		// _tb_conclusion_MouseClick
-		private: System::Void _tb_conclusion_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			switch (_tb_conclusion_state) {
-				case fsNone : {
-					_tb_conclusion->ForeColor = System::Drawing::Color::Black;
-					_tb_conclusion->Text = L"";
-					_tb_conclusion_state = fsCommon;
-				} case fsUncorrect : {
-					_tb_conclusion->BackColor = System::Drawing::Color::White;
-					_tb_conclusion_state = fsCommon;
-				} default : {
-				
-				}
-			}
-		}
-
-		// _tb_h_step_profile_MouseClick
-		private: System::Void _tb_h_step_profile_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			switch (_tb_h_step_profile_state) {
-				case fsNone : {
-					_tb_h_step_profile->ForeColor = System::Drawing::Color::Black;
-					_tb_h_step_profile->Text = L"";
-					_tb_h_step_profile_state = fsCommon;
-				} case fsUncorrect : {
-					_tb_h_step_profile->BackColor = System::Drawing::Color::White;
-					_tb_h_step_profile_state = fsCommon;
-				} default : {
-				
-				}
-			}
-		}
-
-		// _tb_v_step_profile_ordinary_area_MouseClick
-		private: System::Void _tb_v_step_profile_ordinary_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			switch (_tb_v_step_profile_ordinary_area_state) {
-				case fsNone : {
-					_tb_v_step_profile_ordinary_area->ForeColor = System::Drawing::Color::Black;
-					_tb_v_step_profile_ordinary_area->Text = L"";
-					_tb_v_step_profile_ordinary_area_state = fsCommon;
-				} case fsUncorrect : {
-					_tb_v_step_profile_ordinary_area->BackColor = System::Drawing::Color::White;
-					_tb_v_step_profile_ordinary_area_state = fsCommon;
-				} default : {
-				
-				}
-			}
-		}
-
-		// _tb_v_step_profile_marginal_area_MouseClick
-		private: System::Void _tb_v_step_profile_marginal_area_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			switch (_tb_v_step_profile_marginal_area_state) {
-				case fsNone: {
-					_tb_v_step_profile_marginal_area->ForeColor = System::Drawing::Color::Black;
-					_tb_v_step_profile_marginal_area->Text = L"";
-					_tb_v_step_profile_marginal_area_state = fsCommon;
-				} case fsUncorrect: {
-					_tb_v_step_profile_marginal_area->BackColor = System::Drawing::Color::White;
-					_tb_v_step_profile_marginal_area_state = fsCommon;
-				} default: {
-
-				}
-			}
-		}
-
-		// _tb_facing_radius_MouseClick
-		private: System::Void _tb_facing_radius_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			switch (_tb_facing_radius_state) {
-				case fsNone : {
-					_tb_facing_radius->ForeColor = System::Drawing::Color::Black;
-					_tb_facing_radius->Text = L"";
-					_tb_facing_radius_state = fsCommon;
-				} case fsUncorrect : {
-					_tb_facing_radius->BackColor = System::Drawing::Color::White;
-					_tb_facing_radius_state = fsCommon;
-				} default : {
-				
-				}
-			}
-		}
-
-		// _tb_weight_MouseClick
-		private: System::Void _tb_weight_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			switch (_tb_weight_state) {
-				case fsNone : {
-					_tb_weight->ForeColor = System::Drawing::Color::Black;
-					_tb_weight->Text = L"";
-					_tb_weight_state = fsCommon;
-				} case fsUncorrect : {
-					_tb_weight->BackColor = System::Drawing::Color::White;
-					_tb_weight_state = fsCommon;
-				} default : {
-				
-				}
-			}
-		}
-
-		// _tb_c1_MouseClick
-		private: System::Void _tb_c1_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			switch (_tb_c1_state) {
-				case fsNone : {
-					_tb_c1->ForeColor = System::Drawing::Color::Black;
-					_tb_c1->Text = L"";
-					_tb_c1_state = fsCommon;
-				} case fsUncorrect : {
-					_tb_c1->BackColor = System::Drawing::Color::White;
-					_tb_c1_state = fsCommon;
-				} default : {
-				
-				}
-			}
-		}
-
-		// _tb_v_step_profile_MouseClick
-		private: System::Void _tb_c2_MouseClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-			switch (_tb_c2_state) {
-				case fsNone : {
-					_tb_c2->ForeColor = System::Drawing::Color::Black;
-					_tb_c2->Text = L"";
-					_tb_c2_state = fsCommon;
-				} case fsUncorrect : {
-					_tb_c2->BackColor = System::Drawing::Color::White;
-					_tb_c2_state = fsCommon;
-				} default : {
-				
-				}
-			}
-		}
-	
-		// _changedValueClimateRadiobutton
-		private: System::Void _changedValueClimateRadiobutton(System::Object^  sender, System::EventArgs^  e) {
-			// города
-			_cb_cities->Enabled = !_cb_cities->Enabled;
-
-			// не города
-			_cb_wind_districs->Enabled = !_cb_wind_districs->Enabled;
-			_cb_ice_districs->Enabled = !_cb_ice_districs->Enabled;
-		}
-
-		// _changedValueFacingRadiobutton
-		private: System::Void _changedValueFacingRadiobutton(System::Object^  sender, System::EventArgs^  e) {
-			// стандартные
-			_cb_facing->Enabled = !_cb_facing->Enabled;
-
-			// нестандартные
-			_tb_weight->Enabled = !_tb_weight->Enabled;
-			
-			if (!_tb_weight->Enabled) {
-				_tb_weight->Text = L"";
-				_tb_weight->BackColor = System::Drawing::SystemColors::Window;
-				_tb_weight_state = fsLocked;
-			} else {
-				_tb_weight->BackColor = System::Drawing::Color::White;
-				_tb_weight_state = fsCommon;
-			}			
-		}			
-
-		// _changedValueSubsystemCheckBox
-		private: System::Void _changedValueSubsystemCheckBox(System::Object^  sender, System::EventArgs^  e) {
-			// вариации
-			_cb_bracket->Enabled = !_cb_bracket->Enabled;
-			_cb_profile->Enabled = !_cb_profile->Enabled;
-		}
-
-		// _changedValueVariationsCheckBox		
-		private: System::Void _changedValueVariationsCheckBox(System::Object^  sender, System::EventArgs^  e) {
-			_tb_c1->Enabled = !_tb_c1->Enabled;
-			_tb_c2->Enabled = !_tb_c2->Enabled;
-			
-			if (!_tb_c1->Enabled || !_tb_c2->Enabled) {
-				_tb_c1->Text = L"";
-				_tb_c2->Text = L"";
-				_tb_c1->BackColor = System::Drawing::SystemColors::Window;
-				_tb_c2->BackColor = System::Drawing::SystemColors::Window;
-				_tb_c1_state = fsLocked;
-				_tb_c2_state = fsLocked;
-			} else {
-				_tb_c1->BackColor = System::Drawing::Color::White;
-				_tb_c2->BackColor = System::Drawing::Color::White;
-				_tb_c1_state = fsCommon;
-				_tb_c2_state = fsCommon;
-			}	
-		}
-		
-		// openDocumentation
-		private: System::Void openDocumentation(System::Object^  sender, System::EventArgs^  e) {
-			// TODO: открываем файл документации
-			// полный путь: _PATH_TO_DOCUMENTATION_ + _HELP_DOCUMENT_NAME_
-			// наверное, лучше будет переделать, мне не нравиться открытие файла через функцию ShellExecute
-			// возможно это плохо (но это первое, что мне в голову пришло + работает)
-
-			String^ filename = _PATH_TO_DOCUMENTATION_ + _HELP_DOCUMENT_NAME_;
-			if (std::tr2::sys::exists(std::tr2::sys::path(utils::toStdString(filename)))) {
-				ShellExecute(0, "open", utils::toStdString(filename).c_str(), 0, 0, SW_SHOWNORMAL);
-			 } else { 
-				 MessageBox::Show(L"Скорее всего файл был удален или поврежден", L"Не найден файл документации", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			 }
-
-		}
-
-		// _b_calculate_account_Click
-		private: System::Void _b_calculate_account_Click(System::Object^  sender, System::EventArgs^  e) {
-			if (checkDataCorrectness()) {
-				VariableStorageManager::Instance()->updateValues(collectData());
-				calculateAccount();
-			} else {
-				// TODO: можно сделать окно об ошибке более информативным... а можно нет
-
-				MessageBox::Show(L"Заполните поля правильно", L"Некорректно введеные данные", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			}
-		}
-
-		// _b_generate_report_Click
-		private: System::Void _b_generate_report_Click(System::Object^  sender, System::EventArgs^  e) {
-			if (checkDataCorrectness()) {
-				FormDataArgs fda = collectData();
-				VariableStorageManager::Instance()->updateValues(fda);
-				
-				// диалоговое окно на сохранение файла
-				SaveFileDialog^ ofd = gcnew SaveFileDialog();
-				ofd->Filter = "DOCX Files|*.docx";
-				if (ofd->ShowDialog() != System::Windows::Forms::DialogResult::OK) {
-					return;
-				}
-
-				ReportManager::Instance()->generateReport(fda, ofd->FileName);
-
-			} else {
-				// TODO: можно сделать окно об ошибке более информативным... а можно нет
-
-				MessageBox::Show(L"Заполните поля правильно", L"Некорректные введеные данные", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-			}
-		}
-
-		//  _cb_subsystem_SelectedIndexChanged
-		private: System::Void _cb_subsystem_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
-			getConstructionFields();
-		}
-};
+		private: System::Void clickToCheckingField(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+		private: System::Void _changedValueClimateRadiobutton(System::Object^  sender, System::EventArgs^  e); 
+		private: System::Void _changedValueFacingRadiobutton(System::Object^  sender, System::EventArgs^  e);
+		private: System::Void _changedValueSubsystemCheckBox(System::Object^  sender, System::EventArgs^  e);
+		private: System::Void _changedValueVariationsCheckBox(System::Object^  sender, System::EventArgs^  e);
+		private: System::Void openDocumentation(System::Object^  sender, System::EventArgs^  e); 
+		private: System::Void _b_calculate_account_Click(System::Object^  sender, System::EventArgs^  e); 
+		private: System::Void _b_generate_report_Click(System::Object^  sender, System::EventArgs^  e);
+		private: System::Void _cb_subsystem_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
+		private: System::Void _cb_cities_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
+	};
 } // zias
