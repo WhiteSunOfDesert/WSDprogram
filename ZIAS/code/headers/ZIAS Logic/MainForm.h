@@ -179,9 +179,9 @@ namespace zias {
 	private: System::Windows::Forms::RadioButton^  _rb_facing_unstandart;
 	private: System::Windows::Forms::ComboBox^  _cb_facing;
 	private: System::Windows::Forms::Label^  _l_subsystem;
-	private: System::Windows::Forms::RadioButton^  _rb_subsystem_standart;
+
 	private: System::Windows::Forms::ComboBox^  _cb_subsystem;
-	private: System::Windows::Forms::RadioButton^  _rb_subsystem_variations;
+
 	private: System::Windows::Forms::Label^  _l_bracket;
 	private: System::Windows::Forms::ComboBox^  _cb_bracket;
 	private: System::Windows::Forms::Label^  _l_profile;
@@ -255,6 +255,7 @@ private: System::Windows::Forms::TextBox^  _tb_v_step_profile_ordinary_area;
 	private: System::Windows::Forms::PictureBox^  _pb_object_bottom_left;
 private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
 private: System::Windows::Forms::PictureBox^  _pb_line;
+private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 
 	private:
 		/// <summary>
@@ -285,9 +286,7 @@ private: System::Windows::Forms::PictureBox^  _pb_line;
 			this->_rb_facing_unstandart = (gcnew System::Windows::Forms::RadioButton());
 			this->_cb_facing = (gcnew System::Windows::Forms::ComboBox());
 			this->_l_subsystem = (gcnew System::Windows::Forms::Label());
-			this->_rb_subsystem_standart = (gcnew System::Windows::Forms::RadioButton());
 			this->_cb_subsystem = (gcnew System::Windows::Forms::ComboBox());
-			this->_rb_subsystem_variations = (gcnew System::Windows::Forms::RadioButton());
 			this->_l_bracket = (gcnew System::Windows::Forms::Label());
 			this->_cb_bracket = (gcnew System::Windows::Forms::ComboBox());
 			this->_l_profile = (gcnew System::Windows::Forms::Label());
@@ -323,6 +322,7 @@ private: System::Windows::Forms::PictureBox^  _pb_line;
 			this->_tb_Qz_0 = (gcnew System::Windows::Forms::TextBox());
 			this->_tb_Qz_1 = (gcnew System::Windows::Forms::TextBox());
 			this->_pnl_climate = (gcnew System::Windows::Forms::Panel());
+			this->_pb_line = (gcnew System::Windows::Forms::PictureBox());
 			this->_pb_climate_top_left = (gcnew System::Windows::Forms::PictureBox());
 			this->_pnl_object = (gcnew System::Windows::Forms::Panel());
 			this->_pb_object_bottom_left = (gcnew System::Windows::Forms::PictureBox());
@@ -359,8 +359,9 @@ private: System::Windows::Forms::PictureBox^  _pb_line;
 			this->_pnl_results = (gcnew System::Windows::Forms::Panel());
 			this->_tb_conclusion = (gcnew System::Windows::Forms::TextBox());
 			this->_pb_helper = (gcnew System::Windows::Forms::PictureBox());
-			this->_pb_line = (gcnew System::Windows::Forms::PictureBox());
+			this->_chb_subsystem_variation = (gcnew System::Windows::Forms::CheckBox());
 			this->_pnl_climate->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_line))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_climate_top_left))->BeginInit();
 			this->_pnl_object->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_object_bottom_left))->BeginInit();
@@ -371,7 +372,6 @@ private: System::Windows::Forms::PictureBox^  _pb_line;
 			this->_pnl_account->SuspendLayout();
 			this->_pnl_results->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_helper))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_line))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// _rb_climate_0
@@ -541,19 +541,6 @@ private: System::Windows::Forms::PictureBox^  _pb_line;
 			this->_l_subsystem->TabIndex = 15;
 			this->_l_subsystem->Text = L"ÏÎÄÑÈÑÒÅÌÀ";
 			// 
-			// _rb_subsystem_standart
-			// 
-			this->_rb_subsystem_standart->AutoSize = true;
-			this->_rb_subsystem_standart->Checked = true;
-			this->_rb_subsystem_standart->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->_rb_subsystem_standart->Location = System::Drawing::Point(5, 39);
-			this->_rb_subsystem_standart->Name = L"_rb_subsystem_standart";
-			this->_rb_subsystem_standart->Size = System::Drawing::Size(14, 13);
-			this->_rb_subsystem_standart->TabIndex = 16;
-			this->_rb_subsystem_standart->TabStop = true;
-			this->_rb_subsystem_standart->UseVisualStyleBackColor = true;
-			this->_rb_subsystem_standart->CheckedChanged += gcnew System::EventHandler(this, &MainForm::_changedValueSubsystemRadiobutton);
-			// 
 			// _cb_subsystem
 			// 
 			this->_cb_subsystem->FormattingEnabled = true;
@@ -562,19 +549,6 @@ private: System::Windows::Forms::PictureBox^  _pb_line;
 			this->_cb_subsystem->Size = System::Drawing::Size(120, 21);
 			this->_cb_subsystem->TabIndex = 17;
 			this->_cb_subsystem->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::_cb_subsystem_SelectedIndexChanged);
-			// 
-			// _rb_subsystem_variations
-			// 
-			this->_rb_subsystem_variations->AutoSize = true;
-			this->_rb_subsystem_variations->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->_rb_subsystem_variations->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
-				static_cast<System::Int32>(static_cast<System::Byte>(100)), static_cast<System::Int32>(static_cast<System::Byte>(100)));
-			this->_rb_subsystem_variations->Location = System::Drawing::Point(5, 65);
-			this->_rb_subsystem_variations->Name = L"_rb_subsystem_variations";
-			this->_rb_subsystem_variations->Size = System::Drawing::Size(85, 17);
-			this->_rb_subsystem_variations->TabIndex = 18;
-			this->_rb_subsystem_variations->Text = L"ÂÀÐÈÀÖÈÈ";
-			this->_rb_subsystem_variations->UseVisualStyleBackColor = true;
 			// 
 			// _l_bracket
 			// 
@@ -964,6 +938,15 @@ private: System::Windows::Forms::PictureBox^  _pb_line;
 			this->_pnl_climate->Size = System::Drawing::Size(155, 245);
 			this->_pnl_climate->TabIndex = 53;
 			// 
+			// _pb_line
+			// 
+			this->_pb_line->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"_pb_line.Image")));
+			this->_pb_line->Location = System::Drawing::Point(0, 173);
+			this->_pb_line->Name = L"_pb_line";
+			this->_pb_line->Size = System::Drawing::Size(150, 10);
+			this->_pb_line->TabIndex = 62;
+			this->_pb_line->TabStop = false;
+			// 
 			// _pb_climate_top_left
 			// 
 			this->_pb_climate_top_left->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"_pb_climate_top_left.Image")));
@@ -1149,10 +1132,9 @@ private: System::Windows::Forms::PictureBox^  _pb_line;
 			this->_pnl_subsystem->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(240)), static_cast<System::Int32>(static_cast<System::Byte>(240)),
 				static_cast<System::Int32>(static_cast<System::Byte>(240)));
 			this->_pnl_subsystem->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->_pnl_subsystem->Controls->Add(this->_chb_subsystem_variation);
 			this->_pnl_subsystem->Controls->Add(this->_l_subsystem);
 			this->_pnl_subsystem->Controls->Add(this->_cb_subsystem);
-			this->_pnl_subsystem->Controls->Add(this->_rb_subsystem_standart);
-			this->_pnl_subsystem->Controls->Add(this->_rb_subsystem_variations);
 			this->_pnl_subsystem->Controls->Add(this->_l_bracket);
 			this->_pnl_subsystem->Controls->Add(this->_cb_bracket);
 			this->_pnl_subsystem->Controls->Add(this->_l_profile);
@@ -1421,14 +1403,18 @@ private: System::Windows::Forms::PictureBox^  _pb_line;
 			this->_pb_helper->TabStop = false;
 			this->_pb_helper->Click += gcnew System::EventHandler(this, &MainForm::openDocumentation);
 			// 
-			// _pb_line
+			// _chb_subsystem_variation
 			// 
-			this->_pb_line->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"_pb_line.Image")));
-			this->_pb_line->Location = System::Drawing::Point(0, 173);
-			this->_pb_line->Name = L"_pb_line";
-			this->_pb_line->Size = System::Drawing::Size(150, 10);
-			this->_pb_line->TabIndex = 62;
-			this->_pb_line->TabStop = false;
+			this->_chb_subsystem_variation->AutoSize = true;
+			this->_chb_subsystem_variation->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(100)), static_cast<System::Int32>(static_cast<System::Byte>(100)));
+			this->_chb_subsystem_variation->Location = System::Drawing::Point(5, 65);
+			this->_chb_subsystem_variation->Name = L"_chb_subsystem_variation";
+			this->_chb_subsystem_variation->Size = System::Drawing::Size(86, 17);
+			this->_chb_subsystem_variation->TabIndex = 23;
+			this->_chb_subsystem_variation->Text = L"ÂÀÐÈÀÖÈÈ";
+			this->_chb_subsystem_variation->UseVisualStyleBackColor = true;
+			this->_chb_subsystem_variation->CheckedChanged += gcnew System::EventHandler(this, &MainForm::_changedValueSubsystemCheckBox);
 			// 
 			// MainForm
 			// 
@@ -1456,6 +1442,7 @@ private: System::Windows::Forms::PictureBox^  _pb_line;
 			this->Text = L"ZIAS FACADE SYSTEM - ÐÀÑ×ÅÒÍÛÉ ÊÎÌÏËÅÊÑ (2015à)";
 			this->_pnl_climate->ResumeLayout(false);
 			this->_pnl_climate->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_line))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_climate_top_left))->EndInit();
 			this->_pnl_object->ResumeLayout(false);
 			this->_pnl_object->PerformLayout();
@@ -1473,7 +1460,6 @@ private: System::Windows::Forms::PictureBox^  _pb_line;
 			this->_pnl_results->ResumeLayout(false);
 			this->_pnl_results->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_helper))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_line))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -1764,11 +1750,8 @@ private: System::Windows::Forms::PictureBox^  _pb_line;
 			}			
 		}			
 
-		// _changedValueSubsystemRadiobutton
-		private: System::Void _changedValueSubsystemRadiobutton(System::Object^  sender, System::EventArgs^  e) {
-			// ñòàíäàðòíûå
-			_cb_subsystem->Enabled = !_cb_subsystem->Enabled;
-
+		// _changedValueSubsystemCheckBox
+		private: System::Void _changedValueSubsystemCheckBox(System::Object^  sender, System::EventArgs^  e) {
 			// âàðèàöèè
 			_cb_bracket->Enabled = !_cb_bracket->Enabled;
 			_cb_profile->Enabled = !_cb_profile->Enabled;

@@ -107,12 +107,11 @@ namespace zias {
 			result_data.weight = utils::toFloat(_tb_weight->Text);
 		}
 
-		if (_rb_subsystem_standart->Checked) {
-			result_data.subsystem = FormDataStorageManager::Instance()->getSubsystem(utils::toStdWString(_cb_subsystem->Text));
+		result_data.subsystem = FormDataStorageManager::Instance()->getSubsystem(utils::toStdWString(_cb_subsystem->Text));
+		if (!_chb_subsystem_variation->Checked) {
 			result_data.profile.reset();
 			result_data.bracket.reset();
-		} else if (_rb_subsystem_variations->Checked) {
-			result_data.subsystem.reset();
+		} else {
 			result_data.profile = FormDataStorageManager::Instance()->getProfile(utils::toStdWString(_cb_profile->Text));
 			result_data.bracket = FormDataStorageManager::Instance()->getBracket(utils::toStdWString(_cb_bracket->Text));
 		}
@@ -136,7 +135,7 @@ namespace zias {
 		result_data.h_step_bracket_marginal_area = utils::toFloat(_tb_h_step_bracket_marginal_area->Text);
 		result_data.conclusion = utils::toStdWString(_tb_conclusion->Text);
 		result_data.isFacingStandart = _rb_facing_standart->Checked;
-		result_data.isSubsystemStandart = _rb_subsystem_standart->Checked;
+		result_data.isSubsystemStandart = !_chb_subsystem_variation->Checked;
 		result_data.v_step_profile_ordinary_area = utils::toFloat(_tb_v_step_profile_ordinary_area->Text);
 		result_data.v_step_profile_marginal_area = utils::toFloat(_tb_v_step_profile_marginal_area->Text);
 		result_data.h_step_profile = utils::toFloat(_tb_h_step_profile->Text);

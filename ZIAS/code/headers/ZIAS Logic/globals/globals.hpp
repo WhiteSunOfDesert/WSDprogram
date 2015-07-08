@@ -39,7 +39,7 @@
 // ...
 
 // Типы подсистем
-#define _SUBSYSTEM_STANDART_		L"Standart"
+#define _SUBSYSTEM_STANDARD_		L"Standard"
 #define _SUBSYSTEM_KPR_				L"КПР"
 #define _SUBSYSTEM_OPTIMA_			L"Optima"
 #define _SUBSYSTEM_STRONG_1_		L"Strong 1.2"
