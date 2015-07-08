@@ -91,6 +91,8 @@ namespace zias {
 		std::shared_ptr<Profile> profile_first;
 		std::shared_ptr<Profile> profile_second;
 		std::wstring solution;
+		std::vector<std::shared_ptr<Bracket>> brackets;
+		std::vector<std::shared_ptr<Profile>> profiles;
 
 		Subsystem(short my_id = -1, std::wstring my_name = L"", std::shared_ptr<Bracket> my_bracket = nullptr, std::shared_ptr<Profile> my_profile_first = nullptr, std::shared_ptr<Profile> my_profile_second = nullptr, std::wstring my_solution = L"")
 				 : id(my_id),
@@ -175,7 +177,11 @@ namespace zias {
 									const short& my_x,
 									const short& my_b,
 									const short& my_c);
+
 			static void addProfile(const short& my_id, const std::wstring& my_name, const short& my_weight);
+
+			static void addSubBr(const short& my_id, const short& my_sub_id, const short& my_br_id);
+			static void addSubPr(const short& my_id, const short& my_sub_id, const short& my_pr_id);
 
 			static std::shared_ptr<City> getCity(const short& my_id);
 			static std::shared_ptr<City> getCity(const std::wstring& my_name);

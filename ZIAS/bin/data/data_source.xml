@@ -132,10 +132,10 @@
       <subsystem id="3" name="Strong 1.2"			  bracket_id="4"  profile_id_first="0"  profile_id_second="0" solution="Рядовые решения"/>
       <subsystem id="4" name="Strong 1.5"			  bracket_id="5"  profile_id_first="0"  profile_id_second="0" solution="Рядовые решения"/>
       <subsystem id="5" name="Maxima"				    bracket_id="6"  profile_id_first="16" profile_id_second="17" solution="Междуэтажные решения"/>
-      <subsystem id="6" name="MaximaMedium"		  bracket_id="6"  profile_id_first="3"  profile_id_second="15" solution="Междуэтажные решения"/>
-      <subsystem id="7" name="MaximaLight"		  bracket_id="6"  profile_id_first="15" profile_id_second="16" solution="Междуэтажные решения"/>
+      <subsystem id="6" name="MaximaMedium"		  bracket_id="2"  profile_id_first="3"  profile_id_second="15" solution="Междуэтажные решения"/>
+      <subsystem id="7" name="MaximaLight"		  bracket_id="2"  profile_id_first="15" profile_id_second="16" solution="Междуэтажные решения"/>
       <subsystem id="8" name="MediumStrong 1,2"	bracket_id="7"  profile_id_first="9"  profile_id_second="0" solution="Междуэтажные решения"/>
-      <subsystem id="9" name="MediumStrong 1,5"	bracket_id="8" profile_id_first="9"  profile_id_second="0" solution="Междуэтажные решения"/>
+      <subsystem id="9" name="MediumStrong 1,5"	bracket_id="8"  profile_id_first="9"  profile_id_second="0" solution="Междуэтажные решения"/>
     </Subsystems>
     <Constructions>
       <!-- Конструкции (привязка подсистем к полям в форме в Конструкции: bool) -->
@@ -150,6 +150,62 @@
       <construction id="8" subsystem_id="8" v_bracket_rz="1"  v_bracket_kz="0"  h_bracket_rz="0"  h_bracket_kz="0"  v_profile_rz="1"  v_profile_kz="1"  h_profile="0"/>
       <construction id="9" subsystem_id="9" v_bracket_rz="1"  v_bracket_kz="0"  h_bracket_rz="0"  h_bracket_kz="0"  v_profile_rz="1"  v_profile_kz="1"  h_profile="0"/>
     </Constructions>
+    <SubBrs>
+      <!--  связь подсистемы и кронштейнов -->
+      <subbr id="0" sub_id="0"  br_id="0"/>
+      <subbr id="1" sub_id="1"  br_id="1"/>
+      <subbr id="2" sub_id="2"  br_id="2"/>
+      <subbr id="3" sub_id="2"  br_id="3"/>
+      <subbr id="4" sub_id="3"  br_id="4"/>
+      <subbr id="5" sub_id="3"  br_id="5"/>
+      <subbr id="6" sub_id="4"  br_id="4"/>
+      <subbr id="7" sub_id="4"  br_id="5"/>
+      <subbr id="8" sub_id="5"  br_id="6"/>
+      <subbr id="9" sub_id="6"  br_id="2"/>
+      <subbr id="10" sub_id="6" br_id="3"/>
+      <subbr id="11" sub_id="6" br_id="5"/>
+      <subbr id="12" sub_id="7" br_id="2"/>
+      <subbr id="13" sub_id="7" br_id="3"/>
+      <subbr id="14" sub_id="7" br_id="5"/>
+      <subbr id="15" sub_id="8" br_id="7"/>
+      <subbr id="16" sub_id="9" br_id="8"/>
+    </SubBrs>
+    <SubPrs>
+      <!--  связь подсистемы и профилей -->
+      <subpr id="0" sub_id="0"  pr_id="1"/>
+      <subpr id="1" sub_id="1"  pr_id="0"/>
+      <subpr id="2" sub_id="1"  pr_id="1"/>
+      <subpr id="3" sub_id="1"  pr_id="2"/>
+      <subpr id="4" sub_id="2"  pr_id="0"/>
+      <subpr id="5" sub_id="2"  pr_id="1"/>
+      <subpr id="6" sub_id="2"  pr_id="2"/>
+      <subpr id="7" sub_id="3"  pr_id="0"/>
+      <subpr id="8" sub_id="3"  pr_id="1"/>
+      <subpr id="9" sub_id="3"  pr_id="2"/>
+      <subpr id="10" sub_id="4" pr_id="0"/>
+      <subpr id="11" sub_id="4" pr_id="1"/>
+      <subpr id="12" sub_id="4" pr_id="2"/>
+      <subpr id="13" sub_id="5" pr_id="17"/>
+      <subpr id="14" sub_id="6" pr_id="3"/>
+      <subpr id="15" sub_id="6" pr_id="4"/>
+      <subpr id="16" sub_id="6" pr_id="5"/>
+      <subpr id="17" sub_id="6" pr_id="6"/>
+      <subpr id="18" sub_id="6" pr_id="7"/>
+      <subpr id="19" sub_id="6" pr_id="8"/>
+      <subpr id="20" sub_id="7" pr_id="16"/>
+      <subpr id="21" sub_id="8" pr_id="9"/>
+      <subpr id="22" sub_id="8" pr_id="10"/>
+      <subpr id="23" sub_id="8" pr_id="11"/>
+      <subpr id="24" sub_id="8" pr_id="12"/>
+      <subpr id="25" sub_id="8" pr_id="13"/>
+      <subpr id="26" sub_id="8" pr_id="14"/>
+      <subpr id="27" sub_id="9" pr_id="9"/>
+      <subpr id="28" sub_id="9" pr_id="10"/>
+      <subpr id="29" sub_id="9" pr_id="11"/>
+      <subpr id="30" sub_id="9" pr_id="12"/>
+      <subpr id="31" sub_id="9" pr_id="13"/>
+      <subpr id="32" sub_id="9" pr_id="14"/>
+    </SubPrs>
   
 </Entity_Store>
 

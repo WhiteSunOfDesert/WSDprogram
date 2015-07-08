@@ -168,6 +168,28 @@ namespace zias {
 											}
 										}
 									}
+									if (utils::equals(entity_store->name(), "SubBrs")) {
+										for (auto subbrs = entity_store->first_node(); subbrs != nullptr; subbrs = subbrs->next_sibling()) {
+											if (utils::equals(subbrs->name(), "subbr")) {
+												short id = utils::lexical_cast<short>(subbrs->first_attribute("id")->value());
+												short sub_id = utils::lexical_cast<short>(subbrs->first_attribute("sub_id")->value());
+												short br_id = utils::lexical_cast<short>(subbrs->first_attribute("br_id")->value());
+
+												addSubBr(id, sub_id, br_id);
+											}
+										}
+									}
+									if (utils::equals(entity_store->name(), "SubPrs")) {
+										for (auto subprs = entity_store->first_node(); subprs != nullptr; subprs = subprs->next_sibling()) {
+											if (utils::equals(subprs->name(), "subpr")) {
+												short id = utils::lexical_cast<short>(subprs->first_attribute("id")->value());
+												short sub_id = utils::lexical_cast<short>(subprs->first_attribute("sub_id")->value());
+												short pr_id = utils::lexical_cast<short>(subprs->first_attribute("pr_id")->value());
+
+												addSubPr(id, sub_id, pr_id);
+											}
+										}
+									}
 								}
 							}
 						}
@@ -262,6 +284,18 @@ namespace zias {
 											const short& my_weight) {
 		if (!getProfile(my_id) && !getProfile(my_name)) {
 			_profiles.emplace_back(new Profile(my_id, my_name, my_weight));
+		}
+	}
+
+	void FormDataStorageManager::addSubBr(const short& my_id, const short& my_sub_id, const short& my_br_id) {
+		if (getSubsystem(my_sub_id) && getBracket(my_br_id)) {
+			getSubsystem(my_sub_id)->brackets.emplace_back(getBracket(my_br_id));
+		}
+	}
+
+	void FormDataStorageManager::addSubPr(const short& my_id, const short& my_sub_id, const short& my_pr_id) {
+		if (getSubsystem(my_sub_id) && getProfile(my_pr_id)) {
+			getSubsystem(my_sub_id)->profiles.emplace_back(getProfile(my_pr_id));
 		}
 	}
 

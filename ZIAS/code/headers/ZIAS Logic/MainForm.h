@@ -339,6 +339,7 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_l_weight = (gcnew System::Windows::Forms::Label());
 			this->_tb_weight = (gcnew System::Windows::Forms::TextBox());
 			this->_pnl_subsystem = (gcnew System::Windows::Forms::Panel());
+			this->_chb_subsystem_variation = (gcnew System::Windows::Forms::CheckBox());
 			this->_pnl_constructions = (gcnew System::Windows::Forms::Panel());
 			this->_tb_v_step_profile_marginal_area = (gcnew System::Windows::Forms::TextBox());
 			this->_tb_h_step_profile = (gcnew System::Windows::Forms::TextBox());
@@ -359,7 +360,6 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_pnl_results = (gcnew System::Windows::Forms::Panel());
 			this->_tb_conclusion = (gcnew System::Windows::Forms::TextBox());
 			this->_pb_helper = (gcnew System::Windows::Forms::PictureBox());
-			this->_chb_subsystem_variation = (gcnew System::Windows::Forms::CheckBox());
 			this->_pnl_climate->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_line))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_climate_top_left))->BeginInit();
@@ -1144,6 +1144,19 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_pnl_subsystem->Size = System::Drawing::Size(155, 480);
 			this->_pnl_subsystem->TabIndex = 56;
 			// 
+			// _chb_subsystem_variation
+			// 
+			this->_chb_subsystem_variation->AutoSize = true;
+			this->_chb_subsystem_variation->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(100)), static_cast<System::Int32>(static_cast<System::Byte>(100)));
+			this->_chb_subsystem_variation->Location = System::Drawing::Point(5, 65);
+			this->_chb_subsystem_variation->Name = L"_chb_subsystem_variation";
+			this->_chb_subsystem_variation->Size = System::Drawing::Size(86, 17);
+			this->_chb_subsystem_variation->TabIndex = 23;
+			this->_chb_subsystem_variation->Text = L"ÂÀÐÈÀÖÈÈ";
+			this->_chb_subsystem_variation->UseVisualStyleBackColor = true;
+			this->_chb_subsystem_variation->CheckedChanged += gcnew System::EventHandler(this, &MainForm::_changedValueSubsystemCheckBox);
+			// 
 			// _pnl_constructions
 			// 
 			this->_pnl_constructions->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(240)),
@@ -1402,19 +1415,6 @@ private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
 			this->_pb_helper->TabIndex = 61;
 			this->_pb_helper->TabStop = false;
 			this->_pb_helper->Click += gcnew System::EventHandler(this, &MainForm::openDocumentation);
-			// 
-			// _chb_subsystem_variation
-			// 
-			this->_chb_subsystem_variation->AutoSize = true;
-			this->_chb_subsystem_variation->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
-				static_cast<System::Int32>(static_cast<System::Byte>(100)), static_cast<System::Int32>(static_cast<System::Byte>(100)));
-			this->_chb_subsystem_variation->Location = System::Drawing::Point(5, 65);
-			this->_chb_subsystem_variation->Name = L"_chb_subsystem_variation";
-			this->_chb_subsystem_variation->Size = System::Drawing::Size(86, 17);
-			this->_chb_subsystem_variation->TabIndex = 23;
-			this->_chb_subsystem_variation->Text = L"ÂÀÐÈÀÖÈÈ";
-			this->_chb_subsystem_variation->UseVisualStyleBackColor = true;
-			this->_chb_subsystem_variation->CheckedChanged += gcnew System::EventHandler(this, &MainForm::_changedValueSubsystemCheckBox);
 			// 
 			// MainForm
 			// 
