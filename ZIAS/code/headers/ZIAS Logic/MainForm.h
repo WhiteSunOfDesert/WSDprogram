@@ -121,7 +121,9 @@ namespace zias {
 		bool checkDataCorrectness();
 		void calculateAccount();
 		FormDataArgs collectData();
-		void getConstructionFields();
+		void _getConstructionFields();
+		void _getBrackets();
+		void _getProfiles();
 
 		bool isCorrectFieldObjectName();
 		bool isCorrectFieldObjectCipher();

@@ -89,26 +89,12 @@ namespace zias {
 			this->_cb_subsystem->SelectedIndex = 0;
 		}
 		_cb_subsystem->DropDownStyle = ComboBoxStyle::DropDownList;
-		getConstructionFields();
+		_getConstructionFields();
 		// brackets
-		std::vector<std::shared_ptr<Bracket>> brackets = zias::FormDataStorageManager::Instance()->getBrackets();
-		for (auto& value : brackets) {
-			String^ name = gcnew String((value->name).c_str());
-			this->_cb_bracket->Items->Add(name);
-		}
-		if (this->_cb_bracket->Items->Count) {
-			this->_cb_bracket->SelectedIndex = 0;
-		}
+		_getBrackets();
 		_cb_bracket->DropDownStyle = ComboBoxStyle::DropDownList;
 		// profiles
-		std::vector<std::shared_ptr<Profile>> profiles = zias::FormDataStorageManager::Instance()->getProfiles();
-		for (auto& value : profiles) {
-			String^ name = gcnew String((value->name).c_str());
-			this->_cb_profile->Items->Add(name);
-		}
-		if (this->_cb_profile->Items->Count) {
-			this->_cb_profile->SelectedIndex = 0;
-		}
+		_getProfiles();
 		_cb_profile->DropDownStyle = ComboBoxStyle::DropDownList;
 	}
 
@@ -168,7 +154,7 @@ namespace zias {
 		return result_data;
 	}
 
-	void MainForm::getConstructionFields() {
+	void MainForm::_getConstructionFields() {
 		std::shared_ptr<Construction> _construction = FormDataStorageManager::Instance()->getConstruction(
 			FormDataStorageManager::Instance()->getSubsystem(utils::toStdWString(_cb_subsystem->Text))->id);
 
@@ -227,6 +213,31 @@ namespace zias {
 		} else {
 			_tb_h_step_profile->Enabled = false;
 			m_checking_field_states_map.at(utils::toStdString(_tb_h_step_profile->Name)) = fsLocked;
+		}
+	}
+
+	void MainForm::_getBrackets() {
+		_cb_bracket->Items->Clear();
+		std::shared_ptr<Subsystem> subsystem = zias::FormDataStorageManager::Instance()->getSubsystem(utils::toStdWString(_cb_subsystem->Text));
+		for (auto& value : subsystem->brackets) {
+			String^ name = gcnew String((value->name).c_str());
+			_cb_bracket->Items->Add(name);
+			if (value->id == subsystem->bracket->id) {
+				_cb_bracket->SelectedIndex = _cb_bracket->Items->Count - 1;
+			}
+		}
+	}
+
+	void MainForm::_getProfiles() {
+		_cb_profile->Items->Clear();
+		std::shared_ptr<Subsystem> subsystem = zias::FormDataStorageManager::Instance()->getSubsystem(utils::toStdWString(_cb_subsystem->Text));
+		for (auto& value : subsystem->profiles) {
+			String^ name = gcnew String((value->name).c_str());
+			_cb_profile->Items->Add(name);
+			if (((subsystem->name == _SUBSYSTEM_MAXIMA_LIGHT_ || subsystem->name == _SUBSYSTEM_MAXIMA_) && value->id == subsystem->profile_second->id) ||
+				(subsystem->name != _SUBSYSTEM_MAXIMA_LIGHT_ && subsystem->name != _SUBSYSTEM_MAXIMA_ && value->id == subsystem->profile_first->id)) {
+				_cb_profile->SelectedIndex = _cb_profile->Items->Count - 1;
+			}
 		}
 	}
 	
@@ -747,7 +758,9 @@ namespace zias {
 
 	//  _cb_subsystem_SelectedIndexChanged
 	System::Void MainForm::_cb_subsystem_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
-		getConstructionFields();
+		_getConstructionFields();
+		_getBrackets();
+		_getProfiles();
 	}
 		
 	//_cb_cities_SelectedIndexChanged
