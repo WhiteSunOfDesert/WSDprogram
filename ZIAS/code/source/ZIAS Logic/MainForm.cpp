@@ -4,6 +4,30 @@ namespace zias {
 
 	// fill comboboxs
 	void MainForm::FillData() {
+		// загоняем названия полей, которые будут проверяться в форме
+		std::string checking_field_mas[] = {
+			utils::toStdString(_tb_name->Name),
+			utils::toStdString(_tb_code->Name),
+			utils::toStdString(_tb_responsible->Name),
+			utils::toStdString(_tb_height->Name),
+			utils::toStdString(_tb_v_step_bracket_ordinary_area->Name),
+			utils::toStdString(_tb_v_step_bracket_marginal_area->Name),
+			utils::toStdString(_tb_h_step_bracket_ordinary_area->Name),
+			utils::toStdString(_tb_h_step_bracket_marginal_area->Name),
+			utils::toStdString(_tb_conclusion->Name),
+			utils::toStdString(_tb_v_step_profile_ordinary_area->Name),
+			utils::toStdString(_tb_v_step_profile_marginal_area->Name),
+			utils::toStdString(_tb_h_step_profile->Name),
+			utils::toStdString(_tb_facing_radius->Name),
+			utils::toStdString(_tb_weight->Name),
+			utils::toStdString(_tb_c1->Name),
+			utils::toStdString(_tb_c2->Name)
+		}; 
+			
+		for (auto& field : checking_field_mas) {
+			m_checking_field_states_map.emplace(field, fsNone);
+		}
+
 		// cities
 		std::vector<std::shared_ptr<City>> cities = zias::FormDataStorageManager::Instance()->getCities();
 		for (auto& value : cities) {
@@ -14,6 +38,7 @@ namespace zias {
 			this->_cb_cities->SelectedIndex = 0;
 		}
 		_cb_cities->DropDownStyle = ComboBoxStyle::DropDownList;
+		_cb_cities->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::_cb_cities_SelectedIndexChanged);
 		// wind_districs
 		std::vector<std::shared_ptr<WindDistrict>> wind_districs = zias::FormDataStorageManager::Instance()->getWindDistricts();
 		for (auto& value : wind_districs) {
@@ -150,65 +175,58 @@ namespace zias {
 		// Блокирование или разблокирование полей Конструкции согласно выбранной подсистемы
 		if (_construction->v_bracket_rz) {
 			_tb_v_step_bracket_ordinary_area->Enabled = true;
-			_tb_v_step_bracket_ordinary_area_state = fsCommon;
-		}
-		else {
+			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_bracket_ordinary_area->Name)) = fsCommon;
+		} else {
 			_tb_v_step_bracket_ordinary_area->Enabled = false;
-			_tb_v_step_bracket_ordinary_area_state = fsLocked;
+			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_bracket_ordinary_area->Name)) = fsLocked;
 		}
 
 		if (_construction->v_bracket_kz) {
 			_tb_v_step_bracket_marginal_area->Enabled = true;
-			_tb_v_step_bracket_marginal_area_state = fsCommon;
-		}
-		else {
+			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_bracket_marginal_area->Name)) = fsCommon;
+		} else {
 			_tb_v_step_bracket_marginal_area->Enabled = false;
-			_tb_v_step_bracket_marginal_area_state = fsLocked;
+			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_bracket_marginal_area->Name)) = fsLocked;
 		}
 
 		if (_construction->h_bracket_rz) {
 			_tb_h_step_bracket_ordinary_area->Enabled = true;
-			_tb_h_step_bracket_ordinary_area_state = fsCommon;
-		}
-		else {
+			m_checking_field_states_map.at(utils::toStdString(_tb_h_step_bracket_ordinary_area->Name)) = fsCommon;
+		} else {
 			_tb_h_step_bracket_ordinary_area->Enabled = false;
-			_tb_h_step_bracket_ordinary_area_state = fsLocked;
+			m_checking_field_states_map.at(utils::toStdString(_tb_h_step_bracket_ordinary_area->Name)) = fsLocked;
 		}
 
 		if (_construction->h_bracket_kz) {
 			_tb_h_step_bracket_marginal_area->Enabled = true;
-			_tb_h_step_bracket_marginal_area_state = fsCommon;
-		}
-		else {
+			m_checking_field_states_map.at(utils::toStdString(_tb_h_step_bracket_marginal_area->Name)) = fsCommon;
+		} else {
 			_tb_h_step_bracket_marginal_area->Enabled = false;
-			_tb_h_step_bracket_marginal_area_state = fsLocked;
+			m_checking_field_states_map.at(utils::toStdString(_tb_h_step_bracket_marginal_area->Name)) = fsLocked;
 		}
 
 		if (_construction->v_profile_rz) {
 			_tb_v_step_profile_ordinary_area->Enabled = true;
-			_tb_v_step_profile_ordinary_area_state = fsCommon;
-		}
-		else {
+			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_profile_ordinary_area->Name)) = fsCommon;
+		} else {
 			_tb_v_step_profile_ordinary_area->Enabled = false;
-			_tb_v_step_profile_ordinary_area_state = fsLocked;
+			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_profile_ordinary_area->Name)) = fsLocked;
 		}
 
 		if (_construction->v_profile_kz) {
 			_tb_v_step_profile_marginal_area->Enabled = true;
-			_tb_v_step_profile_marginal_area_state = fsCommon;
-		}
-		else {
+			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_profile_marginal_area->Name)) = fsCommon;
+		} else {
 			_tb_v_step_profile_marginal_area->Enabled = false;
-			_tb_v_step_profile_marginal_area_state = fsLocked;
+			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_profile_marginal_area->Name)) = fsLocked;
 		}
 
 		if (_construction->h_profile) {
 			_tb_h_step_profile->Enabled = true;
-			_tb_h_step_profile_state = fsCommon;
-		}
-		else {
+			m_checking_field_states_map.at(utils::toStdString(_tb_h_step_profile->Name)) = fsCommon;
+		} else {
 			_tb_h_step_profile->Enabled = false;
-			_tb_h_step_profile_state = fsLocked;
+			m_checking_field_states_map.at(utils::toStdString(_tb_h_step_profile->Name)) = fsLocked;
 		}
 	}
 	
@@ -221,7 +239,7 @@ namespace zias {
 			
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_name->BackColor = System::Drawing::Color::Pink;
-			_tb_name_state = fsUncorrect;
+			m_checking_field_states_map.at(utils::toStdString(_tb_name->Name)) = fsUncorrect;
 			_tb_name->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -234,7 +252,7 @@ namespace zias {
 			
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_code->BackColor = System::Drawing::Color::Pink;
-			_tb_code_state = fsUncorrect;
+			m_checking_field_states_map.at(utils::toStdString(_tb_code->Name)) = fsUncorrect;
 			_tb_code->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -247,7 +265,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_responsible->BackColor = System::Drawing::Color::Pink;
-			_tb_responsible_state = fsUncorrect;
+			m_checking_field_states_map.at(utils::toStdString(_tb_responsible->Name)) = fsUncorrect;
 			_tb_responsible->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -260,7 +278,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_height->BackColor = System::Drawing::Color::Pink;
-			_tb_height_state = fsUncorrect;
+			m_checking_field_states_map.at(utils::toStdString(_tb_height->Name)) = fsUncorrect;
 			_tb_height->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -273,7 +291,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_weight->BackColor = System::Drawing::Color::Pink;
-			_tb_weight_state = fsUncorrect;
+			m_checking_field_states_map.at(utils::toStdString(_tb_weight->Name)) = fsUncorrect;
 			_tb_weight->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -286,7 +304,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_c1->BackColor = System::Drawing::Color::Pink;
-			_tb_c1_state = fsUncorrect;
+			m_checking_field_states_map.at(utils::toStdString(_tb_c1->Name)) = fsUncorrect;
 			_tb_c1->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -299,7 +317,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_c2->BackColor = System::Drawing::Color::Pink;
-			_tb_c2_state = fsUncorrect;
+			m_checking_field_states_map.at(utils::toStdString(_tb_c2->Name)) = fsUncorrect;
 			_tb_c2->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -312,7 +330,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_facing_radius->BackColor = System::Drawing::Color::Pink;
-			_tb_facing_radius_state = fsUncorrect;
+			m_checking_field_states_map.at(utils::toStdString(_tb_facing_radius->Name)) = fsUncorrect;
 			_tb_facing_radius->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -325,7 +343,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_v_step_bracket_ordinary_area->BackColor = System::Drawing::Color::Pink;
-			_tb_v_step_bracket_ordinary_area_state = fsUncorrect;
+			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_bracket_ordinary_area->Name)) = fsUncorrect;
 			_tb_v_step_bracket_ordinary_area->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -338,7 +356,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_v_step_bracket_marginal_area->BackColor = System::Drawing::Color::Pink;
-			_tb_v_step_bracket_marginal_area_state = fsUncorrect;
+			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_bracket_marginal_area->Name)) = fsUncorrect;
 			_tb_v_step_bracket_marginal_area->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -351,7 +369,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_h_step_bracket_ordinary_area->BackColor = System::Drawing::Color::Pink;
-			_tb_h_step_bracket_ordinary_area_state = fsUncorrect;
+			m_checking_field_states_map.at(utils::toStdString(_tb_h_step_bracket_ordinary_area->Name)) = fsUncorrect;
 			_tb_h_step_bracket_ordinary_area->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -364,7 +382,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_h_step_bracket_marginal_area->BackColor = System::Drawing::Color::Pink;
-			_tb_h_step_bracket_marginal_area_state = fsUncorrect;
+			m_checking_field_states_map.at(utils::toStdString(_tb_h_step_bracket_marginal_area->Name)) = fsUncorrect;
 			_tb_h_step_bracket_marginal_area->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -377,7 +395,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_v_step_profile_ordinary_area->BackColor = System::Drawing::Color::Pink;
-			_tb_v_step_profile_ordinary_area_state = fsUncorrect;
+			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_profile_ordinary_area->Name)) = fsUncorrect;
 			_tb_v_step_profile_ordinary_area->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -390,7 +408,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_v_step_profile_marginal_area->BackColor = System::Drawing::Color::Pink;
-			_tb_v_step_profile_marginal_area_state = fsUncorrect;
+			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_profile_marginal_area->Name)) = fsUncorrect;
 			_tb_v_step_profile_marginal_area->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -403,7 +421,7 @@ namespace zias {
 
 			// подсвечиваем поле и выдаем сообщение о некорректности данных
 			_tb_h_step_profile->BackColor = System::Drawing::Color::Pink;
-			_tb_h_step_profile_state = fsUncorrect;
+			m_checking_field_states_map.at(utils::toStdString(_tb_h_step_profile->Name)) = fsUncorrect;
 			_tb_h_step_profile->Text = L"";
 
 			// TODO: можно либо в самом текстовом боксе выводить, подсказку какой формат вводимых данных корректен
@@ -533,7 +551,7 @@ namespace zias {
 		std::string str = utils::toStdString(_tb_v_step_bracket_ordinary_area->Text);
 		std::regex regular("([0-9]+[.,]{0,1}[0-9]{0,2})?");
 		std::smatch match;
-		if ((_tb_v_step_bracket_ordinary_area_state == fsLocked) ||
+		if ((m_checking_field_states_map.at(utils::toStdString(_tb_v_step_bracket_ordinary_area->Name)) == fsLocked) ||
 			(std::regex_match(str, match, regular) && str != "")) {
 			return true;
 		}
@@ -544,7 +562,7 @@ namespace zias {
 		std::string str = utils::toStdString(_tb_v_step_bracket_marginal_area->Text);
 		std::regex regular("([0-9]+[.,]{0,1}[0-9]{0,2})?");
 		std::smatch match;
-		if ((_tb_v_step_bracket_marginal_area_state == fsLocked) ||
+		if ((m_checking_field_states_map.at(utils::toStdString(_tb_v_step_bracket_marginal_area->Name)) == fsLocked) ||
 			(std::regex_match(str, match, regular) && str != "")) {
 			return true;
 		}
@@ -555,7 +573,7 @@ namespace zias {
 		std::string str = utils::toStdString(_tb_h_step_bracket_ordinary_area->Text);
 		std::regex regular("([0-9]+[.,]{0,1}[0-9]{0,2})?");
 		std::smatch match;
-		if ((_tb_h_step_bracket_ordinary_area_state == fsLocked) ||
+		if ((m_checking_field_states_map.at(utils::toStdString(_tb_h_step_bracket_ordinary_area->Name)) == fsLocked) ||
 			(std::regex_match(str, match, regular) && str != "")) {
 			return true;
 		}
@@ -566,7 +584,7 @@ namespace zias {
 		std::string str = utils::toStdString(_tb_h_step_bracket_marginal_area->Text);
 		std::regex regular("([0-9]+[.,]{0,1}[0-9]{0,2})?");
 		std::smatch match;
-		if ((_tb_h_step_bracket_marginal_area_state == fsLocked) ||
+		if ((m_checking_field_states_map.at(utils::toStdString(_tb_h_step_bracket_marginal_area->Name)) == fsLocked) ||
 			(std::regex_match(str, match, regular) && str != "")) {
 			return true;
 		}
@@ -577,7 +595,7 @@ namespace zias {
 		std::string str = utils::toStdString(_tb_v_step_profile_ordinary_area->Text);
 		std::regex regular("([0-9]+[.,]{0,1}[0-9]{0,2})?");
 		std::smatch match;
-		if ((_tb_v_step_profile_ordinary_area_state == fsLocked) ||
+		if ((m_checking_field_states_map.at(utils::toStdString(_tb_v_step_profile_ordinary_area->Name)) == fsLocked) ||
 			(std::regex_match(str, match, regular) && str != "")) {
 			return true;
 		}
@@ -588,7 +606,7 @@ namespace zias {
 		std::string str = utils::toStdString(_tb_v_step_profile_marginal_area->Text);
 		std::regex regular("([0-9]+[.,]{0,1}[0-9]{0,2})?");
 		std::smatch match;
-		if ((_tb_v_step_profile_marginal_area_state == fsLocked) ||
+		if ((m_checking_field_states_map.at(utils::toStdString(_tb_v_step_profile_marginal_area->Name)) == fsLocked) ||
 			(std::regex_match(str, match, regular) && str != "")) {
 			return true;
 		}
@@ -599,11 +617,146 @@ namespace zias {
 		std::string str = utils::toStdString(_tb_h_step_profile->Text);
 		std::regex regular("([0-9]+[.,]{0,1}[0-9]{0,2})?");
 		std::smatch match;
-		if ((_tb_h_step_profile_state == fsLocked) ||
+		if ((m_checking_field_states_map.at(utils::toStdString(_tb_h_step_profile->Name)) == fsLocked) ||
 			(std::regex_match(str, match, regular) && str != "")) {
 			return true;
 		}
 		return false;
+	}
+	
+	// clickToCheckingField
+	System::Void MainForm::clickToCheckingField(System::Object^ sender, System::Windows::Forms::MouseEventArgs^  e) {
+		TextBox^ check_field = (TextBox^)sender;
+		switch (m_checking_field_states_map.at(utils::toStdString(check_field->Name))) {
+			case fsNone: {
+				check_field->ForeColor = System::Drawing::Color::Black;
+				check_field->Text = L"";
+				m_checking_field_states_map.at(utils::toStdString(check_field->Name)) = fsCommon;
+			} case fsUncorrect: {
+				check_field->BackColor = System::Drawing::Color::White;
+				m_checking_field_states_map.at(utils::toStdString(check_field->Name)) = fsCommon;
+			} default: {
+
+			}
+		}
+	}
+
+	// _changedValueClimateRadiobutton
+	System::Void MainForm::_changedValueClimateRadiobutton(System::Object^  sender, System::EventArgs^  e) {
+		// города
+		_cb_cities->Enabled = !_cb_cities->Enabled;
+
+		// не города
+		_cb_wind_districs->Enabled = !_cb_wind_districs->Enabled;
+		_cb_ice_districs->Enabled = !_cb_ice_districs->Enabled;
+	}
+
+	// _changedValueFacingRadiobutton
+	System::Void MainForm::_changedValueFacingRadiobutton(System::Object^  sender, System::EventArgs^  e) {
+		// стандартные
+		_cb_facing->Enabled = !_cb_facing->Enabled;
+
+		// нестандартные
+		_tb_weight->Enabled = !_tb_weight->Enabled;
+
+		if (!_tb_weight->Enabled) {
+			_tb_weight->Text = L"";
+			_tb_weight->BackColor = System::Drawing::SystemColors::Window;
+			m_checking_field_states_map.at(utils::toStdString(_tb_weight->Name)) = fsLocked;
+		} else {
+			_tb_weight->BackColor = System::Drawing::Color::White;
+			m_checking_field_states_map.at(utils::toStdString(_tb_weight->Name)) = fsCommon;
+		}
+	}
+
+		// _changedValueSubsystemCheckBox
+	System::Void MainForm::_changedValueSubsystemCheckBox(System::Object^  sender, System::EventArgs^  e) {
+		// вариации
+		_cb_bracket->Enabled = !_cb_bracket->Enabled;
+		_cb_profile->Enabled = !_cb_profile->Enabled;
+	}
+
+	// _changedValueVariationsCheckBox		
+	System::Void MainForm::_changedValueVariationsCheckBox(System::Object^  sender, System::EventArgs^  e) {
+		_tb_c1->Enabled = !_tb_c1->Enabled;
+		_tb_c2->Enabled = !_tb_c2->Enabled;
+
+		if (!_tb_c1->Enabled || !_tb_c2->Enabled) {
+			_tb_c1->Text = L"";
+			_tb_c2->Text = L"";
+			_tb_c1->BackColor = System::Drawing::SystemColors::Window;
+			_tb_c2->BackColor = System::Drawing::SystemColors::Window;
+			m_checking_field_states_map.at(utils::toStdString(_tb_c1->Name)) = fsLocked;
+			m_checking_field_states_map.at(utils::toStdString(_tb_c2->Name)) = fsLocked;
+		} else {
+			_tb_c1->BackColor = System::Drawing::Color::White;
+			_tb_c2->BackColor = System::Drawing::Color::White;
+			m_checking_field_states_map.at(utils::toStdString(_tb_c1->Name)) = fsCommon;
+			m_checking_field_states_map.at(utils::toStdString(_tb_c2->Name)) = fsCommon;
+		}
+	}
+
+	// openDocumentation
+	System::Void MainForm::openDocumentation(System::Object^  sender, System::EventArgs^  e) {
+		// TODO: открываем файл документации
+		// полный путь: _PATH_TO_DOCUMENTATION_ + _HELP_DOCUMENT_NAME_
+		// наверное, лучше будет переделать, мне не нравиться открытие файла через функцию ShellExecute
+		// возможно это плохо (но это первое, что мне в голову пришло + работает)
+
+		String^ filename = _PATH_TO_DOCUMENTATION_ + _HELP_DOCUMENT_NAME_;
+		if (std::tr2::sys::exists(std::tr2::sys::path(utils::toStdString(filename)))) {
+			ShellExecute(0, "open", utils::toStdString(filename).c_str(), 0, 0, SW_SHOWNORMAL);
+		} else {
+			MessageBox::Show(L"Скорее всего файл был удален или поврежден", L"Не найден файл документации", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		}
+	}
+
+	// _b_calculate_account_Click
+	System::Void MainForm::_b_calculate_account_Click(System::Object^  sender, System::EventArgs^  e) {
+		if (checkDataCorrectness()) {
+			VariableStorageManager::Instance()->updateValues(collectData());
+			calculateAccount();
+		} else {
+			// TODO: можно сделать окно об ошибке более информативным... а можно нет
+
+			MessageBox::Show(L"Заполните поля правильно", L"Некорректно введеные данные", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		}
+	}
+
+	// _b_generate_report_Click
+	System::Void MainForm::_b_generate_report_Click(System::Object^  sender, System::EventArgs^  e) {
+		if (checkDataCorrectness()) {
+			FormDataArgs fda = collectData();
+			VariableStorageManager::Instance()->updateValues(fda);
+
+			// диалоговое окно на сохранение файла
+			SaveFileDialog^ ofd = gcnew SaveFileDialog();
+			ofd->Filter = "DOCX Files|*.docx";
+			if (ofd->ShowDialog() != System::Windows::Forms::DialogResult::OK) {
+				return;
+			}
+
+			ReportManager::Instance()->generateReport(fda, ofd->FileName);
+
+		} else {
+			// TODO: можно сделать окно об ошибке более информативным... а можно нет
+
+			MessageBox::Show(L"Заполните поля правильно", L"Некорректные введеные данные", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		}
+	}
+
+	//  _cb_subsystem_SelectedIndexChanged
+	System::Void MainForm::_cb_subsystem_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+		getConstructionFields();
+	}
+		
+	//_cb_cities_SelectedIndexChanged
+	System::Void MainForm::_cb_cities_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+		unsigned wind_district_id = FormDataStorageManager::Instance()->getCity(utils::toStdWString(_cb_cities->Text))->wind_district->id;
+		unsigned ice_districs_id = FormDataStorageManager::Instance()->getCity(utils::toStdWString(_cb_cities->Text))->ice_district->id;
+
+		_cb_wind_districs->SelectedIndex = wind_district_id;
+		_cb_ice_districs->SelectedIndex = ice_districs_id;
 	}
 
 } // zias
