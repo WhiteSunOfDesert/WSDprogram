@@ -124,6 +124,7 @@ namespace zias {
 		void _getConstructionFields();
 		void _getBrackets();
 		void _getProfiles();
+		void _selectDistricts();
 
 		bool isCorrectFieldObjectName();
 		bool isCorrectFieldObjectCipher();
@@ -381,7 +382,7 @@ namespace zias {
 			this->_rb_climate_1->Location = System::Drawing::Point(5, 65);
 			this->_rb_climate_1->Name = L"_rb_climate_1";
 			this->_rb_climate_1->Size = System::Drawing::Size(66, 17);
-			this->_rb_climate_1->TabIndex = 1;
+			this->_rb_climate_1->TabIndex = 2;
 			this->_rb_climate_1->Text = L"РАЙОН:";
 			this->_rb_climate_1->UseVisualStyleBackColor = true;
 			// 
@@ -394,7 +395,7 @@ namespace zias {
 			this->_l_climate->Location = System::Drawing::Point(31, 0);
 			this->_l_climate->Name = L"_l_climate";
 			this->_l_climate->Size = System::Drawing::Size(88, 24);
-			this->_l_climate->TabIndex = 2;
+			this->_l_climate->TabIndex = 100;
 			this->_l_climate->Text = L"КЛИМАТ";
 			// 
 			// _cb_cities
@@ -404,7 +405,7 @@ namespace zias {
 			this->_cb_cities->Location = System::Drawing::Point(25, 35);
 			this->_cb_cities->Name = L"_cb_cities";
 			this->_cb_cities->Size = System::Drawing::Size(120, 21);
-			this->_cb_cities->TabIndex = 3;
+			this->_cb_cities->TabIndex = 1;
 			// 
 			// _cb_wind_districs
 			// 
@@ -413,7 +414,7 @@ namespace zias {
 			this->_cb_wind_districs->Location = System::Drawing::Point(25, 105);
 			this->_cb_wind_districs->Name = L"_cb_wind_districs";
 			this->_cb_wind_districs->Size = System::Drawing::Size(120, 21);
-			this->_cb_wind_districs->TabIndex = 4;
+			this->_cb_wind_districs->TabIndex = 3;
 			// 
 			// _cb_ice_districs
 			// 
@@ -422,7 +423,7 @@ namespace zias {
 			this->_cb_ice_districs->Location = System::Drawing::Point(25, 150);
 			this->_cb_ice_districs->Name = L"_cb_ice_districs";
 			this->_cb_ice_districs->Size = System::Drawing::Size(120, 21);
-			this->_cb_ice_districs->TabIndex = 5;
+			this->_cb_ice_districs->TabIndex = 4;
 			// 
 			// _cb_location_types
 			// 
@@ -430,7 +431,7 @@ namespace zias {
 			this->_cb_location_types->Location = System::Drawing::Point(25, 209);
 			this->_cb_location_types->Name = L"_cb_location_types";
 			this->_cb_location_types->Size = System::Drawing::Size(120, 21);
-			this->_cb_location_types->TabIndex = 6;
+			this->_cb_location_types->TabIndex = 5;
 			// 
 			// _l_wind_districs
 			// 
@@ -440,7 +441,7 @@ namespace zias {
 			this->_l_wind_districs->Location = System::Drawing::Point(92, 86);
 			this->_l_wind_districs->Name = L"_l_wind_districs";
 			this->_l_wind_districs->Size = System::Drawing::Size(55, 13);
-			this->_l_wind_districs->TabIndex = 7;
+			this->_l_wind_districs->TabIndex = 101;
 			this->_l_wind_districs->Text = L"Ветровой";
 			// 
 			// _l_ice_districs
@@ -451,7 +452,7 @@ namespace zias {
 			this->_l_ice_districs->Location = System::Drawing::Point(78, 131);
 			this->_l_ice_districs->Name = L"_l_ice_districs";
 			this->_l_ice_districs->Size = System::Drawing::Size(69, 13);
-			this->_l_ice_districs->TabIndex = 8;
+			this->_l_ice_districs->TabIndex = 102;
 			this->_l_ice_districs->Text = L"Гололедный";
 			// 
 			// _l_location_types
@@ -462,7 +463,7 @@ namespace zias {
 			this->_l_location_types->Location = System::Drawing::Point(22, 190);
 			this->_l_location_types->Name = L"_l_location_types";
 			this->_l_location_types->Size = System::Drawing::Size(101, 13);
-			this->_l_location_types->TabIndex = 9;
+			this->_l_location_types->TabIndex = 103;
 			this->_l_location_types->Text = L"ТИП МЕСТНОСТИ";
 			// 
 			// _l_facing
@@ -474,7 +475,7 @@ namespace zias {
 			this->_l_facing->Location = System::Drawing::Point(13, 0);
 			this->_l_facing->Name = L"_l_facing";
 			this->_l_facing->Size = System::Drawing::Size(127, 24);
-			this->_l_facing->TabIndex = 10;
+			this->_l_facing->TabIndex = 104;
 			this->_l_facing->Text = L"ОБЛИЦОВКА";
 			// 
 			// _rb_facing_standart
@@ -487,7 +488,7 @@ namespace zias {
 			this->_rb_facing_standart->Location = System::Drawing::Point(5, 39);
 			this->_rb_facing_standart->Name = L"_rb_facing_standart";
 			this->_rb_facing_standart->Size = System::Drawing::Size(109, 17);
-			this->_rb_facing_standart->TabIndex = 11;
+			this->_rb_facing_standart->TabIndex = 10;
 			this->_rb_facing_standart->TabStop = true;
 			this->_rb_facing_standart->Text = L"СТАНДАРТНЫЕ";
 			this->_rb_facing_standart->UseVisualStyleBackColor = true;
@@ -513,7 +514,7 @@ namespace zias {
 			this->_cb_facing->Location = System::Drawing::Point(25, 62);
 			this->_cb_facing->Name = L"_cb_facing";
 			this->_cb_facing->Size = System::Drawing::Size(120, 21);
-			this->_cb_facing->TabIndex = 13;
+			this->_cb_facing->TabIndex = 11;
 			// 
 			// _l_subsystem
 			// 
@@ -523,7 +524,7 @@ namespace zias {
 			this->_l_subsystem->Location = System::Drawing::Point(5, 0);
 			this->_l_subsystem->Name = L"_l_subsystem";
 			this->_l_subsystem->Size = System::Drawing::Size(145, 24);
-			this->_l_subsystem->TabIndex = 15;
+			this->_l_subsystem->TabIndex = 105;
 			this->_l_subsystem->Text = L"ПОДСИСТЕМА";
 			// 
 			// _cb_subsystem
@@ -532,7 +533,7 @@ namespace zias {
 			this->_cb_subsystem->Location = System::Drawing::Point(25, 35);
 			this->_cb_subsystem->Name = L"_cb_subsystem";
 			this->_cb_subsystem->Size = System::Drawing::Size(120, 21);
-			this->_cb_subsystem->TabIndex = 17;
+			this->_cb_subsystem->TabIndex = 14;
 			this->_cb_subsystem->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::_cb_subsystem_SelectedIndexChanged);
 			// 
 			// _l_bracket
@@ -543,7 +544,7 @@ namespace zias {
 			this->_l_bracket->Location = System::Drawing::Point(84, 86);
 			this->_l_bracket->Name = L"_l_bracket";
 			this->_l_bracket->Size = System::Drawing::Size(63, 13);
-			this->_l_bracket->TabIndex = 19;
+			this->_l_bracket->TabIndex = 106;
 			this->_l_bracket->Text = L"Кронштейн";
 			// 
 			// _cb_bracket
@@ -553,7 +554,7 @@ namespace zias {
 			this->_cb_bracket->Location = System::Drawing::Point(25, 105);
 			this->_cb_bracket->Name = L"_cb_bracket";
 			this->_cb_bracket->Size = System::Drawing::Size(120, 21);
-			this->_cb_bracket->TabIndex = 20;
+			this->_cb_bracket->TabIndex = 16;
 			// 
 			// _l_profile
 			// 
@@ -563,7 +564,7 @@ namespace zias {
 			this->_l_profile->Location = System::Drawing::Point(91, 131);
 			this->_l_profile->Name = L"_l_profile";
 			this->_l_profile->Size = System::Drawing::Size(53, 13);
-			this->_l_profile->TabIndex = 21;
+			this->_l_profile->TabIndex = 107;
 			this->_l_profile->Text = L"Профиль";
 			// 
 			// _cb_profile
@@ -575,7 +576,7 @@ namespace zias {
 			this->_cb_profile->Location = System::Drawing::Point(25, 150);
 			this->_cb_profile->Name = L"_cb_profile";
 			this->_cb_profile->Size = System::Drawing::Size(120, 21);
-			this->_cb_profile->TabIndex = 22;
+			this->_cb_profile->TabIndex = 17;
 			// 
 			// _l_variations
 			// 
@@ -585,7 +586,7 @@ namespace zias {
 			this->_l_variations->Location = System::Drawing::Point(18, 0);
 			this->_l_variations->Name = L"_l_variations";
 			this->_l_variations->Size = System::Drawing::Size(111, 24);
-			this->_l_variations->TabIndex = 23;
+			this->_l_variations->TabIndex = 108;
 			this->_l_variations->Text = L"ВАРИАЦИИ";
 			// 
 			// _l_account
@@ -596,7 +597,7 @@ namespace zias {
 			this->_l_account->Location = System::Drawing::Point(32, 0);
 			this->_l_account->Name = L"_l_account";
 			this->_l_account->Size = System::Drawing::Size(84, 24);
-			this->_l_account->TabIndex = 24;
+			this->_l_account->TabIndex = 109;
 			this->_l_account->Text = L"РАСЧЕТ";
 			// 
 			// _chb_anker
@@ -607,7 +608,7 @@ namespace zias {
 			this->_chb_anker->Location = System::Drawing::Point(25, 39);
 			this->_chb_anker->Name = L"_chb_anker";
 			this->_chb_anker->Size = System::Drawing::Size(56, 17);
-			this->_chb_anker->TabIndex = 25;
+			this->_chb_anker->TabIndex = 29;
 			this->_chb_anker->Text = L"анкер";
 			this->_chb_anker->UseVisualStyleBackColor = true;
 			// 
@@ -619,7 +620,7 @@ namespace zias {
 			this->_chb_nvf_elements->Location = System::Drawing::Point(25, 67);
 			this->_chb_nvf_elements->Name = L"_chb_nvf_elements";
 			this->_chb_nvf_elements->Size = System::Drawing::Size(106, 17);
-			this->_chb_nvf_elements->TabIndex = 26;
+			this->_chb_nvf_elements->TabIndex = 30;
 			this->_chb_nvf_elements->Text = L"элементы НВФ";
 			this->_chb_nvf_elements->UseVisualStyleBackColor = true;
 			// 
@@ -631,7 +632,7 @@ namespace zias {
 			this->_chb_nvf_connection->Location = System::Drawing::Point(25, 95);
 			this->_chb_nvf_connection->Name = L"_chb_nvf_connection";
 			this->_chb_nvf_connection->Size = System::Drawing::Size(115, 17);
-			this->_chb_nvf_connection->TabIndex = 27;
+			this->_chb_nvf_connection->TabIndex = 31;
 			this->_chb_nvf_connection->Text = L"соединения НВФ";
 			this->_chb_nvf_connection->UseVisualStyleBackColor = true;
 			// 
@@ -646,7 +647,7 @@ namespace zias {
 			this->_b_calculate_account->Location = System::Drawing::Point(534, 149);
 			this->_b_calculate_account->Name = L"_b_calculate_account";
 			this->_b_calculate_account->Size = System::Drawing::Size(106, 27);
-			this->_b_calculate_account->TabIndex = 28;
+			this->_b_calculate_account->TabIndex = 32;
 			this->_b_calculate_account->Text = L"расчет";
 			this->_b_calculate_account->UseVisualStyleBackColor = false;
 			this->_b_calculate_account->Click += gcnew System::EventHandler(this, &MainForm::_b_calculate_account_Click);
@@ -662,7 +663,7 @@ namespace zias {
 			this->_b_generate_report->Location = System::Drawing::Point(645, 149);
 			this->_b_generate_report->Name = L"_b_generate_report";
 			this->_b_generate_report->Size = System::Drawing::Size(106, 27);
-			this->_b_generate_report->TabIndex = 29;
+			this->_b_generate_report->TabIndex = 34;
 			this->_b_generate_report->Text = L"отчет";
 			this->_b_generate_report->UseVisualStyleBackColor = false;
 			this->_b_generate_report->Click += gcnew System::EventHandler(this, &MainForm::_b_generate_report_Click);
@@ -675,7 +676,7 @@ namespace zias {
 			this->_l_results->Location = System::Drawing::Point(80, 0);
 			this->_l_results->Name = L"_l_results";
 			this->_l_results->Size = System::Drawing::Size(139, 24);
-			this->_l_results->TabIndex = 30;
+			this->_l_results->TabIndex = 110;
 			this->_l_results->Text = L"РЕЗУЛЬТАТЫ";
 			// 
 			// _l_strength_extension
@@ -686,7 +687,7 @@ namespace zias {
 			this->_l_strength_extension->Location = System::Drawing::Point(5, 133);
 			this->_l_strength_extension->Name = L"_l_strength_extension";
 			this->_l_strength_extension->Size = System::Drawing::Size(128, 13);
-			this->_l_strength_extension->TabIndex = 31;
+			this->_l_strength_extension->TabIndex = 111;
 			this->_l_strength_extension->Text = L"Прочность удлинителя -";
 			// 
 			// _l_strength_bracket
@@ -697,7 +698,7 @@ namespace zias {
 			this->_l_strength_bracket->Location = System::Drawing::Point(5, 103);
 			this->_l_strength_bracket->Name = L"_l_strength_bracket";
 			this->_l_strength_bracket->Size = System::Drawing::Size(131, 13);
-			this->_l_strength_bracket->TabIndex = 32;
+			this->_l_strength_bracket->TabIndex = 112;
 			this->_l_strength_bracket->Text = L"Прочность кронштейна -";
 			// 
 			// _l_strength_contour
@@ -708,7 +709,7 @@ namespace zias {
 			this->_l_strength_contour->Location = System::Drawing::Point(5, 73);
 			this->_l_strength_contour->Name = L"_l_strength_contour";
 			this->_l_strength_contour->Size = System::Drawing::Size(114, 13);
-			this->_l_strength_contour->TabIndex = 33;
+			this->_l_strength_contour->TabIndex = 113;
 			this->_l_strength_contour->Text = L"Прочность профиля -";
 			// 
 			// _l_digging_anker
@@ -719,7 +720,7 @@ namespace zias {
 			this->_l_digging_anker->Location = System::Drawing::Point(5, 43);
 			this->_l_digging_anker->Name = L"_l_digging_anker";
 			this->_l_digging_anker->Size = System::Drawing::Size(104, 13);
-			this->_l_digging_anker->TabIndex = 34;
+			this->_l_digging_anker->TabIndex = 114;
 			this->_l_digging_anker->Text = L"Вырыв анкера (Н) -";
 			// 
 			// _l_connections
@@ -730,7 +731,7 @@ namespace zias {
 			this->_l_connections->Location = System::Drawing::Point(5, 163);
 			this->_l_connections->Name = L"_l_connections";
 			this->_l_connections->Size = System::Drawing::Size(74, 13);
-			this->_l_connections->TabIndex = 35;
+			this->_l_connections->TabIndex = 115;
 			this->_l_connections->Text = L"Соединения -";
 			// 
 			// _l_qy
@@ -741,7 +742,7 @@ namespace zias {
 			this->_l_qy->Location = System::Drawing::Point(2, 193);
 			this->_l_qy->Name = L"_l_qy";
 			this->_l_qy->Size = System::Drawing::Size(52, 13);
-			this->_l_qy->TabIndex = 36;
+			this->_l_qy->TabIndex = 116;
 			this->_l_qy->Text = L"Q(y) (Па):";
 			// 
 			// _l_qz
@@ -752,7 +753,7 @@ namespace zias {
 			this->_l_qz->Location = System::Drawing::Point(2, 223);
 			this->_l_qz->Name = L"_l_qz";
 			this->_l_qz->Size = System::Drawing::Size(52, 13);
-			this->_l_qz->TabIndex = 37;
+			this->_l_qz->TabIndex = 117;
 			this->_l_qz->Text = L"Q(z) (Па):";
 			// 
 			// _l_sp_20_13330_2011
@@ -763,7 +764,7 @@ namespace zias {
 			this->_l_sp_20_13330_2011->Location = System::Drawing::Point(22, 39);
 			this->_l_sp_20_13330_2011->Name = L"_l_sp_20_13330_2011";
 			this->_l_sp_20_13330_2011->Size = System::Drawing::Size(103, 13);
-			this->_l_sp_20_13330_2011->TabIndex = 38;
+			this->_l_sp_20_13330_2011->TabIndex = 118;
 			this->_l_sp_20_13330_2011->Text = L"- СП 20.13330.2011";
 			// 
 			// _chb_aerodynamic_factor
@@ -773,7 +774,7 @@ namespace zias {
 			this->_chb_aerodynamic_factor->Location = System::Drawing::Point(5, 57);
 			this->_chb_aerodynamic_factor->Name = L"_chb_aerodynamic_factor";
 			this->_chb_aerodynamic_factor->Size = System::Drawing::Size(140, 30);
-			this->_chb_aerodynamic_factor->TabIndex = 39;
+			this->_chb_aerodynamic_factor->TabIndex = 26;
 			this->_chb_aerodynamic_factor->Text = L"Аэродинамический коэффициент:";
 			this->_chb_aerodynamic_factor->UseVisualStyleBackColor = true;
 			this->_chb_aerodynamic_factor->CheckedChanged += gcnew System::EventHandler(this, &MainForm::_changedValueVariationsCheckBox);
@@ -786,7 +787,7 @@ namespace zias {
 			this->_l_c2->Location = System::Drawing::Point(5, 116);
 			this->_l_c2->Name = L"_l_c2";
 			this->_l_c2->Size = System::Drawing::Size(31, 13);
-			this->_l_c2->TabIndex = 40;
+			this->_l_c2->TabIndex = 119;
 			this->_l_c2->Text = L"c(2) -";
 			// 
 			// _l_c1
@@ -797,7 +798,7 @@ namespace zias {
 			this->_l_c1->Location = System::Drawing::Point(5, 91);
 			this->_l_c1->Name = L"_l_c1";
 			this->_l_c1->Size = System::Drawing::Size(34, 13);
-			this->_l_c1->TabIndex = 41;
+			this->_l_c1->TabIndex = 120;
 			this->_l_c1->Text = L"c(1) - ";
 			// 
 			// _tb_c1
@@ -806,7 +807,7 @@ namespace zias {
 			this->_tb_c1->Location = System::Drawing::Point(45, 87);
 			this->_tb_c1->Name = L"_tb_c1";
 			this->_tb_c1->Size = System::Drawing::Size(80, 20);
-			this->_tb_c1->TabIndex = 42;
+			this->_tb_c1->TabIndex = 27;
 			this->_tb_c1->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_c1->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
@@ -816,7 +817,7 @@ namespace zias {
 			this->_tb_c2->Location = System::Drawing::Point(45, 112);
 			this->_tb_c2->Name = L"_tb_c2";
 			this->_tb_c2->Size = System::Drawing::Size(80, 20);
-			this->_tb_c2->TabIndex = 43;
+			this->_tb_c2->TabIndex = 28;
 			this->_tb_c2->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_c2->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
@@ -826,7 +827,7 @@ namespace zias {
 			this->_tb_digging_anker->Location = System::Drawing::Point(175, 39);
 			this->_tb_digging_anker->Name = L"_tb_digging_anker";
 			this->_tb_digging_anker->Size = System::Drawing::Size(130, 20);
-			this->_tb_digging_anker->TabIndex = 44;
+			this->_tb_digging_anker->TabIndex = 35;
 			this->_tb_digging_anker->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// _tb_strength_profile
@@ -835,7 +836,7 @@ namespace zias {
 			this->_tb_strength_profile->Location = System::Drawing::Point(175, 69);
 			this->_tb_strength_profile->Name = L"_tb_strength_profile";
 			this->_tb_strength_profile->Size = System::Drawing::Size(130, 20);
-			this->_tb_strength_profile->TabIndex = 45;
+			this->_tb_strength_profile->TabIndex = 36;
 			this->_tb_strength_profile->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// _tb_strength_bracket
@@ -844,7 +845,7 @@ namespace zias {
 			this->_tb_strength_bracket->Location = System::Drawing::Point(175, 99);
 			this->_tb_strength_bracket->Name = L"_tb_strength_bracket";
 			this->_tb_strength_bracket->Size = System::Drawing::Size(130, 20);
-			this->_tb_strength_bracket->TabIndex = 46;
+			this->_tb_strength_bracket->TabIndex = 37;
 			this->_tb_strength_bracket->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// _tb_strength_extension
@@ -853,7 +854,7 @@ namespace zias {
 			this->_tb_strength_extension->Location = System::Drawing::Point(175, 129);
 			this->_tb_strength_extension->Name = L"_tb_strength_extension";
 			this->_tb_strength_extension->Size = System::Drawing::Size(130, 20);
-			this->_tb_strength_extension->TabIndex = 47;
+			this->_tb_strength_extension->TabIndex = 38;
 			this->_tb_strength_extension->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// _tb_connections
@@ -862,7 +863,7 @@ namespace zias {
 			this->_tb_connections->Location = System::Drawing::Point(175, 159);
 			this->_tb_connections->Name = L"_tb_connections";
 			this->_tb_connections->Size = System::Drawing::Size(130, 20);
-			this->_tb_connections->TabIndex = 48;
+			this->_tb_connections->TabIndex = 39;
 			this->_tb_connections->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// _tb_Qy_0
@@ -871,7 +872,7 @@ namespace zias {
 			this->_tb_Qy_0->Location = System::Drawing::Point(55, 189);
 			this->_tb_Qy_0->Name = L"_tb_Qy_0";
 			this->_tb_Qy_0->Size = System::Drawing::Size(115, 20);
-			this->_tb_Qy_0->TabIndex = 49;
+			this->_tb_Qy_0->TabIndex = 40;
 			this->_tb_Qy_0->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// _tb_Qy_1
@@ -880,7 +881,7 @@ namespace zias {
 			this->_tb_Qy_1->Location = System::Drawing::Point(175, 189);
 			this->_tb_Qy_1->Name = L"_tb_Qy_1";
 			this->_tb_Qy_1->Size = System::Drawing::Size(130, 20);
-			this->_tb_Qy_1->TabIndex = 50;
+			this->_tb_Qy_1->TabIndex = 41;
 			this->_tb_Qy_1->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// _tb_Qz_0
@@ -889,7 +890,7 @@ namespace zias {
 			this->_tb_Qz_0->Location = System::Drawing::Point(55, 219);
 			this->_tb_Qz_0->Name = L"_tb_Qz_0";
 			this->_tb_Qz_0->Size = System::Drawing::Size(115, 20);
-			this->_tb_Qz_0->TabIndex = 51;
+			this->_tb_Qz_0->TabIndex = 42;
 			this->_tb_Qz_0->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// _tb_Qz_1
@@ -898,7 +899,7 @@ namespace zias {
 			this->_tb_Qz_1->Location = System::Drawing::Point(175, 219);
 			this->_tb_Qz_1->Name = L"_tb_Qz_1";
 			this->_tb_Qz_1->Size = System::Drawing::Size(130, 20);
-			this->_tb_Qz_1->TabIndex = 52;
+			this->_tb_Qz_1->TabIndex = 43;
 			this->_tb_Qz_1->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// _pnl_climate
@@ -921,7 +922,7 @@ namespace zias {
 			this->_pnl_climate->Location = System::Drawing::Point(5, 5);
 			this->_pnl_climate->Name = L"_pnl_climate";
 			this->_pnl_climate->Size = System::Drawing::Size(155, 245);
-			this->_pnl_climate->TabIndex = 53;
+			this->_pnl_climate->TabIndex = 121;
 			// 
 			// _pb_line
 			// 
@@ -929,7 +930,7 @@ namespace zias {
 			this->_pb_line->Location = System::Drawing::Point(0, 173);
 			this->_pb_line->Name = L"_pb_line";
 			this->_pb_line->Size = System::Drawing::Size(150, 10);
-			this->_pb_line->TabIndex = 62;
+			this->_pb_line->TabIndex = 122;
 			this->_pb_line->TabStop = false;
 			// 
 			// _pb_climate_top_left
@@ -939,7 +940,7 @@ namespace zias {
 			this->_pb_climate_top_left->Name = L"_pb_climate_top_left";
 			this->_pb_climate_top_left->Size = System::Drawing::Size(25, 25);
 			this->_pb_climate_top_left->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-			this->_pb_climate_top_left->TabIndex = 62;
+			this->_pb_climate_top_left->TabIndex = 123;
 			this->_pb_climate_top_left->TabStop = false;
 			// 
 			// _pnl_object
@@ -960,7 +961,7 @@ namespace zias {
 			this->_pnl_object->Location = System::Drawing::Point(5, 255);
 			this->_pnl_object->Name = L"_pnl_object";
 			this->_pnl_object->Size = System::Drawing::Size(155, 230);
-			this->_pnl_object->TabIndex = 54;
+			this->_pnl_object->TabIndex = 124;
 			// 
 			// _pb_object_bottom_left
 			// 
@@ -969,7 +970,7 @@ namespace zias {
 			this->_pb_object_bottom_left->Name = L"_pb_object_bottom_left";
 			this->_pb_object_bottom_left->Size = System::Drawing::Size(25, 25);
 			this->_pb_object_bottom_left->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-			this->_pb_object_bottom_left->TabIndex = 66;
+			this->_pb_object_bottom_left->TabIndex = 125;
 			this->_pb_object_bottom_left->TabStop = false;
 			// 
 			// _tb_height
@@ -979,7 +980,7 @@ namespace zias {
 			this->_tb_height->Location = System::Drawing::Point(5, 184);
 			this->_tb_height->Name = L"_tb_height";
 			this->_tb_height->Size = System::Drawing::Size(140, 20);
-			this->_tb_height->TabIndex = 65;
+			this->_tb_height->TabIndex = 9;
 			this->_tb_height->Text = L"Заполняет инженер";
 			this->_tb_height->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_height->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
@@ -991,7 +992,7 @@ namespace zias {
 			this->_tb_responsible->Location = System::Drawing::Point(5, 140);
 			this->_tb_responsible->Name = L"_tb_responsible";
 			this->_tb_responsible->Size = System::Drawing::Size(140, 20);
-			this->_tb_responsible->TabIndex = 64;
+			this->_tb_responsible->TabIndex = 8;
 			this->_tb_responsible->Text = L"Заполняет инженер";
 			this->_tb_responsible->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_responsible->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
@@ -1003,7 +1004,7 @@ namespace zias {
 			this->_tb_code->Location = System::Drawing::Point(5, 96);
 			this->_tb_code->Name = L"_tb_code";
 			this->_tb_code->Size = System::Drawing::Size(140, 20);
-			this->_tb_code->TabIndex = 63;
+			this->_tb_code->TabIndex = 7;
 			this->_tb_code->Text = L"Заполняет инженер";
 			this->_tb_code->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_code->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
@@ -1015,7 +1016,7 @@ namespace zias {
 			this->_tb_name->Location = System::Drawing::Point(5, 52);
 			this->_tb_name->Name = L"_tb_name";
 			this->_tb_name->Size = System::Drawing::Size(140, 20);
-			this->_tb_name->TabIndex = 62;
+			this->_tb_name->TabIndex = 6;
 			this->_tb_name->Text = L"Заполняет инженер";
 			this->_tb_name->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_name->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
@@ -1028,7 +1029,7 @@ namespace zias {
 			this->_l_height->Location = System::Drawing::Point(82, 165);
 			this->_l_height->Name = L"_l_height";
 			this->_l_height->Size = System::Drawing::Size(65, 13);
-			this->_l_height->TabIndex = 61;
+			this->_l_height->TabIndex = 126;
 			this->_l_height->Text = L"Высота (м):";
 			// 
 			// _l_responsible
@@ -1039,7 +1040,7 @@ namespace zias {
 			this->_l_responsible->Location = System::Drawing::Point(58, 121);
 			this->_l_responsible->Name = L"_l_responsible";
 			this->_l_responsible->Size = System::Drawing::Size(89, 13);
-			this->_l_responsible->TabIndex = 60;
+			this->_l_responsible->TabIndex = 127;
 			this->_l_responsible->Text = L"Ответственный:";
 			// 
 			// _l_code
@@ -1050,7 +1051,7 @@ namespace zias {
 			this->_l_code->Location = System::Drawing::Point(108, 77);
 			this->_l_code->Name = L"_l_code";
 			this->_l_code->Size = System::Drawing::Size(39, 13);
-			this->_l_code->TabIndex = 59;
+			this->_l_code->TabIndex = 128;
 			this->_l_code->Text = L"Шифр:";
 			// 
 			// _l_name
@@ -1061,7 +1062,7 @@ namespace zias {
 			this->_l_name->Location = System::Drawing::Point(87, 33);
 			this->_l_name->Name = L"_l_name";
 			this->_l_name->Size = System::Drawing::Size(60, 13);
-			this->_l_name->TabIndex = 58;
+			this->_l_name->TabIndex = 129;
 			this->_l_name->Text = L"Название:";
 			// 
 			// _l_object
@@ -1072,7 +1073,7 @@ namespace zias {
 			this->_l_object->Location = System::Drawing::Point(30, 0);
 			this->_l_object->Name = L"_l_object";
 			this->_l_object->Size = System::Drawing::Size(89, 24);
-			this->_l_object->TabIndex = 57;
+			this->_l_object->TabIndex = 130;
 			this->_l_object->Text = L"ОБЪЕКТ";
 			// 
 			// _pnl_facing
@@ -1089,7 +1090,7 @@ namespace zias {
 			this->_pnl_facing->Location = System::Drawing::Point(165, 5);
 			this->_pnl_facing->Name = L"_pnl_facing";
 			this->_pnl_facing->Size = System::Drawing::Size(155, 163);
-			this->_pnl_facing->TabIndex = 55;
+			this->_pnl_facing->TabIndex = 131;
 			// 
 			// _l_weight
 			// 
@@ -1108,7 +1109,7 @@ namespace zias {
 			this->_tb_weight->Location = System::Drawing::Point(55, 125);
 			this->_tb_weight->Name = L"_tb_weight";
 			this->_tb_weight->Size = System::Drawing::Size(90, 20);
-			this->_tb_weight->TabIndex = 56;
+			this->_tb_weight->TabIndex = 13;
 			this->_tb_weight->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_weight->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
@@ -1127,7 +1128,7 @@ namespace zias {
 			this->_pnl_subsystem->Location = System::Drawing::Point(325, 5);
 			this->_pnl_subsystem->Name = L"_pnl_subsystem";
 			this->_pnl_subsystem->Size = System::Drawing::Size(155, 480);
-			this->_pnl_subsystem->TabIndex = 56;
+			this->_pnl_subsystem->TabIndex = 132;
 			// 
 			// _chb_subsystem_variation
 			// 
@@ -1137,7 +1138,7 @@ namespace zias {
 			this->_chb_subsystem_variation->Location = System::Drawing::Point(5, 65);
 			this->_chb_subsystem_variation->Name = L"_chb_subsystem_variation";
 			this->_chb_subsystem_variation->Size = System::Drawing::Size(86, 17);
-			this->_chb_subsystem_variation->TabIndex = 23;
+			this->_chb_subsystem_variation->TabIndex = 15;
 			this->_chb_subsystem_variation->Text = L"ВАРИАЦИИ";
 			this->_chb_subsystem_variation->UseVisualStyleBackColor = true;
 			this->_chb_subsystem_variation->CheckedChanged += gcnew System::EventHandler(this, &MainForm::_changedValueSubsystemCheckBox);
@@ -1164,7 +1165,7 @@ namespace zias {
 			this->_pnl_constructions->Location = System::Drawing::Point(165, 173);
 			this->_pnl_constructions->Name = L"_pnl_constructions";
 			this->_pnl_constructions->Size = System::Drawing::Size(155, 312);
-			this->_pnl_constructions->TabIndex = 57;
+			this->_pnl_constructions->TabIndex = 133;
 			// 
 			// _tb_v_step_profile_marginal_area
 			// 
@@ -1173,7 +1174,7 @@ namespace zias {
 			this->_tb_v_step_profile_marginal_area->Location = System::Drawing::Point(78, 223);
 			this->_tb_v_step_profile_marginal_area->Name = L"_tb_v_step_profile_marginal_area";
 			this->_tb_v_step_profile_marginal_area->Size = System::Drawing::Size(67, 20);
-			this->_tb_v_step_profile_marginal_area->TabIndex = 71;
+			this->_tb_v_step_profile_marginal_area->TabIndex = 24;
 			this->_tb_v_step_profile_marginal_area->Text = L"КЗ";
 			this->_tb_v_step_profile_marginal_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_v_step_profile_marginal_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
@@ -1183,7 +1184,7 @@ namespace zias {
 			this->_tb_h_step_profile->Location = System::Drawing::Point(25, 280);
 			this->_tb_h_step_profile->Name = L"_tb_h_step_profile";
 			this->_tb_h_step_profile->Size = System::Drawing::Size(102, 20);
-			this->_tb_h_step_profile->TabIndex = 70;
+			this->_tb_h_step_profile->TabIndex = 25;
 			this->_tb_h_step_profile->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_h_step_profile->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
@@ -1194,7 +1195,7 @@ namespace zias {
 			this->_l_h_step_profile->Location = System::Drawing::Point(0, 248);
 			this->_l_h_step_profile->Name = L"_l_h_step_profile";
 			this->_l_h_step_profile->Size = System::Drawing::Size(150, 26);
-			this->_l_h_step_profile->TabIndex = 69;
+			this->_l_h_step_profile->TabIndex = 134;
 			this->_l_h_step_profile->Text = L"Шаг горизонтального профиля по вертикали (мм):";
 			// 
 			// _tb_v_step_profile_ordinary_area
@@ -1204,7 +1205,7 @@ namespace zias {
 			this->_tb_v_step_profile_ordinary_area->Location = System::Drawing::Point(5, 223);
 			this->_tb_v_step_profile_ordinary_area->Name = L"_tb_v_step_profile_ordinary_area";
 			this->_tb_v_step_profile_ordinary_area->Size = System::Drawing::Size(67, 20);
-			this->_tb_v_step_profile_ordinary_area->TabIndex = 68;
+			this->_tb_v_step_profile_ordinary_area->TabIndex = 23;
 			this->_tb_v_step_profile_ordinary_area->Text = L"РЗ";
 			this->_tb_v_step_profile_ordinary_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_v_step_profile_ordinary_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
@@ -1216,7 +1217,7 @@ namespace zias {
 			this->_l_v_step_profile->Location = System::Drawing::Point(0, 191);
 			this->_l_v_step_profile->Name = L"_l_v_step_profile";
 			this->_l_v_step_profile->Size = System::Drawing::Size(153, 26);
-			this->_l_v_step_profile->TabIndex = 67;
+			this->_l_v_step_profile->TabIndex = 135;
 			this->_l_v_step_profile->Text = L"Шаг вертикального профиля по горизонтали (мм):";
 			// 
 			// _tb_h_step_bracket_marginal_area
@@ -1226,7 +1227,7 @@ namespace zias {
 			this->_tb_h_step_bracket_marginal_area->Location = System::Drawing::Point(78, 166);
 			this->_tb_h_step_bracket_marginal_area->Name = L"_tb_h_step_bracket_marginal_area";
 			this->_tb_h_step_bracket_marginal_area->Size = System::Drawing::Size(67, 20);
-			this->_tb_h_step_bracket_marginal_area->TabIndex = 66;
+			this->_tb_h_step_bracket_marginal_area->TabIndex = 22;
 			this->_tb_h_step_bracket_marginal_area->Text = L"КЗ";
 			this->_tb_h_step_bracket_marginal_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_h_step_bracket_marginal_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
@@ -1238,7 +1239,7 @@ namespace zias {
 			this->_tb_h_step_bracket_ordinary_area->Location = System::Drawing::Point(5, 166);
 			this->_tb_h_step_bracket_ordinary_area->Name = L"_tb_h_step_bracket_ordinary_area";
 			this->_tb_h_step_bracket_ordinary_area->Size = System::Drawing::Size(67, 20);
-			this->_tb_h_step_bracket_ordinary_area->TabIndex = 65;
+			this->_tb_h_step_bracket_ordinary_area->TabIndex = 21;
 			this->_tb_h_step_bracket_ordinary_area->Text = L"РЗ";
 			this->_tb_h_step_bracket_ordinary_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_h_step_bracket_ordinary_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
@@ -1250,7 +1251,7 @@ namespace zias {
 			this->_l_h_step_bracket->Location = System::Drawing::Point(5, 134);
 			this->_l_h_step_bracket->Name = L"_l_h_step_bracket";
 			this->_l_h_step_bracket->Size = System::Drawing::Size(140, 26);
-			this->_l_h_step_bracket->TabIndex = 64;
+			this->_l_h_step_bracket->TabIndex = 136;
 			this->_l_h_step_bracket->Text = L"Шаг кронштейнов по горизонтали (мм):";
 			// 
 			// _tb_v_step_bracket_marginal_area
@@ -1260,7 +1261,7 @@ namespace zias {
 			this->_tb_v_step_bracket_marginal_area->Location = System::Drawing::Point(78, 109);
 			this->_tb_v_step_bracket_marginal_area->Name = L"_tb_v_step_bracket_marginal_area";
 			this->_tb_v_step_bracket_marginal_area->Size = System::Drawing::Size(67, 20);
-			this->_tb_v_step_bracket_marginal_area->TabIndex = 63;
+			this->_tb_v_step_bracket_marginal_area->TabIndex = 20;
 			this->_tb_v_step_bracket_marginal_area->Text = L"КЗ";
 			this->_tb_v_step_bracket_marginal_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_v_step_bracket_marginal_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
@@ -1272,7 +1273,7 @@ namespace zias {
 			this->_tb_v_step_bracket_ordinary_area->Location = System::Drawing::Point(5, 109);
 			this->_tb_v_step_bracket_ordinary_area->Name = L"_tb_v_step_bracket_ordinary_area";
 			this->_tb_v_step_bracket_ordinary_area->Size = System::Drawing::Size(67, 20);
-			this->_tb_v_step_bracket_ordinary_area->TabIndex = 62;
+			this->_tb_v_step_bracket_ordinary_area->TabIndex = 19;
 			this->_tb_v_step_bracket_ordinary_area->Text = L"РЗ";
 			this->_tb_v_step_bracket_ordinary_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_v_step_bracket_ordinary_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
@@ -1284,7 +1285,7 @@ namespace zias {
 			this->_l_v_step_bracket->Location = System::Drawing::Point(5, 77);
 			this->_l_v_step_bracket->Name = L"_l_v_step_bracket";
 			this->_l_v_step_bracket->Size = System::Drawing::Size(140, 26);
-			this->_l_v_step_bracket->TabIndex = 61;
+			this->_l_v_step_bracket->TabIndex = 137;
 			this->_l_v_step_bracket->Text = L"Шаг кронштейнов по вертикали (мм):";
 			// 
 			// _tb_facing_radius
@@ -1292,7 +1293,7 @@ namespace zias {
 			this->_tb_facing_radius->Location = System::Drawing::Point(25, 52);
 			this->_tb_facing_radius->Name = L"_tb_facing_radius";
 			this->_tb_facing_radius->Size = System::Drawing::Size(102, 20);
-			this->_tb_facing_radius->TabIndex = 60;
+			this->_tb_facing_radius->TabIndex = 18;
 			this->_tb_facing_radius->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_facing_radius->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
@@ -1304,7 +1305,7 @@ namespace zias {
 			this->_l_facing_radius->Location = System::Drawing::Point(15, 33);
 			this->_l_facing_radius->Name = L"_l_facing_radius";
 			this->_l_facing_radius->Size = System::Drawing::Size(124, 13);
-			this->_l_facing_radius->TabIndex = 59;
+			this->_l_facing_radius->TabIndex = 138;
 			this->_l_facing_radius->Text = L"Вылет облицовки (мм):";
 			// 
 			// _l_constructions
@@ -1315,7 +1316,7 @@ namespace zias {
 			this->_l_constructions->Location = System::Drawing::Point(1, 0);
 			this->_l_constructions->Name = L"_l_constructions";
 			this->_l_constructions->Size = System::Drawing::Size(149, 24);
-			this->_l_constructions->TabIndex = 58;
+			this->_l_constructions->TabIndex = 139;
 			this->_l_constructions->Text = L"КОНСТРУКЦИИ";
 			// 
 			// _pnl_variation
@@ -1333,7 +1334,7 @@ namespace zias {
 			this->_pnl_variation->Location = System::Drawing::Point(485, 5);
 			this->_pnl_variation->Name = L"_pnl_variation";
 			this->_pnl_variation->Size = System::Drawing::Size(155, 143);
-			this->_pnl_variation->TabIndex = 58;
+			this->_pnl_variation->TabIndex = 140;
 			// 
 			// _pnl_account
 			// 
@@ -1347,7 +1348,7 @@ namespace zias {
 			this->_pnl_account->Location = System::Drawing::Point(645, 5);
 			this->_pnl_account->Name = L"_pnl_account";
 			this->_pnl_account->Size = System::Drawing::Size(155, 143);
-			this->_pnl_account->TabIndex = 59;
+			this->_pnl_account->TabIndex = 141;
 			// 
 			// _pnl_results
 			// 
@@ -1374,7 +1375,7 @@ namespace zias {
 			this->_pnl_results->Location = System::Drawing::Point(485, 177);
 			this->_pnl_results->Name = L"_pnl_results";
 			this->_pnl_results->Size = System::Drawing::Size(315, 247);
-			this->_pnl_results->TabIndex = 60;
+			this->_pnl_results->TabIndex = 142;
 			// 
 			// _tb_conclusion
 			// 
@@ -1385,7 +1386,7 @@ namespace zias {
 			this->_tb_conclusion->Name = L"_tb_conclusion";
 			this->_tb_conclusion->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
 			this->_tb_conclusion->Size = System::Drawing::Size(315, 56);
-			this->_tb_conclusion->TabIndex = 53;
+			this->_tb_conclusion->TabIndex = 33;
 			this->_tb_conclusion->Text = L"Вывод";
 			this->_tb_conclusion->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
 			// 
@@ -1397,7 +1398,7 @@ namespace zias {
 			this->_pb_helper->Name = L"_pb_helper";
 			this->_pb_helper->Size = System::Drawing::Size(30, 27);
 			this->_pb_helper->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
-			this->_pb_helper->TabIndex = 61;
+			this->_pb_helper->TabIndex = 143;
 			this->_pb_helper->TabStop = false;
 			this->_pb_helper->Click += gcnew System::EventHandler(this, &MainForm::openDocumentation);
 			// 

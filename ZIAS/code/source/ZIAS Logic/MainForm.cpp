@@ -59,6 +59,7 @@ namespace zias {
 			this->_cb_ice_districs->SelectedIndex = 0;
 		}
 		_cb_ice_districs->DropDownStyle = ComboBoxStyle::DropDownList;
+		_selectDistricts();
 		// location_types
 		std::vector<std::shared_ptr<LocationType>> location_types = zias::FormDataStorageManager::Instance()->getLocationTypes();
 		for (auto& value : location_types) {
@@ -239,6 +240,11 @@ namespace zias {
 				_cb_profile->SelectedIndex = _cb_profile->Items->Count - 1;
 			}
 		}
+	}
+
+	void MainForm::_selectDistricts() {		
+		_cb_wind_districs->SelectedIndex = FormDataStorageManager::Instance()->getCity(utils::toStdWString(_cb_cities->Text))->wind_district->id;
+		_cb_ice_districs->SelectedIndex = FormDataStorageManager::Instance()->getCity(utils::toStdWString(_cb_cities->Text))->ice_district->id;
 	}
 	
 	bool MainForm::checkDataCorrectness() {
@@ -660,6 +666,8 @@ namespace zias {
 		// не города
 		_cb_wind_districs->Enabled = !_cb_wind_districs->Enabled;
 		_cb_ice_districs->Enabled = !_cb_ice_districs->Enabled;
+
+		_selectDistricts();
 	}
 
 	// _changedValueFacingRadiobutton
@@ -765,11 +773,7 @@ namespace zias {
 		
 	//_cb_cities_SelectedIndexChanged
 	System::Void MainForm::_cb_cities_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
-		unsigned wind_district_id = FormDataStorageManager::Instance()->getCity(utils::toStdWString(_cb_cities->Text))->wind_district->id;
-		unsigned ice_districs_id = FormDataStorageManager::Instance()->getCity(utils::toStdWString(_cb_cities->Text))->ice_district->id;
-
-		_cb_wind_districs->SelectedIndex = wind_district_id;
-		_cb_ice_districs->SelectedIndex = ice_districs_id;
+		_selectDistricts();
 	}
 
 } // zias
