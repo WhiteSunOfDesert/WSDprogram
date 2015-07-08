@@ -131,7 +131,7 @@ namespace zias {
 											if (utils::equals(profiles->name(), "profile")) {
 												short id = utils::lexical_cast<short>(profiles->first_attribute("id")->value());
 												std::wstring name = utils::lexical_cast<std::wstring>(profiles->first_attribute("name")->value());
-												short weight = utils::lexical_cast<short>(profiles->first_attribute("weight")->value());
+												float weight = utils::lexical_cast<float>(profiles->first_attribute("weight")->value());
 
 												addProfile(id, name, weight);
 											}
@@ -281,7 +281,7 @@ namespace zias {
 
 	void FormDataStorageManager::addProfile(const short& my_id,
 											const std::wstring& my_name,
-											const short& my_weight) {
+											const float& my_weight) {
 		if (!getProfile(my_id) && !getProfile(my_name)) {
 			_profiles.emplace_back(new Profile(my_id, my_name, my_weight));
 		}

@@ -693,6 +693,8 @@ namespace zias {
 		// вариации
 		_cb_bracket->Enabled = !_cb_bracket->Enabled;
 		_cb_profile->Enabled = !_cb_profile->Enabled;
+		_getBrackets();
+		_getProfiles();
 	}
 
 	// _changedValueVariationsCheckBox		

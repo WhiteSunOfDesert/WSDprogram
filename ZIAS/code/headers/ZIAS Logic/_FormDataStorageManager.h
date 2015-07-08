@@ -79,9 +79,9 @@ namespace zias {
 	struct Profile {
 		short id;
 		std::wstring name;
-		short weight;
+		float weight;
 
-		Profile(short my_id = -1, std::wstring my_name = L"", short my_weight = -1) : id(my_id), name(my_name), weight(my_weight) {}
+		Profile(short my_id = -1, std::wstring my_name = L"", float my_weight = -1) : id(my_id), name(my_name), weight(my_weight) {}
 	};
 
 	struct Subsystem {
@@ -178,7 +178,7 @@ namespace zias {
 									const short& my_b,
 									const short& my_c);
 
-			static void addProfile(const short& my_id, const std::wstring& my_name, const short& my_weight);
+			static void addProfile(const short& my_id, const std::wstring& my_name, const float& my_weight);
 
 			static void addSubBr(const short& my_id, const short& my_sub_id, const short& my_br_id);
 			static void addSubPr(const short& my_id, const short& my_sub_id, const short& my_pr_id);

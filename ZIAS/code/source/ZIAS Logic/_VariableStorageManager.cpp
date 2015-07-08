@@ -488,24 +488,24 @@ namespace zias {
 	void VariableStorageManager::calculate_q_H_1(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem) {
 
 		if (isSubsystem && my_subsystem->name == _SUBSYSTEM_MAXIMA_) {
-			_variables.at("q_H_1") = getVariable("weight_2") * getVariable("g") * getVariable("gamma_f_2") / getVariable("H_3");
+			_variables.at("q_H_1") = getVariable("weight_2") * getVariable("g") * getVariable("gamma_f_2") * 1000.f / getVariable("H_3");
 		}
 		else {
-			_variables.at("q_H_1") = getVariable("weight_2") * getVariable("g") * getVariable("gamma_f_2") / getVariable("H_1");
+			_variables.at("q_H_1") = getVariable("weight_2") * getVariable("g") * getVariable("gamma_f_2") * 1000.f / getVariable("H_1");
 		}
 	}
 
 	void VariableStorageManager::calculate_q_H_2(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem) {
 
 		if (isSubsystem && my_subsystem->name == _SUBSYSTEM_MAXIMA_) {
-			_variables.at("q_H_2") = getVariable("weight_3") * getVariable("g") * getVariable("gamma_f_2") / getVariable("H_1");
+			_variables.at("q_H_2") = getVariable("weight_3") * getVariable("g") * getVariable("gamma_f_2") * 1000.f / getVariable("H_1");
 		}
 		else if (isSubsystem && (my_subsystem->name == _SUBSYSTEM_MAXIMA_LIGHT_ ||
 			my_subsystem->name == _SUBSYSTEM_MAXIMA_MEDIUM_ ||
 			my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_1_ ||
 			my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_2_)) {
 
-			_variables.at("q_H_2") = getVariable("weight_2") * getVariable("g") * getVariable("gamma_f_2") / getVariable("H_2");
+			_variables.at("q_H_2") = getVariable("weight_2") * getVariable("g") * getVariable("gamma_f_2") * 1000.f / getVariable("H_2");
 		}
 		else {
 			_variables.at("q_H_2") = 0.f;
@@ -514,10 +514,10 @@ namespace zias {
 
 	void VariableStorageManager::calculate_q_H_3(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem) {
 		if (isSubsystem && my_subsystem->name == _SUBSYSTEM_MAXIMA_) {
-			_variables.at("q_H_3") = getVariable("weight_3") * getVariable("g") * getVariable("gamma_f_2") / getVariable("H_2");
+			_variables.at("q_H_3") = getVariable("weight_3") * getVariable("g") * getVariable("gamma_f_2") * 1000.f / getVariable("H_2");
 		}
 		else if (isSubsystem && (my_subsystem->name == _SUBSYSTEM_MAXIMA_LIGHT_ || my_subsystem->name == _SUBSYSTEM_MAXIMA_MEDIUM_)) {
-			_variables.at("q_H_3") = getVariable("weight_3") * getVariable("g") * getVariable("gamma_f_2") / getVariable("H_3");
+			_variables.at("q_H_3") = getVariable("weight_3") * getVariable("g") * getVariable("gamma_f_2") * 1000.f / getVariable("H_3");
 		}
 		else {
 			_variables.at("q_H_3") = 0.f;
@@ -625,10 +625,10 @@ namespace zias {
 			my_subsystem->name == _SUBSYSTEM_MAXIMA_ ||
 			my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_1_ || my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_2_))) {
 
-			_variables.at("S_1") = getVariable("B_1") * getVariable("H_1");
+			_variables.at("S_1") = getVariable("B_1") * getVariable("H_1") / 1000000.f;
 		}
 		else {
-			_variables.at("S_1") = getVariable("B_1") * getVariable("H_3");
+			_variables.at("S_1") = getVariable("B_1") * getVariable("H_3") / 1000000.f;
 		}
 	}
 
@@ -658,16 +658,16 @@ namespace zias {
 			my_subsystem->name == _SUBSYSTEM_STRONG_1_ ||
 			my_subsystem->name == _SUBSYSTEM_STRONG_2_))) {
 
-			_variables.at("S_2") = getVariable("B_2") * getVariable("H_1");
+			_variables.at("S_2") = getVariable("B_2") * getVariable("H_1") / 1000000.f;
 		}
 		else if (my_subsystem->name == _SUBSYSTEM_MAXIMA_ ||
 			my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_1_ ||
 			my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_2_) {
 
-			_variables.at("S_2") = getVariable("B_1") * getVariable("H_2");
+			_variables.at("S_2") = getVariable("B_1") * getVariable("H_2") / 1000000.f;
 		}
 		else {
-			_variables.at("S_2") = getVariable("B_2") * getVariable("H_3");
+			_variables.at("S_2") = getVariable("B_2") * getVariable("H_3") / 1000000.f;
 		}
 	}
 
