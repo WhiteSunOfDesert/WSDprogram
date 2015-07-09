@@ -724,29 +724,27 @@ namespace zias {
 				my_subsystem->name == _SUBSYSTEM_MAXIMA_MEDIUM_ ||
 				my_subsystem->name == _SUBSYSTEM_MAXIMA_LIGHT_) {
 
-				_variables.at("R_1_1") = ((my_subsystem->bracket->x + my_subsystem->bracket->b) /
-					my_subsystem->bracket->b * getVariable("N_1")) +
-					(my_facing_radius / my_subsystem->bracket->c * getVariable("P_1"));
+				_variables.at("R_1_1") = ((my_subsystem->bracket->x + my_subsystem->bracket->b) * getVariable("N_1") / my_subsystem->bracket->b) +
+					(my_facing_radius * getVariable("P_1") / my_subsystem->bracket->c);
 			}
 			else if (my_subsystem->name == _SUBSYSTEM_KPR_ ||
 				my_subsystem->name == _SUBSYSTEM_STRONG_1_ ||
 				my_subsystem->name == _SUBSYSTEM_STRONG_2_) {
 
-				_variables.at("R_1_1") = getVariable("N_1") + (my_facing_radius / my_subsystem->bracket->c * getVariable("P_1"));
+				_variables.at("R_1_1") = getVariable("N_1") + (my_facing_radius * getVariable("P_1") / my_subsystem->bracket->c);
 			}
 			else if (my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_1_ ||
 				my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_2_) {
 
-				_variables.at("R_1_1") = (getVariable("N_1") + (my_facing_radius / my_subsystem->bracket->c * getVariable("P_1"))) / 2;
+				_variables.at("R_1_1") = (getVariable("N_1") + (my_facing_radius * getVariable("P_1") / my_subsystem->bracket->c)) / 2;
 			}
 			else {
 				_variables.at("R_1_1") = (getVariable("P_1") * my_facing_radius) / (2 * (my_subsystem->bracket->b + my_subsystem->bracket->c));
 			}
 		}
 		else {
-			_variables.at("R_1_1") = ((my_bracket->x + my_bracket->b) /
-				my_bracket->b * getVariable("N_1")) +
-				(my_facing_radius / my_bracket->c * getVariable("P_1"));
+			_variables.at("R_1_1") = ((my_bracket->x + my_bracket->b) * getVariable("N_1") / my_bracket->b) +
+				(my_facing_radius * getVariable("P_1") / my_bracket->c);
 		}
 	}
 
@@ -761,29 +759,27 @@ namespace zias {
 				my_subsystem->name == _SUBSYSTEM_MAXIMA_MEDIUM_ ||
 				my_subsystem->name == _SUBSYSTEM_MAXIMA_LIGHT_) {
 
-				_variables.at("R_2_1") = ((my_subsystem->bracket->x + my_subsystem->bracket->b) /
-					my_subsystem->bracket->b * getVariable("N_2")) +
-					(my_facing_radius / my_subsystem->bracket->c * getVariable("P_2"));
+				_variables.at("R_2_1") = ((my_subsystem->bracket->x + my_subsystem->bracket->b) * getVariable("N_2") / my_subsystem->bracket->b) +
+					(my_facing_radius * getVariable("P_2") / my_subsystem->bracket->c);
 			}
 			else if (my_subsystem->name == _SUBSYSTEM_KPR_ ||
 				my_subsystem->name == _SUBSYSTEM_STRONG_1_ ||
 				my_subsystem->name == _SUBSYSTEM_STRONG_2_) {
 
-				_variables.at("R_2_1") = getVariable("N_2") + (my_facing_radius / my_subsystem->bracket->c * getVariable("P_2"));
+				_variables.at("R_2_1") = getVariable("N_2") + (my_facing_radius * getVariable("P_2") / my_subsystem->bracket->c);
 			}
 			else if (my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_1_ ||
 				my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_2_) {
 
-				_variables.at("R_2_1") = (getVariable("N_2") + (my_facing_radius / my_subsystem->bracket->c * getVariable("P_2"))) / 2;
+				_variables.at("R_2_1") = (getVariable("N_2") + (my_facing_radius * getVariable("P_2") / my_subsystem->bracket->c)) / 2;
 			}
 			else {
 				_variables.at("R_2_1") = (getVariable("P_2") * my_facing_radius) / (2 * (my_subsystem->bracket->b + my_subsystem->bracket->c));
 			}
 		}
 		else {
-			_variables.at("R_2_1") = ((my_bracket->x + my_bracket->b) /
-				my_bracket->b * getVariable("N_2")) +
-				(my_facing_radius / my_bracket->c * getVariable("P_2"));
+			_variables.at("R_2_1") = ((my_bracket->x + my_bracket->b) * getVariable("N_2") / my_bracket->b) +
+				(my_facing_radius * getVariable("P_2") / my_bracket->c);
 		}
 	}
 
@@ -798,29 +794,27 @@ namespace zias {
 				my_subsystem->name == _SUBSYSTEM_MAXIMA_MEDIUM_ ||
 				my_subsystem->name == _SUBSYSTEM_MAXIMA_LIGHT_) {
 
-				_variables.at("R_3_1") = ((my_subsystem->bracket->x + my_subsystem->bracket->b) /
-					my_subsystem->bracket->b * getVariable("N_3")) +
-					(my_facing_radius / my_subsystem->bracket->c * getVariable("P_3"));
+				_variables.at("R_3_1") = ((my_subsystem->bracket->x + my_subsystem->bracket->b) * getVariable("N_3") /
+					my_subsystem->bracket->b) + (my_facing_radius  * getVariable("P_3") / my_subsystem->bracket->c);
 			}
 			else if (my_subsystem->name == _SUBSYSTEM_KPR_ ||
 				my_subsystem->name == _SUBSYSTEM_STRONG_1_ ||
 				my_subsystem->name == _SUBSYSTEM_STRONG_2_) {
 
-				_variables.at("R_3_1") = getVariable("N_3") + (my_facing_radius / my_subsystem->bracket->c * getVariable("P_3"));
+				_variables.at("R_3_1") = getVariable("N_3") + (my_facing_radius * getVariable("P_3") / my_subsystem->bracket->c);
 			}
 			else if (my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_1_ ||
 				my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_2_) {
 
-				_variables.at("R_3_1") = (getVariable("N_3") + (my_facing_radius / my_subsystem->bracket->c * getVariable("P_3"))) / 2;
+				_variables.at("R_3_1") = (getVariable("N_3") + (my_facing_radius * getVariable("P_3") / my_subsystem->bracket->c)) / 2;
 			}
 			else {
 				_variables.at("R_3_1") = (getVariable("P_3") * my_facing_radius) / (2 * (my_subsystem->bracket->b + my_subsystem->bracket->c));
 			}
 		}
 		else {
-			_variables.at("R_3_1") = ((my_bracket->x + my_bracket->b) /
-				my_bracket->b * getVariable("N_3")) +
-				(my_facing_radius / my_bracket->c * getVariable("P_3"));
+			_variables.at("R_3_1") = ((my_bracket->x + my_bracket->b) * getVariable("N_3") / my_bracket->b) +
+				(my_facing_radius * getVariable("P_3") / my_bracket->c);
 		}
 	}
 
@@ -832,7 +826,7 @@ namespace zias {
 		if (isSubsystem && my_subsystem->name == _SUBSYSTEM_MAXIMA_) {
 
 			_variables.at("R_1_2") = (getVariable("N_1") / 2) -
-				(getVariable("P_1") * my_facing_radius) / (2 * (my_subsystem->bracket->b + my_subsystem->bracket->c));
+				((getVariable("P_1") * my_facing_radius) / (2 * (my_subsystem->bracket->b + my_subsystem->bracket->c)));
 		}
 		else {
 			_variables.at("R_1_2") = _variables.at("R_1_1");
@@ -846,7 +840,7 @@ namespace zias {
 
 		if (isSubsystem && my_subsystem->name == _SUBSYSTEM_MAXIMA_) {
 			_variables.at("R_2_2") = (getVariable("N_2") / 2) -
-				(getVariable("P_2") * my_facing_radius) / (2 * (my_subsystem->bracket->b + my_subsystem->bracket->c));
+				((getVariable("P_2") * my_facing_radius) / (2 * (my_subsystem->bracket->b + my_subsystem->bracket->c)));
 		}
 		else {
 			_variables.at("R_2_2") = _variables.at("R_2_1");
@@ -861,7 +855,7 @@ namespace zias {
 
 		if (isSubsystem && my_subsystem->name == _SUBSYSTEM_MAXIMA_) {
 			_variables.at("R_3_2") = (getVariable("N_3") / 2) -
-				(getVariable("P_3") * my_facing_radius) / (2 * (my_subsystem->bracket->b + my_subsystem->bracket->c));
+				((getVariable("P_3") * my_facing_radius) / (2 * (my_subsystem->bracket->b + my_subsystem->bracket->c)));
 		}
 		else {
 			_variables.at("R_3_2") = _variables.at("R_3_1");
