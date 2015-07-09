@@ -21,7 +21,8 @@ namespace zias {
 			utils::toStdString(_tb_facing_radius->Name),
 			utils::toStdString(_tb_weight->Name),
 			utils::toStdString(_tb_c1->Name),
-			utils::toStdString(_tb_c2->Name)
+			utils::toStdString(_tb_c2->Name),
+			utils::toStdString(_tb_conclusion->Name)
 		}; 
 			
 		for (auto& field : checking_field_mas) {
@@ -145,7 +146,12 @@ namespace zias {
 		result_data.h_step_bracket_ordinary_area = utils::toFloat(_tb_h_step_bracket_ordinary_area->Text);
 		result_data.v_step_bracket_marginal_area = utils::toFloat(_tb_v_step_bracket_marginal_area->Text);
 		result_data.h_step_bracket_marginal_area = utils::toFloat(_tb_h_step_bracket_marginal_area->Text);
-		result_data.conclusion = utils::toStdWString(_tb_conclusion->Text);
+		if (m_checking_field_states_map.at(utils::toStdString(_tb_conclusion->Name)) != fsNone) {
+			result_data.conclusion = utils::toStdWString(_tb_conclusion->Text);
+		}
+		else {
+			result_data.conclusion = L"";
+		}
 		result_data.isFacingStandart = _rb_facing_standart->Checked;
 		result_data.isSubsystemStandart = !_chb_subsystem_variation->Checked;
 		result_data.v_step_profile_ordinary_area = utils::toFloat(_tb_v_step_profile_ordinary_area->Text);
@@ -161,59 +167,82 @@ namespace zias {
 
 		// Блокирование или разблокирование полей Конструкции согласно выбранной подсистемы
 		if (_construction->v_bracket_rz) {
-			_tb_v_step_bracket_ordinary_area->Enabled = true;
-			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_bracket_ordinary_area->Name)) = fsCommon;
+			if (_tb_v_step_bracket_ordinary_area->Enabled == false) {
+				_lockUnlockField(_tb_v_step_bracket_ordinary_area);
+				_tb_v_step_bracket_ordinary_area->Text = "РЗ";
+			}
 		} else {
-			_tb_v_step_bracket_ordinary_area->Enabled = false;
-			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_bracket_ordinary_area->Name)) = fsLocked;
+			if (_tb_v_step_bracket_ordinary_area->Enabled == true) {
+				_lockUnlockField(_tb_v_step_bracket_ordinary_area);
+			}
 		}
 
 		if (_construction->v_bracket_kz) {
-			_tb_v_step_bracket_marginal_area->Enabled = true;
-			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_bracket_marginal_area->Name)) = fsCommon;
-		} else {
-			_tb_v_step_bracket_marginal_area->Enabled = false;
-			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_bracket_marginal_area->Name)) = fsLocked;
+			if (_tb_v_step_bracket_marginal_area->Enabled == false) {
+				_lockUnlockField(_tb_v_step_bracket_marginal_area);
+				_tb_v_step_bracket_marginal_area->Text = "КЗ";
+			}
+		}
+		else {
+			if (_tb_v_step_bracket_marginal_area->Enabled == true) {
+				_lockUnlockField(_tb_v_step_bracket_marginal_area);
+			}
 		}
 
 		if (_construction->h_bracket_rz) {
-			_tb_h_step_bracket_ordinary_area->Enabled = true;
-			m_checking_field_states_map.at(utils::toStdString(_tb_h_step_bracket_ordinary_area->Name)) = fsCommon;
-		} else {
-			_tb_h_step_bracket_ordinary_area->Enabled = false;
-			m_checking_field_states_map.at(utils::toStdString(_tb_h_step_bracket_ordinary_area->Name)) = fsLocked;
+			if (_tb_h_step_bracket_ordinary_area->Enabled == false) {
+				_lockUnlockField(_tb_h_step_bracket_ordinary_area);
+				_tb_h_step_bracket_ordinary_area->Text = "РЗ";
+			}
+		}
+		else {
+			if (_tb_h_step_bracket_ordinary_area->Enabled == true) {
+				_lockUnlockField(_tb_h_step_bracket_ordinary_area);
+			}
 		}
 
 		if (_construction->h_bracket_kz) {
-			_tb_h_step_bracket_marginal_area->Enabled = true;
-			m_checking_field_states_map.at(utils::toStdString(_tb_h_step_bracket_marginal_area->Name)) = fsCommon;
-		} else {
-			_tb_h_step_bracket_marginal_area->Enabled = false;
-			m_checking_field_states_map.at(utils::toStdString(_tb_h_step_bracket_marginal_area->Name)) = fsLocked;
+			if (_tb_h_step_bracket_marginal_area->Enabled == false) {
+				_lockUnlockField(_tb_h_step_bracket_marginal_area);
+				_tb_h_step_bracket_marginal_area->Text = "КЗ";
+			}
+		}
+		else {
+			if (_tb_h_step_bracket_marginal_area->Enabled == true) {
+				_lockUnlockField(_tb_h_step_bracket_marginal_area);
+			}
 		}
 
 		if (_construction->v_profile_rz) {
-			_tb_v_step_profile_ordinary_area->Enabled = true;
-			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_profile_ordinary_area->Name)) = fsCommon;
+			if (_tb_v_step_profile_ordinary_area->Enabled == false) {
+				_lockUnlockField(_tb_v_step_profile_ordinary_area);
+				_tb_v_step_profile_ordinary_area->Text = "РЗ";
+			}
 		} else {
-			_tb_v_step_profile_ordinary_area->Enabled = false;
-			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_profile_ordinary_area->Name)) = fsLocked;
+			if (_tb_v_step_profile_ordinary_area->Enabled == true) {
+				_lockUnlockField(_tb_v_step_profile_ordinary_area);
+			}
 		}
 
 		if (_construction->v_profile_kz) {
-			_tb_v_step_profile_marginal_area->Enabled = true;
-			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_profile_marginal_area->Name)) = fsCommon;
+			if (_tb_v_step_profile_marginal_area->Enabled == false) {
+				_lockUnlockField(_tb_v_step_profile_marginal_area);
+				_tb_v_step_profile_marginal_area->Text = "КЗ";
+			}
 		} else {
-			_tb_v_step_profile_marginal_area->Enabled = false;
-			m_checking_field_states_map.at(utils::toStdString(_tb_v_step_profile_marginal_area->Name)) = fsLocked;
+			if (_tb_v_step_profile_marginal_area->Enabled == true) {
+				_lockUnlockField(_tb_v_step_profile_marginal_area);
+			}
 		}
 
 		if (_construction->h_profile) {
-			_tb_h_step_profile->Enabled = true;
-			m_checking_field_states_map.at(utils::toStdString(_tb_h_step_profile->Name)) = fsCommon;
+			if (_tb_h_step_profile->Enabled == false) {
+				_lockUnlockField(_tb_h_step_profile);
+			}
 		} else {
-			_tb_h_step_profile->Enabled = false;
-			m_checking_field_states_map.at(utils::toStdString(_tb_h_step_profile->Name)) = fsLocked;
+			if (_tb_h_step_profile->Enabled == true) {
+				_lockUnlockField(_tb_h_step_profile);
+			}
 		}
 	}
 
@@ -645,13 +674,58 @@ namespace zias {
 	System::Void MainForm::clickToCheckingField(System::Object^ sender, System::Windows::Forms::MouseEventArgs^  e) {
 		TextBox^ check_field = (TextBox^)sender;
 		switch (m_checking_field_states_map.at(utils::toStdString(check_field->Name))) {
-			case fsNone: {
+			case fsNone:
+			case fsUnlocked: {
 				check_field->ForeColor = System::Drawing::Color::Black;
 				check_field->Text = L"";
 				m_checking_field_states_map.at(utils::toStdString(check_field->Name)) = fsCommon;
 			} case fsUncorrect: {
 				check_field->BackColor = System::Drawing::Color::White;
 				m_checking_field_states_map.at(utils::toStdString(check_field->Name)) = fsCommon;
+			} default: {
+
+			}
+		}
+	}
+
+	// focusToCheckingField
+	System::Void MainForm::focusToCheckingField(System::Object^  sender, System::EventArgs^  e) {
+		TextBox^ check_field = (TextBox^)sender;
+		switch (m_checking_field_states_map.at(utils::toStdString(check_field->Name))) {
+			case fsNone:
+			case fsUnlocked : {
+				check_field->ForeColor = System::Drawing::Color::Black;
+				check_field->Text = L"";
+				m_checking_field_states_map.at(utils::toStdString(check_field->Name)) = fsCommon;
+			} case fsUncorrect: {
+				check_field->BackColor = System::Drawing::Color::White;
+				m_checking_field_states_map.at(utils::toStdString(check_field->Name)) = fsCommon;
+			} default: {
+
+			}
+		}
+	}
+
+	// LockUnlockField
+	void MainForm::_lockUnlockField(System::Object^ sender) {
+		TextBox^ check_field = (TextBox^)sender;
+		switch (m_checking_field_states_map.at(utils::toStdString(check_field->Name))) {
+			case fsNone:
+			case fsCommon:
+			case fsUnlocked:
+			case fsUncorrect: {
+				check_field->BackColor = System::Drawing::SystemColors::Window;
+				check_field->Text = L"";
+				check_field->Enabled = false;
+				m_checking_field_states_map.at(utils::toStdString(check_field->Name)) = fsLocked;
+				return;
+			} case fsLocked: {
+				check_field->BackColor = System::Drawing::Color::White;
+				check_field->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(150)),
+					static_cast<System::Int32>(static_cast<System::Byte>(150)), static_cast<System::Int32>(static_cast<System::Byte>(150)));
+				check_field->Text = L"";
+				check_field->Enabled = true;
+				m_checking_field_states_map.at(utils::toStdString(check_field->Name)) = fsUnlocked;
 			} default: {
 
 			}

@@ -94,6 +94,7 @@ namespace zias {
 		fsCommon,			// обычное состояние (можно вводить данные в поле)
 		fsUncorrect,		// состояние неправильно введеных данных (когда проверка выдает ошибку заполнения поля)
 		fsLocked,			// поле заблокированно (нельзя вводить данные в поле)
+		fsUnlocked,			// fsNone для полей, которые могут быть в состоянии fsLocked
 
 		fsCount				// количество возможных состояний
 	};
@@ -125,6 +126,7 @@ namespace zias {
 		void _getBrackets();
 		void _getProfiles();
 		void _selectDistricts();
+		void _lockUnlockField(System::Object^ sender);
 
 		bool isCorrectFieldObjectName();
 		bool isCorrectFieldObjectCipher();
@@ -810,6 +812,7 @@ namespace zias {
 			this->_tb_c1->TabIndex = 27;
 			this->_tb_c1->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_c1->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
+			this->_tb_c1->Enter += gcnew System::EventHandler(this, &MainForm::focusToCheckingField);
 			// 
 			// _tb_c2
 			// 
@@ -820,6 +823,7 @@ namespace zias {
 			this->_tb_c2->TabIndex = 28;
 			this->_tb_c2->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_c2->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
+			this->_tb_c2->Enter += gcnew System::EventHandler(this, &MainForm::focusToCheckingField);
 			// 
 			// _tb_digging_anker
 			// 
@@ -984,6 +988,7 @@ namespace zias {
 			this->_tb_height->Text = L"Заполняет инженер";
 			this->_tb_height->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_height->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
+			this->_tb_height->Enter += gcnew System::EventHandler(this, &MainForm::focusToCheckingField);
 			// 
 			// _tb_responsible
 			// 
@@ -996,6 +1001,7 @@ namespace zias {
 			this->_tb_responsible->Text = L"Заполняет инженер";
 			this->_tb_responsible->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_responsible->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
+			this->_tb_responsible->Enter += gcnew System::EventHandler(this, &MainForm::focusToCheckingField);
 			// 
 			// _tb_code
 			// 
@@ -1008,6 +1014,7 @@ namespace zias {
 			this->_tb_code->Text = L"Заполняет инженер";
 			this->_tb_code->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_code->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
+			this->_tb_code->Enter += gcnew System::EventHandler(this, &MainForm::focusToCheckingField);
 			// 
 			// _tb_name
 			// 
@@ -1020,6 +1027,7 @@ namespace zias {
 			this->_tb_name->Text = L"Заполняет инженер";
 			this->_tb_name->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_name->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
+			this->_tb_name->Enter += gcnew System::EventHandler(this, &MainForm::focusToCheckingField);
 			// 
 			// _l_height
 			// 
@@ -1112,6 +1120,7 @@ namespace zias {
 			this->_tb_weight->TabIndex = 13;
 			this->_tb_weight->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_weight->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
+			this->_tb_weight->Enter += gcnew System::EventHandler(this, &MainForm::focusToCheckingField);
 			// 
 			// _pnl_subsystem
 			// 
@@ -1178,6 +1187,7 @@ namespace zias {
 			this->_tb_v_step_profile_marginal_area->Text = L"КЗ";
 			this->_tb_v_step_profile_marginal_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_v_step_profile_marginal_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
+			this->_tb_v_step_profile_marginal_area->Enter += gcnew System::EventHandler(this, &MainForm::focusToCheckingField);
 			// 
 			// _tb_h_step_profile
 			// 
@@ -1187,6 +1197,7 @@ namespace zias {
 			this->_tb_h_step_profile->TabIndex = 25;
 			this->_tb_h_step_profile->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_h_step_profile->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
+			this->_tb_h_step_profile->Enter += gcnew System::EventHandler(this, &MainForm::focusToCheckingField);
 			// 
 			// _l_h_step_profile
 			// 
@@ -1209,6 +1220,7 @@ namespace zias {
 			this->_tb_v_step_profile_ordinary_area->Text = L"РЗ";
 			this->_tb_v_step_profile_ordinary_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_v_step_profile_ordinary_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
+			this->_tb_v_step_profile_ordinary_area->Enter += gcnew System::EventHandler(this, &MainForm::focusToCheckingField);
 			// 
 			// _l_v_step_profile
 			// 
@@ -1231,6 +1243,7 @@ namespace zias {
 			this->_tb_h_step_bracket_marginal_area->Text = L"КЗ";
 			this->_tb_h_step_bracket_marginal_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_h_step_bracket_marginal_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
+			this->_tb_h_step_bracket_marginal_area->Enter += gcnew System::EventHandler(this, &MainForm::focusToCheckingField);
 			// 
 			// _tb_h_step_bracket_ordinary_area
 			// 
@@ -1243,6 +1256,7 @@ namespace zias {
 			this->_tb_h_step_bracket_ordinary_area->Text = L"РЗ";
 			this->_tb_h_step_bracket_ordinary_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_h_step_bracket_ordinary_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
+			this->_tb_h_step_bracket_ordinary_area->Enter += gcnew System::EventHandler(this, &MainForm::focusToCheckingField);
 			// 
 			// _l_h_step_bracket
 			// 
@@ -1265,6 +1279,7 @@ namespace zias {
 			this->_tb_v_step_bracket_marginal_area->Text = L"КЗ";
 			this->_tb_v_step_bracket_marginal_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_v_step_bracket_marginal_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
+			this->_tb_v_step_bracket_marginal_area->Enter += gcnew System::EventHandler(this, &MainForm::focusToCheckingField);
 			// 
 			// _tb_v_step_bracket_ordinary_area
 			// 
@@ -1277,6 +1292,7 @@ namespace zias {
 			this->_tb_v_step_bracket_ordinary_area->Text = L"РЗ";
 			this->_tb_v_step_bracket_ordinary_area->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_v_step_bracket_ordinary_area->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
+			this->_tb_v_step_bracket_ordinary_area->Enter += gcnew System::EventHandler(this, &MainForm::focusToCheckingField);
 			// 
 			// _l_v_step_bracket
 			// 
@@ -1296,6 +1312,7 @@ namespace zias {
 			this->_tb_facing_radius->TabIndex = 18;
 			this->_tb_facing_radius->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_facing_radius->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
+			this->_tb_facing_radius->Enter += gcnew System::EventHandler(this, &MainForm::focusToCheckingField);
 			// 
 			// _l_facing_radius
 			// 
@@ -1389,6 +1406,7 @@ namespace zias {
 			this->_tb_conclusion->TabIndex = 33;
 			this->_tb_conclusion->Text = L"Вывод";
 			this->_tb_conclusion->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);
+			this->_tb_conclusion->Enter += gcnew System::EventHandler(this, &MainForm::focusToCheckingField);
 			// 
 			// _pb_helper
 			// 
@@ -1453,6 +1471,7 @@ namespace zias {
 #pragma endregion
 
 		private: System::Void clickToCheckingField(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+		private: System::Void focusToCheckingField(System::Object^  sender, System::EventArgs^  e);
 		private: System::Void _changedValueClimateRadiobutton(System::Object^  sender, System::EventArgs^  e); 
 		private: System::Void _changedValueFacingRadiobutton(System::Object^  sender, System::EventArgs^  e);
 		private: System::Void _changedValueSubsystemCheckBox(System::Object^  sender, System::EventArgs^  e);
@@ -1462,5 +1481,5 @@ namespace zias {
 		private: System::Void _b_generate_report_Click(System::Object^  sender, System::EventArgs^  e);
 		private: System::Void _cb_subsystem_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
 		private: System::Void _cb_cities_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
-	};
+};
 } // zias
