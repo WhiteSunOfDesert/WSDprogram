@@ -681,6 +681,7 @@ namespace zias {
 				m_checking_field_states_map.at(utils::toStdString(check_field->Name)) = fsCommon;
 			} case fsUncorrect: {
 				check_field->BackColor = System::Drawing::Color::White;
+				check_field->ForeColor = System::Drawing::Color::Black;
 				m_checking_field_states_map.at(utils::toStdString(check_field->Name)) = fsCommon;
 			} default: {
 
@@ -699,6 +700,7 @@ namespace zias {
 				m_checking_field_states_map.at(utils::toStdString(check_field->Name)) = fsCommon;
 			} case fsUncorrect: {
 				check_field->BackColor = System::Drawing::Color::White;
+				check_field->ForeColor = System::Drawing::Color::Black;
 				m_checking_field_states_map.at(utils::toStdString(check_field->Name)) = fsCommon;
 			} default: {
 

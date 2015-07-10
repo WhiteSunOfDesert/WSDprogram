@@ -617,6 +617,7 @@ namespace zias {
 			// _chb_nvf_elements
 			// 
 			this->_chb_nvf_elements->AutoSize = true;
+			this->_chb_nvf_elements->Enabled = false;
 			this->_chb_nvf_elements->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(100)),
 				static_cast<System::Int32>(static_cast<System::Byte>(100)));
 			this->_chb_nvf_elements->Location = System::Drawing::Point(25, 67);
@@ -629,6 +630,7 @@ namespace zias {
 			// _chb_nvf_connection
 			// 
 			this->_chb_nvf_connection->AutoSize = true;
+			this->_chb_nvf_connection->Enabled = false;
 			this->_chb_nvf_connection->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
 				static_cast<System::Int32>(static_cast<System::Byte>(100)), static_cast<System::Int32>(static_cast<System::Byte>(100)));
 			this->_chb_nvf_connection->Location = System::Drawing::Point(25, 95);
@@ -931,9 +933,9 @@ namespace zias {
 			// _pb_line
 			// 
 			this->_pb_line->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"_pb_line.Image")));
-			this->_pb_line->Location = System::Drawing::Point(0, 173);
+			this->_pb_line->Location = System::Drawing::Point(5, 178);
 			this->_pb_line->Name = L"_pb_line";
-			this->_pb_line->Size = System::Drawing::Size(150, 10);
+			this->_pb_line->Size = System::Drawing::Size(145, 10);
 			this->_pb_line->TabIndex = 122;
 			this->_pb_line->TabStop = false;
 			// 
