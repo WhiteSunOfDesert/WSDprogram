@@ -244,6 +244,11 @@ namespace zias {
 	private: System::Windows::Forms::TextBox^  _tb_v_step_profile_marginal_area;
 	private: System::Windows::Forms::PictureBox^  _pb_line;
 	private: System::Windows::Forms::CheckBox^  _chb_subsystem_variation;
+private: System::Windows::Forms::PictureBox^  _pb_subsystem_bottom_right;
+
+
+private: System::Windows::Forms::PictureBox^  _pb_account_top_right;
+
 
 	private:
 		/// <summary>
@@ -327,6 +332,7 @@ namespace zias {
 			this->_l_weight = (gcnew System::Windows::Forms::Label());
 			this->_tb_weight = (gcnew System::Windows::Forms::TextBox());
 			this->_pnl_subsystem = (gcnew System::Windows::Forms::Panel());
+			this->_pb_subsystem_bottom_right = (gcnew System::Windows::Forms::PictureBox());
 			this->_chb_subsystem_variation = (gcnew System::Windows::Forms::CheckBox());
 			this->_pnl_constructions = (gcnew System::Windows::Forms::Panel());
 			this->_tb_v_step_profile_marginal_area = (gcnew System::Windows::Forms::TextBox());
@@ -345,6 +351,7 @@ namespace zias {
 			this->_l_constructions = (gcnew System::Windows::Forms::Label());
 			this->_pnl_variation = (gcnew System::Windows::Forms::Panel());
 			this->_pnl_account = (gcnew System::Windows::Forms::Panel());
+			this->_pb_account_top_right = (gcnew System::Windows::Forms::PictureBox());
 			this->_pnl_results = (gcnew System::Windows::Forms::Panel());
 			this->_tb_conclusion = (gcnew System::Windows::Forms::TextBox());
 			this->_pb_helper = (gcnew System::Windows::Forms::PictureBox());
@@ -355,9 +362,11 @@ namespace zias {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_object_bottom_left))->BeginInit();
 			this->_pnl_facing->SuspendLayout();
 			this->_pnl_subsystem->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_subsystem_bottom_right))->BeginInit();
 			this->_pnl_constructions->SuspendLayout();
 			this->_pnl_variation->SuspendLayout();
 			this->_pnl_account->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_account_top_right))->BeginInit();
 			this->_pnl_results->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_helper))->BeginInit();
 			this->SuspendLayout();
@@ -936,6 +945,7 @@ namespace zias {
 			this->_pb_line->Location = System::Drawing::Point(5, 178);
 			this->_pb_line->Name = L"_pb_line";
 			this->_pb_line->Size = System::Drawing::Size(145, 10);
+			this->_pb_line->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->_pb_line->TabIndex = 122;
 			this->_pb_line->TabStop = false;
 			// 
@@ -1129,6 +1139,7 @@ namespace zias {
 			this->_pnl_subsystem->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(240)), static_cast<System::Int32>(static_cast<System::Byte>(240)),
 				static_cast<System::Int32>(static_cast<System::Byte>(240)));
 			this->_pnl_subsystem->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->_pnl_subsystem->Controls->Add(this->_pb_subsystem_bottom_right);
 			this->_pnl_subsystem->Controls->Add(this->_chb_subsystem_variation);
 			this->_pnl_subsystem->Controls->Add(this->_l_subsystem);
 			this->_pnl_subsystem->Controls->Add(this->_cb_subsystem);
@@ -1140,6 +1151,16 @@ namespace zias {
 			this->_pnl_subsystem->Name = L"_pnl_subsystem";
 			this->_pnl_subsystem->Size = System::Drawing::Size(155, 480);
 			this->_pnl_subsystem->TabIndex = 132;
+			// 
+			// _pb_subsystem_bottom_right
+			// 
+			this->_pb_subsystem_bottom_right->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"_pb_subsystem_bottom_right.Image")));
+			this->_pb_subsystem_bottom_right->Location = System::Drawing::Point(130, 455);
+			this->_pb_subsystem_bottom_right->Name = L"_pb_subsystem_bottom_right";
+			this->_pb_subsystem_bottom_right->Size = System::Drawing::Size(25, 25);
+			this->_pb_subsystem_bottom_right->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->_pb_subsystem_bottom_right->TabIndex = 145;
+			this->_pb_subsystem_bottom_right->TabStop = false;
 			// 
 			// _chb_subsystem_variation
 			// 
@@ -1360,6 +1381,7 @@ namespace zias {
 			this->_pnl_account->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(240)), static_cast<System::Int32>(static_cast<System::Byte>(240)),
 				static_cast<System::Int32>(static_cast<System::Byte>(240)));
 			this->_pnl_account->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->_pnl_account->Controls->Add(this->_pb_account_top_right);
 			this->_pnl_account->Controls->Add(this->_l_account);
 			this->_pnl_account->Controls->Add(this->_chb_anker);
 			this->_pnl_account->Controls->Add(this->_chb_nvf_elements);
@@ -1368,6 +1390,16 @@ namespace zias {
 			this->_pnl_account->Name = L"_pnl_account";
 			this->_pnl_account->Size = System::Drawing::Size(155, 143);
 			this->_pnl_account->TabIndex = 141;
+			// 
+			// _pb_account_top_right
+			// 
+			this->_pb_account_top_right->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"_pb_account_top_right.Image")));
+			this->_pb_account_top_right->Location = System::Drawing::Point(130, 0);
+			this->_pb_account_top_right->Name = L"_pb_account_top_right";
+			this->_pb_account_top_right->Size = System::Drawing::Size(25, 25);
+			this->_pb_account_top_right->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->_pb_account_top_right->TabIndex = 144;
+			this->_pb_account_top_right->TabStop = false;
 			// 
 			// _pnl_results
 			// 
@@ -1457,12 +1489,14 @@ namespace zias {
 			this->_pnl_facing->PerformLayout();
 			this->_pnl_subsystem->ResumeLayout(false);
 			this->_pnl_subsystem->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_subsystem_bottom_right))->EndInit();
 			this->_pnl_constructions->ResumeLayout(false);
 			this->_pnl_constructions->PerformLayout();
 			this->_pnl_variation->ResumeLayout(false);
 			this->_pnl_variation->PerformLayout();
 			this->_pnl_account->ResumeLayout(false);
 			this->_pnl_account->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_account_top_right))->EndInit();
 			this->_pnl_results->ResumeLayout(false);
 			this->_pnl_results->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->_pb_helper))->EndInit();

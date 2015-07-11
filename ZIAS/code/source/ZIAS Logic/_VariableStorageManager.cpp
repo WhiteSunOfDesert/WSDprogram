@@ -546,7 +546,7 @@ namespace zias {
 		else if (isSubsystem && (my_subsystem->name == _SUBSYSTEM_MAXIMA_LIGHT_ || my_subsystem->name == _SUBSYSTEM_MAXIMA_MEDIUM_)) {
 			_variables.at("q_sum_2") = getVariable("q_2") + getVariable("q_H_2") + getVariable("q_H_3");
 		}
-		else if (isSubsystem && (my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_1_ || my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_1_)) {
+		else if (isSubsystem && (my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_1_ || my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_2_)) {
 			_variables.at("q_sum_2") = getVariable("q_2") + getVariable("q_H_2");
 		}
 		else {
