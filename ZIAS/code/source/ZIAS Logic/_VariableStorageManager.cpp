@@ -739,7 +739,7 @@ namespace zias {
 				_variables.at("R_1_1") = (getVariable("N_1") + (my_facing_radius * getVariable("P_1") / my_subsystem->bracket->c)) / 2;
 			}
 			else {
-				_variables.at("R_1_1") = (getVariable("P_1") * my_facing_radius) / (2 * (my_subsystem->bracket->b + my_subsystem->bracket->x));
+				_variables.at("R_1_1") = (getVariable("P_1") * my_facing_radius) / (2 * (my_subsystem->bracket->b + my_subsystem->bracket->c));
 			}
 		}
 		else {
@@ -774,7 +774,7 @@ namespace zias {
 				_variables.at("R_2_1") = (getVariable("N_2") + (my_facing_radius * getVariable("P_2") / my_subsystem->bracket->c)) / 2;
 			}
 			else {
-				_variables.at("R_2_1") = (getVariable("P_2") * my_facing_radius) / (2 * (my_subsystem->bracket->b + my_subsystem->bracket->x));
+				_variables.at("R_2_1") = (getVariable("P_2") * my_facing_radius) / (2 * (my_subsystem->bracket->b + my_subsystem->bracket->c));
 			}
 		}
 		else {
@@ -809,7 +809,7 @@ namespace zias {
 				_variables.at("R_3_1") = (getVariable("N_3") + (my_facing_radius * getVariable("P_3") / my_subsystem->bracket->c)) / 2;
 			}
 			else {
-				_variables.at("R_3_1") = (getVariable("P_3") * my_facing_radius) / (2 * (my_subsystem->bracket->b + my_subsystem->bracket->x));
+				_variables.at("R_3_1") = (getVariable("P_3") * my_facing_radius) / (2 * (my_subsystem->bracket->b + my_subsystem->bracket->c));
 			}
 		}
 		else {
