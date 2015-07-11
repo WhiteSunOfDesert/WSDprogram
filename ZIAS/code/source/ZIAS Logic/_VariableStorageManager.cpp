@@ -388,7 +388,12 @@ namespace zias {
 			_variables.at("weight_2") = my_subsystem->profile_first->weight;
 		}
 		else{
-			_variables.at("weight_2") = my_profile->weight;
+			if (my_subsystem->name == _SUBSYSTEM_MAXIMA_ || my_subsystem->name == _SUBSYSTEM_MAXIMA_LIGHT_) {
+				_variables.at("weight_2") = my_subsystem->profile_first->weight;
+			}
+			else {
+				_variables.at("weight_2") = my_profile->weight;
+			}
 		}
 	}
 
@@ -405,7 +410,15 @@ namespace zias {
 			}
 		}
 		else{
-			_variables.at("weight_3") = my_profile->weight;
+			if (my_subsystem->name == _SUBSYSTEM_MAXIMA_MEDIUM_) {
+				_variables.at("weight_3") = my_subsystem->profile_second->weight;
+			}
+			else if (my_subsystem->name == _SUBSYSTEM_MAXIMA_ || my_subsystem->name == _SUBSYSTEM_MAXIMA_LIGHT_) {
+				_variables.at("weight_3") = my_profile->weight;
+			}
+			else {
+				_variables.at("weight_3") = 0.f;
+			}
 		}
 	}
 
