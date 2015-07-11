@@ -27,10 +27,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\bin\resource\small.ico">
-      <Filter>ZIAS Logic\resource</Filter>
-    </Image>
-    <Image Include="..\bin\resource\ZIAS.ico">
+    <Image Include="..\bin\resource\logo.ico">
       <Filter>ZIAS Logic\resource</Filter>
     </Image>
   </ItemGroup>
@@ -68,6 +65,9 @@
     <ClInclude Include="..\code\headers\ZIAS Logic\globals\globals.hpp">
       <Filter>ZIAS Logic\headers</Filter>
     </ClInclude>
+    <ClInclude Include="resource3.h">
+      <Filter>ZIAS Logic\headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\code\source\ZIAS Logic\MainZIAS.cpp">
@@ -95,5 +95,10 @@
     <EmbeddedResource Include="..\code\headers\ZIAS Logic\MainForm.resx">
       <Filter>ZIAS Logic\resource</Filter>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ZIAS3.rc">
+      <Filter>ZIAS Logic\resource</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
