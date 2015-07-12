@@ -190,16 +190,16 @@ namespace zias {
 		if (my_fda.isSubsystemStandart)
 		{
 			docText1 = docText1->Replace("REbracketRE", gcnew String(my_fda.subsystem->bracket->name.c_str()));
-			docText1 = docText1->Replace("REprofile2RE", gcnew String(my_fda.subsystem->profile_second->name.c_str()));
+			docText1 = docText1->Replace("REprofileTwoRE", gcnew String(my_fda.subsystem->profile_second->name.c_str()));
 		}
 		else
 		{
 			docText1 = docText1->Replace("REbracketRE", gcnew String(my_fda.bracket->name.c_str()));
-			docText1 = docText1->Replace("REprofile2RE", gcnew String(my_fda.profile->name.c_str()));
+			docText1 = docText1->Replace("REprofileTwoRE", gcnew String(my_fda.profile->name.c_str()));
 		}
 
 		docText1 = docText1->Replace("REweightThreeRE", Convert::ToString(VariableStorageManager::Instance()->getVariable("weight_3")));
-		docText1 = docText1->Replace("REprofile1RE", gcnew String(my_fda.subsystem->profile_first->name.c_str()));
+		docText1 = docText1->Replace("REprofileOneRE", gcnew String(my_fda.subsystem->profile_first->name.c_str()));
 		docText1 = docText1->Replace("REweightTwoRE", Convert::ToString(VariableStorageManager::Instance()->getVariable("weight_2")));
 		
 
@@ -483,21 +483,21 @@ namespace zias {
 		if (my_fda.isSubsystemStandart)
 		{
 			docText1 = docText1->Replace("REbracketRE", gcnew String(my_fda.subsystem->bracket->name.c_str()));
-			docText1 = docText1->Replace("REprofile1RE", gcnew String(my_fda.subsystem->profile_first->name.c_str()));
-			docText1 = docText1->Replace("REprofile2RE", gcnew String(my_fda.subsystem->profile_second->name.c_str()));
+			docText1 = docText1->Replace("REprofileOneRE", gcnew String(my_fda.subsystem->profile_first->name.c_str()));
+			docText1 = docText1->Replace("REprofileTwoRE", gcnew String(my_fda.subsystem->profile_second->name.c_str()));
 		}
 		else
 		{
 			docText1 = docText1->Replace("REbracketRE", gcnew String(my_fda.subsystem->bracket->name.c_str()));
 			if ((gcnew String(my_fda.subsystem->name.c_str()))->IndexOf("Light") != -1)
 			{
-				docText1 = docText1->Replace("REprofile1RE", gcnew String(my_fda.subsystem->profile_first->name.c_str()));
-				docText1 = docText1->Replace("REprofile2RE", gcnew String(my_fda.profile->name.c_str()));
+				docText1 = docText1->Replace("REprofileOneRE", gcnew String(my_fda.subsystem->profile_first->name.c_str()));
+				docText1 = docText1->Replace("REprofileTwoRE", gcnew String(my_fda.profile->name.c_str()));
 			}
 			else
 			{
-				docText1 = docText1->Replace("REprofile1RE", gcnew String(my_fda.profile->name.c_str()));
-				docText1 = docText1->Replace("REprofile2RE", gcnew String(my_fda.subsystem->profile_second->name.c_str()));
+				docText1 = docText1->Replace("REprofileOneRE", gcnew String(my_fda.profile->name.c_str()));
+				docText1 = docText1->Replace("REprofileTwoRE", gcnew String(my_fda.subsystem->profile_second->name.c_str()));
 			}
 		}
 
