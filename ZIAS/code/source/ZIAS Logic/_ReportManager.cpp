@@ -34,71 +34,61 @@ namespace zias {
 
 	void ReportManager::generateReport(const FormDataArgs& my_fda, String^ my_file_name)
 	{
-		String ^ nameSubsystem;
+		String ^ nameSubsystem = gcnew String(my_fda.subsystem->name.c_str());
 		std::string nameDoc = _PATH_TO_INPUT_REPORTS_;
 		std::string newNameDoc = utils::toStdString(my_file_name);
 		int checkNameDocument = 0;
 
 		//Определение типа документа
-		if (!my_fda.isSubsystemStandart)
+		if (nameSubsystem->IndexOf("Standard") != -1)
 		{
 			nameDoc += "Standard\\Standard";
 			checkNameDocument = 1;
-			nameSubsystem = "";
 		}
-		else
+		else if (nameSubsystem->IndexOf("Optima") != -1)
 		{
-			nameSubsystem = gcnew String(my_fda.subsystem->name.c_str());
-			if (nameSubsystem->IndexOf("Standard") != -1)
+			nameDoc += "Optima\\Optima";
+			checkNameDocument = 2;
+		}
+		else if (nameSubsystem->IndexOf("Strong") != -1)
+		{
+			if (nameSubsystem->IndexOf("Medium") != -1)
 			{
-				nameDoc += "Standard\\Standard";
-				checkNameDocument = 1;
-			}
-			else if (nameSubsystem->IndexOf("Optima") != -1)
-			{
-				nameDoc += "Optima\\Optima";
-				checkNameDocument = 2;
-			}
-			else if (nameSubsystem->IndexOf("Strong") != -1)
-			{
-				if (nameSubsystem->IndexOf("Medium") != -1)
-				{
-					nameDoc += "Medium Strong\\Medium Strong";
-					checkNameDocument = 8;
-				}
-				else
-				{
-					nameDoc += "Strong\\Strong";
-					checkNameDocument = 3;
-				}
-			}
-			else if (nameSubsystem->IndexOf("КПР") != -1)
-			{
-				nameDoc += "КПР\\КПР";
-				checkNameDocument = 4;
-			}
-			else if (nameSubsystem->IndexOf("Maxima") != -1)
-			{
-				if (nameSubsystem->IndexOf("Medium") != -1)
-				{
-					nameDoc += "Maxima Medium\\Maxima Medium";
-					checkNameDocument = 6;
-				}
-				else if (nameSubsystem->IndexOf("Light") != -1)
-				{
-					nameDoc += "Maxima Light\\Maxima Light";
-					checkNameDocument = 7;
-				}
-				else
-				{
-					nameDoc += "Maxima\\Maxima";
-					checkNameDocument = 5;
-				}
+				nameDoc += "Medium Strong\\Medium Strong";
+				checkNameDocument = 8;
 			}
 			else
 			{
-				return;
+				nameDoc += "Strong\\Strong";
+				checkNameDocument = 3;
 			}
+		}
+		else if (nameSubsystem->IndexOf("КПР") != -1)
+		{
+			nameDoc += "КПР\\КПР";
+			checkNameDocument = 4;
+		}
+		else if (nameSubsystem->IndexOf("Maxima") != -1)
+		{
+			if (nameSubsystem->IndexOf("Medium") != -1)
+			{
+				nameDoc += "Maxima Medium\\Maxima Medium";
+				checkNameDocument = 6;
+			}
+			else if (nameSubsystem->IndexOf("Light") != -1)
+			{
+				nameDoc += "Maxima Light\\Maxima Light";
+				checkNameDocument = 7;
+			}
+			else
+			{
+				nameDoc += "Maxima\\Maxima";
+				checkNameDocument = 5;
+			}
+		}
+		else
+		{
+			return;
 		}
 
 		//с анкером или без анкера
@@ -112,7 +102,6 @@ namespace zias {
 			nameDoc += " no anker.docx";
 		}
 
-		//newNameDoc += ".docx";
 		CopyFile(nameDoc.c_str(), newNameDoc.c_str(), false); 
 	
 		//по типу документа вызываем соответствующие функции
@@ -132,7 +121,7 @@ namespace zias {
 			commonConcreteSlabsReport(my_fda, gcnew String(newNameDoc.c_str()));
 			break;
 		case 8:
-			maximaMediumNoAnkerReport(my_fda, gcnew String(newNameDoc.c_str()));
+			mediumStrongNoAnkerReport(my_fda, gcnew String(newNameDoc.c_str()));
 			break;
 		case 11:
 		case 12:
@@ -151,7 +140,7 @@ namespace zias {
 			ankerCommonReport(my_fda, gcnew String(newNameDoc.c_str()), nameSubsystem);
 			break;
 		case 18:
-			maximaMediumNoAnkerReport(my_fda, gcnew String(newNameDoc.c_str()));
+			mediumStrongNoAnkerReport(my_fda, gcnew String(newNameDoc.c_str()));
 			ankerCommonReport(my_fda, gcnew String(newNameDoc.c_str()), nameSubsystem);
 			break;
 		}
@@ -198,11 +187,21 @@ namespace zias {
 			docText1 = docText1->Replace("REziasRE", "");
 		}
 
-		docText1 = docText1->Replace("REbracketRE", gcnew String(my_fda.subsystem->bracket->name.c_str()));
+		if (my_fda.isSubsystemStandart)
+		{
+			docText1 = docText1->Replace("REbracketRE", gcnew String(my_fda.subsystem->bracket->name.c_str()));
+			docText1 = docText1->Replace("REprofile2RE", gcnew String(my_fda.subsystem->profile_second->name.c_str()));
+		}
+		else
+		{
+			docText1 = docText1->Replace("REbracketRE", gcnew String(my_fda.bracket->name.c_str()));
+			docText1 = docText1->Replace("REprofile2RE", gcnew String(my_fda.profile->name.c_str()));
+		}
+
+		docText1 = docText1->Replace("REweightThreeRE", Convert::ToString(VariableStorageManager::Instance()->getVariable("weight_3")));
 		docText1 = docText1->Replace("REprofile1RE", gcnew String(my_fda.subsystem->profile_first->name.c_str()));
 		docText1 = docText1->Replace("REweightTwoRE", Convert::ToString(VariableStorageManager::Instance()->getVariable("weight_2")));
-		docText1 = docText1->Replace("REprofile2RE", gcnew String(my_fda.subsystem->profile_second->name.c_str()));
-		docText1 = docText1->Replace("REweightThreeRE", Convert::ToString(VariableStorageManager::Instance()->getVariable("weight_3")));
+		
 
 		docText1 = docText1->Replace("REH1RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("H_1")));
 		docText1 = docText1->Replace("REH2RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("H_2")));
@@ -302,12 +301,12 @@ namespace zias {
 		docText2 = docText2->Replace("RENy2RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("N_2")));
 		docText2 = docText2->Replace("REPz3RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("P_3")));
 		docText2 = docText2->Replace("RENy3RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("N_3")));
-		docText2 = docText2->Replace("RER11kRE", Convert::ToString((VariableStorageManager::Instance()->getVariable("R_1_1")) / 1000.f));
-		docText2 = docText2->Replace("RER21kRE", Convert::ToString((VariableStorageManager::Instance()->getVariable("R_2_1")) / 1000.f));
-		docText2 = docText2->Replace("RER31kRE", Convert::ToString((VariableStorageManager::Instance()->getVariable("R_3_1")) / 1000.f));
-		docText2 = docText2->Replace("RER12kRE", Convert::ToString((VariableStorageManager::Instance()->getVariable("R_1_2")) / 1000.f));
-		docText2 = docText2->Replace("RER22kRE", Convert::ToString((VariableStorageManager::Instance()->getVariable("R_2_2")) / 1000.f));
-		docText2 = docText2->Replace("RER32kRE", Convert::ToString((VariableStorageManager::Instance()->getVariable("R_3_2")) / 1000.f));
+		docText2 = docText2->Replace("RER11kRE", Convert::ToString(System::Math::Round((VariableStorageManager::Instance()->getVariable("R_1_1")) / 1000.f,2)));
+		docText2 = docText2->Replace("RER21kRE", Convert::ToString(System::Math::Round((VariableStorageManager::Instance()->getVariable("R_2_1")) / 1000.f,2)));
+		docText2 = docText2->Replace("RER31kRE", Convert::ToString(System::Math::Round((VariableStorageManager::Instance()->getVariable("R_3_1")) / 1000.f,2)));
+		docText2 = docText2->Replace("RER12kRE", Convert::ToString(System::Math::Round((VariableStorageManager::Instance()->getVariable("R_1_2")) / 1000.f,2)));
+		docText2 = docText2->Replace("RER22kRE", Convert::ToString(System::Math::Round((VariableStorageManager::Instance()->getVariable("R_2_2")) / 1000.f,2)));
+		docText2 = docText2->Replace("RER32kRE", Convert::ToString(System::Math::Round((VariableStorageManager::Instance()->getVariable("R_3_2")) / 1000.f,2)));
 		docText2 = docText2->Replace("RER11RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("R_1_1")));
 		docText2 = docText2->Replace("RER12RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("R_1_2")));
 		docText2 = docText2->Replace("RER21RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("R_2_1")));
@@ -322,7 +321,7 @@ namespace zias {
 		docx1->Close();
 	}
 
-	void ReportManager::maximaMediumNoAnkerReport(const FormDataArgs& my_fda, String ^ namedoc)
+	void ReportManager::mediumStrongNoAnkerReport(const FormDataArgs& my_fda, String ^ namedoc)
 	{
 		String ^ docText1 = nullptr;
 
@@ -361,9 +360,18 @@ namespace zias {
 			docText1 = docText1->Replace("REfacingRE", "");
 			docText1 = docText1->Replace("REziasRE", "");
 		}
+		if(my_fda.isSubsystemStandart)
+		{
+			docText1 = docText1->Replace("REbracketRE", gcnew String(my_fda.subsystem->bracket->name.c_str()));
+			docText1 = docText1->Replace("REprofileRE", gcnew String(my_fda.subsystem->profile_first->name.c_str()));
+		}
+		else
+		{
+			docText1 = docText1->Replace("REbracketRE", gcnew String(my_fda.bracket->name.c_str()));
+			docText1 = docText1->Replace("REprofileRE", gcnew String(my_fda.profile->name.c_str()));
+		}
 
-		docText1 = docText1->Replace("REbracketRE", gcnew String(my_fda.subsystem->bracket->name.c_str()));
-		docText1 = docText1->Replace("REprofileRE", gcnew String(my_fda.subsystem->profile_first->name.c_str()));
+		
 		docText1 = docText1->Replace("REweightTwoRE", Convert::ToString(VariableStorageManager::Instance()->getVariable("weight_2")));
 
 		docText1 = docText1->Replace("REH1RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("H_1")));
@@ -471,14 +479,30 @@ namespace zias {
 			docText1 = docText1->Replace("REfacingRE", "");
 			docText1 = docText1->Replace("REziasRE", "");
 		}
-	
-		docText1 = docText1->Replace("REbracketRE", gcnew String(my_fda.subsystem->bracket->name.c_str()));
-		docText1 = docText1->Replace("REprofile1RE", gcnew String(my_fda.subsystem->profile_first->name.c_str()));
-		docText1 = docText1->Replace("REweightTwoRE", Convert::ToString(VariableStorageManager::Instance()->getVariable("weight_2")));
-		docText1 = docText1->Replace("REprofile2RE", gcnew String(my_fda.subsystem->profile_second->name.c_str()));
+
+		if (my_fda.isSubsystemStandart)
+		{
+			docText1 = docText1->Replace("REbracketRE", gcnew String(my_fda.subsystem->bracket->name.c_str()));
+			docText1 = docText1->Replace("REprofile1RE", gcnew String(my_fda.subsystem->profile_first->name.c_str()));
+			docText1 = docText1->Replace("REprofile2RE", gcnew String(my_fda.subsystem->profile_second->name.c_str()));
+		}
+		else
+		{
+			docText1 = docText1->Replace("REbracketRE", gcnew String(my_fda.subsystem->bracket->name.c_str()));
+			if ((gcnew String(my_fda.subsystem->name.c_str()))->IndexOf("Light") != -1)
+			{
+				docText1 = docText1->Replace("REprofile1RE", gcnew String(my_fda.subsystem->profile_first->name.c_str()));
+				docText1 = docText1->Replace("REprofile2RE", gcnew String(my_fda.profile->name.c_str()));
+			}
+			else
+			{
+				docText1 = docText1->Replace("REprofile1RE", gcnew String(my_fda.profile->name.c_str()));
+				docText1 = docText1->Replace("REprofile2RE", gcnew String(my_fda.subsystem->profile_second->name.c_str()));
+			}
+		}
+
 		docText1 = docText1->Replace("REweightThreeRE", Convert::ToString(VariableStorageManager::Instance()->getVariable("weight_2")));
-
-
+		docText1 = docText1->Replace("REweightTwoRE", Convert::ToString(VariableStorageManager::Instance()->getVariable("weight_2")));
 		docText1 = docText1->Replace("REH1RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("H_1")));
 		docText1 = docText1->Replace("REH2RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("H_2")));
 		docText1 = docText1->Replace("REH3RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("H_3")));
@@ -579,9 +603,9 @@ namespace zias {
 		docText2 = docText2->Replace("RENy2RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("N_2")));
 		docText2 = docText2->Replace("REPz3RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("P_3")));
 		docText2 = docText2->Replace("RENy3RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("N_3")));
-		docText2 = docText2->Replace("RER1kRE", Convert::ToString((VariableStorageManager::Instance()->getVariable("R_1_1"))/1000.f));
-		docText2 = docText2->Replace("RER2kRE", Convert::ToString((VariableStorageManager::Instance()->getVariable("R_2_1"))/1000.f));
-		docText2 = docText2->Replace("RER3kRE", Convert::ToString((VariableStorageManager::Instance()->getVariable("R_3_1"))/1000.f));
+		docText2 = docText2->Replace("RER1kRE", Convert::ToString(System::Math::Round((VariableStorageManager::Instance()->getVariable("R_1_1"))/1000.f,2)));
+		docText2 = docText2->Replace("RER2kRE", Convert::ToString(System::Math::Round((VariableStorageManager::Instance()->getVariable("R_2_1")) / 1000.f,2)));
+		docText2 = docText2->Replace("RER3kRE", Convert::ToString(System::Math::Round((VariableStorageManager::Instance()->getVariable("R_3_1")) / 1000.f,2)));
 		docText2 = docText2->Replace("RER3RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("R_3_1")));
 		docText2 = docText2->Replace("RER2RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("R_2_1")));
 		docText2 = docText2->Replace("RER1RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("R_1_1")));
@@ -636,16 +660,15 @@ namespace zias {
 			docText1 = docText1->Replace("REsubsystemRE", gcnew String(my_fda.subsystem->name.c_str()));
 			docText1 = docText1->Replace("REbracketRE", gcnew String(my_fda.subsystem->bracket->name.c_str()));
 			docText1 = docText1->Replace("REprofileRE", gcnew String(my_fda.subsystem->profile_first->name.c_str()));
-			docText1 = docText1->Replace("REweightTwoRE", Convert::ToString(VariableStorageManager::Instance()->getVariable("weight_2")));
 		}
 		else
 		{
 			docText1 = docText1->Replace("REsubsystemRE", "");
 			docText1 = docText1->Replace("REbracketRE", gcnew String(my_fda.bracket->name.c_str()));
 			docText1 = docText1->Replace("REprofileRE", gcnew String(my_fda.profile->name.c_str()));
-			docText1 = docText1->Replace("REweightTwoRE", Convert::ToString(VariableStorageManager::Instance()->getVariable("weight_2")));
 		}
 
+		docText1 = docText1->Replace("REweightTwoRE", Convert::ToString(VariableStorageManager::Instance()->getVariable("weight_2")));
 		docText1 = docText1->Replace("REH1RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("H_1")));
 		docText1 = docText1->Replace("REB1RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("B_1")));
 		docText1 = docText1->Replace("REB2RE", Convert::ToString(VariableStorageManager::Instance()->getVariable("B_2")));

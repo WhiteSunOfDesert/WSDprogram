@@ -438,11 +438,11 @@ namespace zias {
 	void VariableStorageManager::calculate_H_2(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem,
 		const float& my_v_step_profile_marginal_area) {
 
-		if ((!isSubsystem) || (isSubsystem && (my_subsystem->name == _SUBSYSTEM_STANDARD_ ||
+		if (my_subsystem->name == _SUBSYSTEM_STANDARD_ ||
 			my_subsystem->name == _SUBSYSTEM_OPTIMA_ ||
 			my_subsystem->name == _SUBSYSTEM_KPR_ ||
 			my_subsystem->name == _SUBSYSTEM_STRONG_1_ ||
-			my_subsystem->name == _SUBSYSTEM_STRONG_2_))) {
+			my_subsystem->name == _SUBSYSTEM_STRONG_2_) {
 
 			_variables.at("H_2") = 0.f;
 		}
@@ -453,18 +453,14 @@ namespace zias {
 
 	void VariableStorageManager::calculate_H_3(const bool& isSubsystem, std::shared_ptr<Subsystem> my_subsystem, const float& my_h_step_profile) {
 
-		if ((!isSubsystem) || (isSubsystem && (my_subsystem->name == _SUBSYSTEM_STANDARD_ ||
-			my_subsystem->name == _SUBSYSTEM_OPTIMA_ ||
-			my_subsystem->name == _SUBSYSTEM_KPR_ ||
-			my_subsystem->name == _SUBSYSTEM_STRONG_1_ ||
-			my_subsystem->name == _SUBSYSTEM_STRONG_2_ ||
-			my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_1_ ||
-			my_subsystem->name == _SUBSYSTEM_MEDIUM_STRONG_2_))) {
+		if (my_subsystem->name == _SUBSYSTEM_MAXIMA_LIGHT_ ||
+			my_subsystem->name == _SUBSYSTEM_MAXIMA_MEDIUM_ ||
+			my_subsystem->name == _SUBSYSTEM_MAXIMA_) {
 
-			_variables.at("H_3") = 0.f;
+			_variables.at("H_3") = my_h_step_profile;
 		}
 		else {
-			_variables.at("H_3") = my_h_step_profile;
+			_variables.at("H_3") = 0.f;
 		}
 	}
 
