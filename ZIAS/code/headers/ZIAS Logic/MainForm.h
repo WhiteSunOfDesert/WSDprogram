@@ -1119,16 +1119,16 @@ private: System::Windows::Forms::PictureBox^  _pb_account_top_right;
 				static_cast<System::Int32>(static_cast<System::Byte>(100)));
 			this->_l_weight->Location = System::Drawing::Point(5, 129);
 			this->_l_weight->Name = L"_l_weight";
-			this->_l_weight->Size = System::Drawing::Size(49, 13);
+			this->_l_weight->Size = System::Drawing::Size(74, 13);
 			this->_l_weight->TabIndex = 10;
-			this->_l_weight->Text = L"Вес (кг):";
+			this->_l_weight->Text = L"Вес (кг/м^2):";
 			// 
 			// _tb_weight
 			// 
 			this->_tb_weight->Enabled = false;
-			this->_tb_weight->Location = System::Drawing::Point(55, 125);
+			this->_tb_weight->Location = System::Drawing::Point(85, 125);
 			this->_tb_weight->Name = L"_tb_weight";
-			this->_tb_weight->Size = System::Drawing::Size(90, 20);
+			this->_tb_weight->Size = System::Drawing::Size(60, 20);
 			this->_tb_weight->TabIndex = 13;
 			this->_tb_weight->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->_tb_weight->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::clickToCheckingField);

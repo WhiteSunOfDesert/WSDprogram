@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Data_Source>
   <!-- хранятся данные о каких-то реальных сущностях (города, ветровые зоны, ...) -->
   <Entity_Store>
@@ -73,7 +73,7 @@
     <Facings>
       <!-- стандартные облицовки, вес (кг/м.кв.), zias -->
       <facing id="0"  name="Керамогранит (10 мм)"							weight="25" zias="100.01"/>
-      <facing id="1"  name="Фиброцемент (ФЦП 10 мм)"						weight="11" zias="100.02"/>
+      <facing id="1"  name="Фиброцемент (ФЦП 10 мм)"						weight="15" zias="100.02"/>
       <facing id="2"  name="Японский ФЦП (16 мм)"							weight="24" zias="100.02"/>
       <facing id="3"  name="HPL-панели (10 мм)"							weight="17" zias="100.02"/>
       <facing id="4"  name="Композитные панели ( АКП 4 мм)"				weight="9"  zias="100.03"/>
