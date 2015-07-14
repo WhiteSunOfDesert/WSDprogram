@@ -162,6 +162,7 @@
       <subbr id="11" sub_id="6" br_id="3"/>
       <subbr id="12" sub_id="6" br_id="5"/>
       <subbr id="13" sub_id="7" br_id="7"/>
+      <subbr id="14" sub_id="7" br_id="8"/>
     </SubBrs>
     <SubPrs>
       <!--  связь подсистемы и профилей -->
