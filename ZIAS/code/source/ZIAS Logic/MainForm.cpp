@@ -98,6 +98,8 @@ namespace zias {
 		// profiles
 		_getProfiles();
 		_cb_profile->DropDownStyle = ComboBoxStyle::DropDownList;
+
+		_selectedFacing();
 	}
 
 	FormDataArgs MainForm::collectData() {
@@ -762,6 +764,8 @@ namespace zias {
 			_tb_weight->BackColor = System::Drawing::Color::White;
 			m_checking_field_states_map.at(utils::toStdString(_tb_weight->Name)) = fsCommon;
 		}
+
+		_selectedFacing();
 	}
 
 		// _changedValueSubsystemCheckBox
@@ -852,6 +856,16 @@ namespace zias {
 	//_cb_cities_SelectedIndexChanged
 	System::Void MainForm::_cb_cities_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
 		_selectDistricts();
+	}
+	
+	//_cb_facing_SelectedIndexChanged
+	System::Void MainForm::_cb_facing_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+		_selectedFacing();	
+	}
+
+	//
+	void MainForm::_selectedFacing() {
+		_tb_weight->Text = gcnew String("" + FormDataStorageManager::Instance()->getFacing(utils::toStdWString(_cb_facing->Text))->weight);
 	}
 
 } // zias

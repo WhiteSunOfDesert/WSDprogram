@@ -127,6 +127,7 @@ namespace zias {
 		void _getProfiles();
 		void _selectDistricts();
 		void _lockUnlockField(System::Object^ sender);
+		void _selectedFacing();
 
 		bool isCorrectFieldObjectName();
 		bool isCorrectFieldObjectCipher();
@@ -526,6 +527,7 @@ private: System::Windows::Forms::PictureBox^  _pb_account_top_right;
 			this->_cb_facing->Name = L"_cb_facing";
 			this->_cb_facing->Size = System::Drawing::Size(120, 21);
 			this->_cb_facing->TabIndex = 11;
+			this->_cb_facing->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::_cb_facing_SelectedIndexChanged);
 			// 
 			// _l_subsystem
 			// 
@@ -1119,9 +1121,9 @@ private: System::Windows::Forms::PictureBox^  _pb_account_top_right;
 				static_cast<System::Int32>(static_cast<System::Byte>(100)));
 			this->_l_weight->Location = System::Drawing::Point(5, 129);
 			this->_l_weight->Name = L"_l_weight";
-			this->_l_weight->Size = System::Drawing::Size(74, 13);
+			this->_l_weight->Size = System::Drawing::Size(77, 13);
 			this->_l_weight->TabIndex = 10;
-			this->_l_weight->Text = L"Вес (кг/м^2):";
+			this->_l_weight->Text = L"Вес (кг/м.кв):";
 			// 
 			// _tb_weight
 			// 
@@ -1517,5 +1519,6 @@ private: System::Windows::Forms::PictureBox^  _pb_account_top_right;
 		private: System::Void _b_generate_report_Click(System::Object^  sender, System::EventArgs^  e);
 		private: System::Void _cb_subsystem_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
 		private: System::Void _cb_cities_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
-};
+		private: System::Void _cb_facing_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
+	};
 } // zias
